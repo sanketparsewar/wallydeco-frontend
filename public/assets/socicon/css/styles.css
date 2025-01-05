@@ -152,9 +152,9 @@
 .socicon-metapop:before {
   content: "\e970";
 }
-.socicon-naver:before {
+/* .socicon-naver:before {
   content: "\e971";
-}
+} */
 .socicon-remote:before {
   content: "\e972";
 }

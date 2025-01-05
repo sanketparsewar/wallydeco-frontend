@@ -5,10 +5,15 @@ import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-layout',
-  imports: [FooterComponent,RouterLink,RouterOutlet],
+  imports: [FooterComponent,RouterOutlet,RouterLink],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
-
+  closeNavbar() {
+    const navbar = document.getElementById('navbarSupportedContent');
+    if (navbar?.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  }
 }
