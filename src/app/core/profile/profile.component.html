@@ -1,0 +1,69 @@
+@if(!isLoaded){
+<app-loader></app-loader>
+}@else  {
+
+<div class="container py-2">
+  <div class="row d-flex justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card">
+        <div class="row g-0">
+          <div class="col-md-4 bg-secondary text-white text-center py-4">
+            <img
+              width="100"
+              [src]="user?.image"
+              alt="User"
+              class="img-fluid rounded-circle mb-3"
+            />
+            <h4 class="fw-bold m-0 p-0">{{ user?.name }}</h4>
+            <p class="m-0 p-0">{{ user?.role }}</p>
+            <i class="bi bi-pencil-fill"></i>
+          </div>
+
+          <div class="col-md-8">
+            <div class="card-body">
+              <h6 class="fw-bold border-bottom pb-2">Information</h6>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <p class="fw-bold mb-1">Email</p>
+                  <p class="text-muted">{{ user?.email }}</p>
+                </div>
+                <div class="col-6">
+                  <p class="fw-bold mb-1">Phone</p>
+                  <p class="text-muted">{{ user?.phone }}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p class="fw-bold mb-1">Address</p>
+                  <p class="text-muted">
+                    {{ user?.address?.street }}, {{ user?.address?.city }},
+                    {{ user?.address?.state }}-{{ user?.address?.zip }}
+                  </p>
+                </div>
+                <div class="col-md-6" *ngIf="user?.Orders">
+                  <p class="fw-bold mb-1">Orders</p>
+                  <p class="text-muted">{{ user?.Orders }}</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <button
+                  class="btn btn-outline-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Edit profile
+                </button>
+                <button class="btn btn-outline-danger" (click)="logout()">Log out</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-edit-profile [user]="user"> </app-edit-profile>
+
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollCarouselComponent } from '../../component/scroll-carousel/scroll-carousel.component';
+import { LoaderComponent } from '../../component/loader/loader.component';
 
 @Component({
   selector: 'app-home',

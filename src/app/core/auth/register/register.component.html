@@ -1,0 +1,96 @@
+<div class="container vh-100">
+    <div class="container d-flex justify-content-center align-items-center bg-light">
+        <div class="card p-4 shadow-lg rounded-4" style="max-width: 500px; width: 100%">
+            <h2 class="text-center fw-bold mb-4">Register</h2>
+            <form>
+                <!-- Name -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="userData.name"
+                            placeholder="Enter your name" required />
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="userData.email"
+                            placeholder="Enter your email" required />
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fas fa-key"></i>
+                        </span>
+                        <input type="password" class="form-control" id="password" name="password"
+                            [(ngModel)]="userData.password" placeholder="Enter your password" required />
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                        <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="userData.phone"
+                            placeholder="Enter your phone number" required />
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div class="mb-3">
+                    <label for="street" class="form-label">Street</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </span>
+                        <input type="text" class="form-control" id="street" name="street"
+                            [(ngModel)]="userData.address.street" placeholder="Enter your street" required />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" name="city" [(ngModel)]="userData.address.city"
+                        placeholder="Enter your city" required />
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" class="form-control" id="state" name="state" [(ngModel)]="userData.address.state"
+                        placeholder="Enter your state" required />
+                </div>
+                <div class="mb-3">
+                    <label for="zip" class="form-label">ZIP Code</label>
+                    <input type="text" class="form-control" id="zip" name="zip" [(ngModel)]="userData.address.zip"
+                        placeholder="Enter your ZIP code" required />
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-dark" (click)="onRegister()">Register</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <p class="mb-0">
+                    Already have an account?
+                    <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active"
+                        class="text-decoration-none fw-bold">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

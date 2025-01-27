@@ -1,6 +1,4 @@
-/* .btn {
-  border-width: 2px;
-} */
+
 img,
 .card-wrap,
 .card-wrapper,
@@ -13,9 +11,8 @@ img,
 .item-wrapper {
   border-radius: 2rem !important;
 }
-/* .video-wrapper {
-  overflow: hidden;
-} */
+
+
 body {
   font-family: var(--display1-font, "Inter Tight");
   background: color-mix(

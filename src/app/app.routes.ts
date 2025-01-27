@@ -4,6 +4,11 @@ import { HomeComponent } from './core/home/home.component';
 import { FloralComponent } from './core/floral/floral.component';
 import { FramesComponent } from './core/frames/frames.component';
 import { TrendingComponent } from './core/trending/trending.component';
+import { ProfileComponent } from './core/profile/profile.component';
+import { LoginComponent } from './core/auth/login/login.component';
+import { RegisterComponent } from './core/auth/register/register.component';
+import { profileGuard } from './shared/guards/profile/profile.guard';
+import { authGuard } from './shared/guards/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -14,11 +19,31 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'floral', component:FloralComponent },
-      { path: 'frames', component:FramesComponent },
-      { path: 'trending', component:TrendingComponent },
+      { path: 'floral', component: FloralComponent },
+      { path: 'frames', component: FramesComponent },
+      { path: 'trending', component: TrendingComponent },
+      {
+        path: 'profile',
+        canActivate: [profileGuard],
+        component: ProfileComponent,
+      },
+    ],
+  },
+  {
+    path: 'auth',
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
     ],
   },
 ];
