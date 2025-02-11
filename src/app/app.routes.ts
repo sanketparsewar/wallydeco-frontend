@@ -7,8 +7,9 @@ import { TrendingComponent } from './core/trending/trending.component';
 import { ProfileComponent } from './core/profile/profile.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
-import { profileGuard } from './shared/guards/profile/profile.guard';
-import { authGuard } from './shared/guards/auth/auth.guard';
+import { AdminDashboardComponent } from './core/admin-dashboard/admin-dashboard.component';
+// import { profileGuard } from './shared/guards/profile/profile.guard';
+// import { authGuard } from './shared/guards/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -27,14 +28,18 @@ export const routes: Routes = [
       { path: 'trending', component: TrendingComponent },
       {
         path: 'profile',
-        canActivate: [profileGuard],
+        // canActivate: [profileGuard],
         component: ProfileComponent,
       },
+      {
+        path:'admin-dashboard',
+        component:AdminDashboardComponent
+      }
     ],
   },
   {
     path: 'auth',
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     children: [
       {
         path: 'login',
