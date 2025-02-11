@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { LocalStorageService } from './../../services/local/local-storage.service';
 import { UserService } from './../../services/user/user.service';
@@ -18,29 +19,35 @@ export class ProfileComponent implements OnInit {
 
   constructor(private router:Router,
     private userService: UserService,
-    private localStorageService: LocalStorageService
+    private authService: AuthService,
+    // private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit() {
-    this.isLoaded = false;
-    if (this.localStorageService.getItem('token')) {
-      this.userService.getUser()?.subscribe({
-        next: (data: any) => {
-          console.log('User data:', data);
-          this.user = data;
-          this.isLoaded = true;
-        },
-        error: (error: any) => {
-          console.error('Error fetching user data:', error);
-        },
-      });
-    }else{
-      this.router.navigate(['/login']);
-    }
+    this.isLoaded = true;
+    this.authService.getLoggedUser().subscribe({
+      next: (data: any) => {
+        console.log('User data:', data);
+        this.user = data.user;
+        this.isLoaded = false;
+      },
+      error: (error: any) => {
+        this.isLoaded = false;
+        console.error('Error fetching user data:', error);
+        this.router.navigateByUrl('/auth/login');
+      },
+    })
   }
 
   logout(){
-    this.localStorageService.removeItem('token');
-    this.router.navigate(['/home']);
+    this.authService.logoutUser().subscribe({
+      next: () => {
+        console.log('User logged out');
+        this.router.navigate(['/home']);
+      },
+      error: (error: any) => {
+        console.error('Error logging out user:', error);
+      }
+    })
   }
 }
