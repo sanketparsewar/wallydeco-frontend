@@ -1,16 +1,23 @@
 import { UserService } from './../../../services/user/user.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../../../services/fileUpload/upload.service';
-
+import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-edit-profile',
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css',
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit {
   @Input() user: any = {
     name: '',
     image: '',
@@ -22,7 +29,12 @@ export class EditProfileComponent {
       state: '',
       zip: '',
     },
+    gender: '',
   };
+  updatedUser: any;
+
+  @ViewChild('modal') modal!: ElementRef;
+
   isLoaded: boolean = false;
   selectedFile!: File;
 
@@ -30,35 +42,73 @@ export class EditProfileComponent {
     private uploadService: UploadService,
     private userService: UserService
   ) {}
+  ngOnInit(): void {
+    this.updatedUser = {
+      name: this.user.name,
+      image: this.user.image,
+      email: this.user.email,
+      phone: this.user.phone,
+      address: {
+        street: this.user.address.street,
+        city: this.user.address.city,
+        state: this.user.address.state,
+        zip: this.user.address.zip,
+      },
+      gender: this.user.gender,
+    };
+  }
 
   onFileSelected(event: any): void {
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0]; // Select the first file
     }
-    this.uploadService.uploadFile(this.selectedFile).subscribe({
-      next: (res: any) => {
-        this.user.image = res.file.url;
-        console.log('File uploaded successfully:', res.file.url);
-      },
-      error: (error: any) => {
-        console.error('File upload failed:', error);
-      },
-    });
+  }
+  uploadProfileFile() {
+    this.uploadService
+      .uploadFile(this.selectedFile, 'wallydeco/profile')
+      .subscribe({
+        next: (res: any) => {
+          this.updatedUser.image = res.file.url;
+          console.log('File uploaded successfully:', res.file.url);
+          this.onUpdate();
+        },
+        error: (error: any) => {
+          console.error('File upload failed:', error);
+        },
+      });
   }
 
   onUpdate() {
-    this.isLoaded=false
     console.log('updated user', this.user);
-    this.userService.updateUser(this.user).subscribe({
+    this.userService.updateUser(this.user._id, this.updatedUser).subscribe({
       next: (res: any) => {
         console.log('User updated successfully:', res);
-        this.isLoaded=true;
+        this.dismissModal();
+        this.isLoaded = false;
       },
       error: (error: any) => {
         console.error('User update failed:', error);
         alert('User update failed!');
-        this.isLoaded=true;
+        this.isLoaded = false;
       },
     });
+  }
+
+  onSubmit() {
+    // if (this.selectedFile) {
+    //   this.isLoaded = true;
+    //   this.uploadProfileFile();
+    // } else {
+    //   this.isLoaded = true;
+    //   this.onUpdate();
+    // }
+    this.dismissModal();
+  }
+
+  dismissModal() {
+    const modalInstance = Modal.getInstance(this.modal.nativeElement);
+    if (modalInstance) {
+      modalInstance.hide(); // Close the modal
+    }
   }
 }

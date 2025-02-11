@@ -7,56 +7,74 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="col-12 row">
+                <form class="col-12 row" #modal >
                     <div class="mb-3 text-center">
-                        <label for="formFileSm" class="form-label border rounded-4 px-4 text-center">choose profile <i
+                        <label for="formFile" class="form-label  px-4 text-center">choose profile <i
                                 class="fa-solid fa-upload"></i></label>
-                        <input class="form-control form-control-sm" type="file" id="fileInput" name="file"
+                        <input class="form-control form-control-sm" type="file" id="formFile" name="file"
                             (change)="onFileSelected($event)" style="display: none" type="file" />
                     </div>
                     <div class="mb-3 text-center">
-                        <img [src]="user?.image" class="rounded-circle" width="100" alt="profile pic" />
+                        <img [src]="updatedUser?.image" class="rounded-circle" width="100" alt="profile pic" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <label for="inputName" class="form-label">Name</label>
-                        <input type="text" class="form-control form-control-sm" name="name" [(ngModel)]="user.name"
+                        <input type="text" class="form-control form-control-sm" name="name" [(ngModel)]="updatedUser.name"
                             id="inputName" placeholder="Enter name" />
                     </div>
+                    <div class="col-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <div class="input-group">
+                           <select class="form-control form-control-sm" id="gender" name="gender" [(ngModel)]="updatedUser.gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+
+
                     <div class="col-md-6">
                         <label for="inputPhone" class="form-label">Phone</label>
                         <input type="text" class="form-control form-control-sm" id="inputPhone" name="phone"
-                            [(ngModel)]="user.phone" placeholder="Enter phone number" />
+                            [(ngModel)]="updatedUser.phone" placeholder="Enter phone number" />
                     </div>
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Email</label>
                         <input type="email" class="form-control form-control-sm" placeholder="Enter email" name="email"
-                            [(ngModel)]="user.email" id="inputEmail4" />
+                            [(ngModel)]="updatedUser.email" id="inputEmail4" />
                     </div>
                     <div class="col-md-6">
                         <label for="inputAddress" class="form-label">Address</label>
                         <input type="text" class="form-control form-control-sm" id="inputAddress" name="street"
-                            [(ngModel)]="user.address.street" placeholder="1234 Main St" />
+                            [(ngModel)]="updatedUser.address.street" placeholder="1234 Main St" />
                     </div>
 
                     <div class="col-md-4">
                         <label for="inputState" class="form-label">State</label>
                         <input type="text" class="form-control form-control-sm" name="state"
-                            [(ngModel)]="user.address.state" id="inputCity" placeholder="Maharashtra" />
+                            [(ngModel)]="updatedUser.address.state" id="inputCity" placeholder="Maharashtra" />
                     </div>
                     <div class="col-md-5 col-6">
                         <label for="inputCity" class="form-label">City</label>
                         <input type="text" class="form-control form-control-sm" name="city"
-                            [(ngModel)]="user.address.city" id="inputCity" placeholder="Nanded" />
+                            [(ngModel)]="updatedUser.address.city" id="inputCity" placeholder="Nanded" />
                     </div>
                     <div class="col-md-3 col-6">
                         <label for="inputZip" class="form-label">Zip</label>
                         <input type="text" class="form-control form-control-sm" name="zip"
-                            [(ngModel)]="user.address.zip" id="inputZip" placeholder="431601" />
+                            [(ngModel)]="updatedUser.address.zip" id="inputZip" placeholder="431601" />
                     </div>
                     <div class="col-12 my-2 text-center">
-                        <button type="submit" (click)="onUpdate()" class="btn btn-secondary btn-sm"
-                            data-bs-dismiss="modal">
-                            Save changes
+                        <button class="btn btn-outline-primary w-50" type="submit" (click)="onSubmit()" >
+                            <div *ngIf="!isLoaded" >
+                                Save changes
+                            </div>
+                              <div *ngIf="isLoaded" class="spinner-grow text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
                         </button>
                     </div>
                 </form>
