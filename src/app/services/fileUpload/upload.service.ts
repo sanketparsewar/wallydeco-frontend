@@ -1,20 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadService {
-  private API_URL = 'http://localhost:8000/api';
-  constructor(private http: HttpClient) {
+  private BASE_URL: string;
+    constructor(private http: HttpClient, private apiService: ApiService) {
+      this.BASE_URL = apiService.getBaseUrl();
+    }
 
-  }
-
-  uploadFile(file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file); // The field name "file" must match upload.single("file")
-    return this.http.post<any>(`${this.API_URL}/upload`, formData);
-  }
-  
+    uploadFile(file: File, folder: string): Observable<any> {
+      const formData = new FormData();
+      formData.append("file", file); // The field name "file" must match upload.single("file")
+      formData.append("folder", folder); // Append the folder field
+    
+      return this.http.post<any>(`${this.BASE_URL}/upload`, formData, {
+        withCredentials: true,
+      });
+    }
+    
 }
