@@ -1,16 +1,15 @@
 export interface Iuser{
-    _id: string;
     name: string;
     email: string;
     password: string;
+    role:string;
     phone:string;
-    image: string;
     address:{
         street:string;
         city:string;
         state:string;
         zip:string;
     }
-    role:string;
-    orders:[];
+    gender:string;
+    image: string;
 }
