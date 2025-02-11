@@ -19,14 +19,14 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private localStorageService: LocalStorageService
+    // private localStorageService: LocalStorageService
   ) {}
 
   onLogin() {
     this.authService.loginUser(this.loginData).subscribe({
       next: (res) => {
         console.log(res);
-        this.localStorageService.setItem('token', res.token);
+        // this.localStorageService.setItem('token', res.token);
         // history.back()
         this.router.navigateByUrl('/home');
       },
