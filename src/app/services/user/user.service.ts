@@ -10,41 +10,25 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   private BASE_URL: string;
-    constructor(private http: HttpClient, private apiService: ApiService,private localStorageService:LocalStorageService) {
-      this.BASE_URL = this.apiService.getBaseUrl();
-    }
-
-  // private getUserIdFromToken(): string | null {
-  //   const token = this.localStorageService.getItem('token'); // Get the token from localStorage
-  //   if (token) {
-  //     try {
-  //       const decodedToken: any = jwtDecode(token); // Decode the token
-  //       return decodedToken.userId; // Assuming the token contains a `user_id` field
-  //     } catch (error) {
-  //       console.error('Error decoding token:', error);
-  //       return null;
-  //     }
-  //   }
-  //   return null;
-  // }
-
-  // Method to fetch user data
-  getUser(userId:string):Observable<any> {
-    // const userId = this.getUserIdFromToken(); // Get the user ID from the token
-    // if (userId) {
-      return this.http.get<any>(`${this.BASE_URL}/user/${userId}`); // Fetch the user data
-    // } else {
-    //   console.error('User ID not found in token');
-    //   return null;
-    // }
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
+    private localStorageService: LocalStorageService
+  ) {
+    this.BASE_URL = this.apiService.getBaseUrl();
   }
 
-  
-  updateUser(userId:string,user: any):Observable<any> {
-    return this.http.put<any>(`${this.BASE_URL}/user/${userId}`, user);
+  getUser(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`); // Fetch the user data
   }
 
-  deleteUser(id: string):Observable<any> {
+  updateUser(userId: string, user: any): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}/user/${userId}`, user, {
+      withCredentials: true, // Allow cookies to be sent and received
+    });
+  }
+
+  deleteUser(id: string): Observable<any> {
     return this.http.delete<any>(`${this.BASE_URL}/user/${id}`);
   }
 }
