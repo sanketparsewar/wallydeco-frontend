@@ -1,0 +1,28 @@
+body {
+  padding-top: 2rem; /* Prevents content from overlapping navbar */
+}
+
+.custom-navbar {
+  position: fixed; 
+  top: 10px; 
+  left: 10px; 
+  right: 10px; 
+  z-index: 1000; 
+  background-color: rgba(176, 163, 141, 0.7);
+  backdrop-filter: blur(10px); 
+  padding: 10px 20px;
+  border-radius: 15px; 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+}
+.navbar-toggler:focus, 
+.navbar-toggler:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+@media screen and (max-width: 768px) {
+  .custom-navbar {
+    padding: 10px 5px;
+  }
+}
