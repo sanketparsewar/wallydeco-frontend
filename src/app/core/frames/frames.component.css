@@ -1,5 +1,4 @@
 .frames {
-  padding-top: 2rem;
   padding-bottom: 3rem;
   background-color: #ffffff;
 }
@@ -9,4 +8,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.frames .item-img{
+  margin-bottom: 2rem;
+}
+
+img{
+  border-radius: 1rem;
 }

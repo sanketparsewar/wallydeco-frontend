@@ -19,37 +19,6 @@
   overflow: hidden;
 }
 
-.top-pick-wallpaper {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-  background-color: #ffffff;
-}
-
-.top-pick-wallpaper img,
-.top-pick-wallpaper .item-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.top-pick-wallpaper .item {
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 767px) {
-  .top-pick-wallpaper .item {
-    margin-bottom: 1rem;
-  }
-}
-
-.top-pick-wallpaper .item-wrapper {
-  position: relative;
-  border-radius: 4px;
-  height: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-}
-
 @media (min-width: 768px) {
   .hero-container {
     align-items: flex-end;
@@ -80,126 +49,13 @@
   }
 }
 
-.story {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  background-color: rgb(233, 233, 233);
-}
-
-.abstract-frame {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  background-color: transparent;
-}
-
-.abstract-frame img,
-.abstract-frame .item-img {
+.container {
+  /* margin: 0; */
   width: 100%;
-  object-fit: cover;
-}
-
-.abstract-frame .item {
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 767px) {
-  .abstract-frame .item {
-    margin-bottom: 1rem;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-  .abstract-frame .item-content {
-    padding: 2rem 1.5rem;
-    padding-top: 1rem;
-    margin-top: 1rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .abstract-frame .item-content {
-    padding: 2rem 1.5rem;
-    padding-top: 1rem;
-    margin-top: 1rem;
-  }
-}
-
-.abstract-frame .item-wrapper {
-  position: relative;
-  background: #ffffff;
-  height: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.features {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  background-image: url("../../../../public/assets/images/NZ-6.jpg");
-}
-.features .item-wrapper img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50% !important;
-}
-
-.features .item-wrapper {
-  background: #ffffff;
-  height: 100%;
-}
-.features .item-mb {
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 767px) {
-  .features {
-    padding-bottom: 4rem;
-  }
-
-  .features .item-wrapper {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-  }
-}
-@media (min-width: 992px) and (max-width: 1200px) {
-  .features .item-wrapper {
-    padding: 2rem 1.5rem;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .features .item-mb {
-    margin-bottom: 1rem;
-  }
-}
-
-.faq {
-  padding-top: 1rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(153, 153, 153, 0.1),
+    rgba(0, 0, 0, 0.6)
+  );
   padding-bottom: 1rem;
-  background-color: transparent;
-}
-
-.faq .panel-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.faq .card .card-header {
-  background-color: transparent;
-  margin-bottom: 0;
-  border: 0;
-  border-radius: 2rem;
-}
-.faq .card {
-  background: #ffffff;
-  padding: 1rem 2rem;
-  border-radius: 2rem;
-}
-
-.follow-us {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  background-color: #ffffff;
 }
