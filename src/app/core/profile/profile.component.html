@@ -2,19 +2,19 @@
 <app-loader></app-loader>
 }@else  {
 
-<div class="container py-2">
+<div class="container mt-5 pt-5 mb-3">
   <div class="row d-flex justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
-      <div class="card">
-        <div class="row g-0">
-          <div class="col-md-4 bg-secondary text-white text-center py-4">
+      <div class="card rounded-4 ">
+        <div class="row g-0  ">
+          <div class="col-md-4 text-white text-center py-4 rounded-4" style="background: rgba(176, 163, 141, 0.7);" >
             <img
               width="100"
               [src]="user?.image"
               alt="User"
               class="img-fluid rounded-circle mb-3"
             />
-            <h4 class="fw-bold m-0 p-0">{{ user?.name }}</h4>
+            <h4 class="fw-bold m-0 p-0 text-capitalize">{{ user?.name }}</h4>
             <p class="m-0 p-0">{{ user?.role }}</p>
             <i class="bi bi-pencil-fill"></i>
           </div>
@@ -64,6 +64,6 @@
   </div>
 </div>
 
-<app-edit-profile [user]="user"> </app-edit-profile>
+<app-edit-profile [user]="user"  > </app-edit-profile>
 
 }

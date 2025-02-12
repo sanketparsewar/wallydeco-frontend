@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   user: any;
   isLoaded: boolean = false;
-
+  isOpen:boolean=false
   constructor(private router:Router,
     private userService: UserService,
     private authService: AuthService,
@@ -37,6 +37,10 @@ export class ProfileComponent implements OnInit {
         this.router.navigateByUrl('/auth/login');
       },
     })
+  }
+  openModal() {
+    console.log("open from profile clicke")
+    this.isOpen = true;
   }
 
   logout(){
