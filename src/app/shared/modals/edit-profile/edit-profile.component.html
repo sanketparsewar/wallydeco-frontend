@@ -1,25 +1,3 @@
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="onSubmit()">Save changes</button>
-
-
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
-
 
 <div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -58,33 +36,33 @@
                     
 
 
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <label for="inputPhone" class="form-label">Phone</label>
                         <input type="text" class="form-control form-control-sm" id="inputPhone" name="phone"
                             [(ngModel)]="updatedUser.phone" placeholder="Enter phone number" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <label for="inputEmail4" class="form-label">Email</label>
                         <input type="email" class="form-control form-control-sm" placeholder="Enter email" name="email"
                             [(ngModel)]="updatedUser.email" id="inputEmail4" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <label for="inputAddress" class="form-label">Address</label>
                         <input type="text" class="form-control form-control-sm" id="inputAddress" name="street"
                             [(ngModel)]="updatedUser.address.street" placeholder="1234 Main St" />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-4">
                         <label for="inputState" class="form-label">State</label>
                         <input type="text" class="form-control form-control-sm" name="state"
                             [(ngModel)]="updatedUser.address.state" id="inputCity" placeholder="Maharashtra" />
                     </div>
-                    <div class="col-md-5 col-6">
+                    <div class="col-md-5 col-4">
                         <label for="inputCity" class="form-label">City</label>
                         <input type="text" class="form-control form-control-sm" name="city"
                             [(ngModel)]="updatedUser.address.city" id="inputCity" placeholder="Nanded" />
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-3 col-4">
                         <label for="inputZip" class="form-label">Zip</label>
                         <input type="text" class="form-control form-control-sm" name="zip"
                             [(ngModel)]="updatedUser.address.zip" id="inputZip" placeholder="431601" />
