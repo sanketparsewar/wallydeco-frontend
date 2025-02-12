@@ -1,16 +1,8 @@
 import { UserService } from './../../../services/user/user.service';
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-  viewChild,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../../../services/fileUpload/upload.service';
-import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-edit-profile',
   imports: [CommonModule, FormsModule],
@@ -32,8 +24,6 @@ export class EditProfileComponent implements OnInit {
     gender: '',
   };
   updatedUser: any;
-
-  @ViewChild('modal') modal!: ElementRef;
 
   isLoaded: boolean = false;
   selectedFile!: File;
@@ -83,7 +73,6 @@ export class EditProfileComponent implements OnInit {
     this.userService.updateUser(this.user._id, this.updatedUser).subscribe({
       next: (res: any) => {
         console.log('User updated successfully:', res);
-        this.dismissModal();
         this.isLoaded = false;
       },
       error: (error: any) => {
@@ -95,20 +84,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.selectedFile) {
-    //   this.isLoaded = true;
-    //   this.uploadProfileFile();
-    // } else {
-    //   this.isLoaded = true;
-    //   this.onUpdate();
-    // }
-    this.dismissModal();
-  }
-
-  dismissModal() {
-    const modalInstance = Modal.getInstance(this.modal.nativeElement);
-    if (modalInstance) {
-      modalInstance.hide(); // Close the modal
+    if (this.selectedFile) {
+      this.isLoaded = true;
+      this.uploadProfileFile();
+    } else {
+      this.isLoaded = true;
+      this.onUpdate();
     }
   }
 }
