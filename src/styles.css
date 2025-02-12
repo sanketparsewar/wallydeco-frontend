@@ -8,7 +8,7 @@ img,
 .plan,
 .card,
 .item-wrapper {
-  border-radius: 2rem !important;
+  border-radius: 2rem ;
 }
 
 body {
