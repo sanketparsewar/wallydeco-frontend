@@ -35,30 +35,30 @@ export class HomeComponent implements OnInit {
   }
 
   generateTopPickedWallpapers(): void {
-    const container = document.getElementById('topPickedWallpapers');
+    // const container = document.getElementById('topPickedWallpapers');
 
-    if (!container) {
-      console.error('Container element not found.');
-      return;
-    }
+    // if (!container) {
+    //   console.error('Container element not found.');
+    //   return;
+    // }
 
-    this.wallpapers.forEach((wallpaper) => {
-      const item = `
-        <div class="item features-image col-12 col-md-6 col-lg-3">
-          <div class="item-wrapper">
-            <div class="item-img mb-3">
-              <img src="assets/images/wallpapers/${wallpaper.img}" alt="Try Refreshing this site..." data-slide-to="3" data-bs-slide-to="4">
-            </div>
-            <div class="item-content align-left">
-              <h5 class="item-title mbr-fonts-style mb-3 mt-0 display-7">
-                <strong>${wallpaper.title}</strong>
-              </h5>
-            </div>
-          </div>
-        </div>
-      `;
-      container.innerHTML += item;
-    });
+    // this.wallpapers.forEach((wallpaper) => {
+    //   const item = `
+    //     <div class="item features-image col-12 col-md-6 col-lg-3">
+    //       <div class="item-wrapper">
+    //         <div class="item-img mb-3">
+    //           <img src="assets/images/wallpapers/${wallpaper.img}" alt="Try Refreshing this site..." data-slide-to="3" data-bs-slide-to="4">
+    //         </div>
+    //         <div class="item-content align-left">
+    //           <h5 class="item-title mbr-fonts-style mb-3 mt-0 display-7">
+    //             <strong>${wallpaper.title}</strong>
+    //           </h5>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   `;
+    //   container.innerHTML += item;
+    // });
   }
 
   createAnimationInput(): void {

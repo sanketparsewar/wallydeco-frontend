@@ -27,29 +27,29 @@ export class FramesComponent implements OnInit {
   }
 
   generateAbstractFrameCollection(): void {
-    const container = document.getElementById('abstractFrameCollection');
+    // const container = document.getElementById('abstractFrameCollection');
     
-    if (!container) {
-      console.error('Container element not found.');
-      return;
-    }
+    // if (!container) {
+    //   console.error('Container element not found.');
+    //   return;
+    // }
 
-    this.frames.forEach((frame) => {
-      const item = `
-        <div class="item features-image col-12 col-md-6 col-lg-3">
-          <div class="item-wrapper">
-            <div class="item-img mb-3">
-              <img src="assets/images/wallyart/${frame.img}" alt="Try Refreshing this site..." data-slide-to="3" data-bs-slide-to="4">
-            </div>
-            <div class="item-content align-left">
-              <h5 class="item-title mbr-fonts-style mb-3 mt-0 display-7">
-                <!-- ${frame.code} -->
-              </h5>
-            </div>
-          </div>
-        </div>
-      `;
-      container.innerHTML += item;
-    });
+    // this.frames.forEach((frame) => {
+    //   const item = `
+    //     <div class="item features-image col-12 col-md-6 col-lg-3">
+    //       <div class="item-wrapper">
+    //         <div class="item-img mb-3">
+    //           <img src="assets/images/wallyart/${frame.img}" alt="Try Refreshing this site..." data-slide-to="3" data-bs-slide-to="4">
+    //         </div>
+    //         <div class="item-content align-left">
+    //           <h5 class="item-title mbr-fonts-style mb-3 mt-0 display-7">
+    //             <!-- ${frame.code} -->
+    //           </h5>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   `;
+    //   container.innerHTML += item;
+    // });
   }
 }
