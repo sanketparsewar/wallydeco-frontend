@@ -1,0 +1,43 @@
+
+.features {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-image: url("../../../../public/assets/images/NZ-6.jpg");
+  }
+  .features .item-wrapper img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50% !important;
+  }
+  
+  .features .item-wrapper {
+    background: #ffffff;
+    height: 100%;
+  }
+  .features .item-mb {
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 767px) {
+    .features {
+      padding-bottom: 4rem;
+    }
+  
+    .features .item-wrapper {
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+  @media (min-width: 992px) and (max-width: 1200px) {
+    .features .item-wrapper {
+      padding: 2rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .features .item-mb {
+      margin-bottom: 1rem;
+    }
+  }
+  

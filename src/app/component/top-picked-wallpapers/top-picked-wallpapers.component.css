@@ -1,0 +1,31 @@
+
+.top-pick-wallpaper {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    background-color: #ffffff;
+  }
+  
+  .top-pick-wallpaper img,
+  .top-pick-wallpaper .item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .top-pick-wallpaper .item {
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 767px) {
+    .top-pick-wallpaper .item {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .top-pick-wallpaper .item-wrapper {
+    position: relative;
+    border-radius: 4px;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+  }

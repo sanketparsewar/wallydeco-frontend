@@ -1,0 +1,44 @@
+.faq {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: transparent;
+}
+
+.faq .panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq .card .card-header {
+  background-color: transparent;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 2rem;
+}
+.faq .card {
+  background: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important; /* Keeps background unchanged */
+  color: inherit !important; /* Keeps text color unchanged */
+}
+
+.custom-accordion {
+  border-radius: 10px; /* Slightly rounded corners */
+  overflow: hidden; /* Prevents child elements from breaking border-radius */
+  border: 1px solid rgba(0, 0, 0, 0.125); /* Optional border */
+}
+
+.custom-accordion-button,
+.custom-accordion .accordion-collapse {
+  border: 4rem;
+}

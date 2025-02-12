@@ -1,0 +1,47 @@
+
+.abstract-frame {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: transparent;
+  }
+  
+  .abstract-frame img,
+  .abstract-frame .item-img {
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .abstract-frame .item {
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 767px) {
+    .abstract-frame .item {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  @media (min-width: 992px) and (max-width: 1200px) {
+    .abstract-frame .item-content {
+      padding: 2rem 1.5rem;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .abstract-frame .item-content {
+      padding: 2rem 1.5rem;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+  }
+  
+  .abstract-frame .item-wrapper {
+    position: relative;
+    background: #ffffff;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  
