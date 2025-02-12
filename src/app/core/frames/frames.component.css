@@ -1,0 +1,12 @@
+.frames {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  background-color: #ffffff;
+}
+
+.frames img,
+.frames .item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
