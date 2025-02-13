@@ -1,9 +1,7 @@
 label{
     margin: 0;
 }
-input{
-    margin-bottom: 1rem;
-}
+
 
 .modal-dialog {
     max-width: 300px;
@@ -18,3 +16,4 @@ input{
     align-items: center;
     min-height: 100vh;
 }
+

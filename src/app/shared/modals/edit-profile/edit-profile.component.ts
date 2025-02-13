@@ -10,19 +10,20 @@ import { UploadService } from '../../../services/fileUpload/upload.service';
   styleUrl: './edit-profile.component.css',
 })
 export class EditProfileComponent implements OnInit {
-  @Input() user: any = {
-    name: '',
-    image: '',
-    email: '',
-    phone: '',
-    address: {
-      street: '',
-      city: '',
-      state: '',
-      zip: '',
-    },
-    gender: '',
-  };
+  @Input() user: any = {}
+  // @Input() user: any = {
+  //   name: '',
+  //   image: '',
+  //   email: '',
+  //   phone: '',
+  //   address: {
+  //     street: '',
+  //     city: '',
+  //     state: '',
+  //     zip: '',
+  //   },
+  //   gender: '',
+  // };
   updatedUser: any;
 
   isLoaded: boolean = false;
@@ -69,22 +70,19 @@ export class EditProfileComponent implements OnInit {
   }
 
   onUpdate() {
-    console.log('updated user', this.user);
     this.userService.updateUser(this.user._id, this.updatedUser).subscribe({
       next: (res: any) => {
         console.log('User updated successfully:', res);
-        this.isLoaded = false;
       },
       error: (error: any) => {
         console.error('User update failed:', error);
         alert('User update failed!');
-        this.isLoaded = false;
       },
     });
   }
 
   onSubmit() {
-    this.isLoaded = true;
+    // this.isLoaded = true;
     this.onUpdate();
   }
   
