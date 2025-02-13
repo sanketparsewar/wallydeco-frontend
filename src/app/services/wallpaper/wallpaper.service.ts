@@ -1,33 +1,52 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WallpaperService {
-  constructor(private http: HttpClient) {}
-  private API_URL = 'http://localhost:8000/api/';
-
-  getWallpapers(): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/wallpaper`,);
+  private BASE_URL: string;
+  constructor(private http: HttpClient, private apiService: ApiService) {
+    this.BASE_URL = apiService.getBaseUrl();
   }
+  // getWallpapers(): Observable<any> {
+  //   return this.http.get<any>(`${this.BASE_URL}/wallpaper`,);
+  // }
+
+  getWallpapers(filters: any = {}): Observable<any> {
+    let params = new HttpParams();
+    // Add filters to params if they exist and are not empty.
+    Object.keys(filters).forEach((key) => {
+      if (filters[key]) {
+        params = params.set(key, filters[key]);
+      }
+    });
+    return this.http.get<any>(`${this.BASE_URL}/wallpaper`, { params });
+  }
+
   getWallpaperById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/wallpaper/${id}`);
+    return this.http.get<any>(`${this.BASE_URL}/wallpaper/${id}`);
+  }
+  getWallpaperByCategory(category: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.BASE_URL}/wallpaper/category/${category}`
+    );
   }
 
   createWallpaper(wallpaper: any): Observable<any> {
-    return this.http.post<any>(`${this.API_URL}/wallpaper`, wallpaper,{
+    return this.http.post<any>(`${this.BASE_URL}/wallpaper`, wallpaper, {
       withCredentials: true, // Allow cookies to be sent and received
     });
   }
   updateWallpaper(id: string, wallpaper: any): Observable<any> {
-    return this.http.put<any>(`${this.API_URL}/wallpaper/${id}`, wallpaper,{
+    return this.http.put<any>(`${this.BASE_URL}/wallpaper/${id}`, wallpaper, {
       withCredentials: true, // Allow cookies to be sent and received
     });
   }
   deleteWallpaper(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.API_URL}/wallpaper/${id}`,{
+    return this.http.delete<any>(`${this.BASE_URL}/wallpaper/${id}`, {
       withCredentials: true, // Allow cookies to be sent and received
     });
   }
