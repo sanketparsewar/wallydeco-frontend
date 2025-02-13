@@ -8,6 +8,7 @@ import { ProfileComponent } from './core/profile/profile.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { AdminDashboardComponent } from './core/admin-dashboard/admin-dashboard.component';
+import { WallpaperComponent } from './core/wallpaper/wallpaper.component';
 // import { profileGuard } from './shared/guards/profile/profile.guard';
 // import { authGuard } from './shared/guards/auth/auth.guard';
 
@@ -26,6 +27,10 @@ export const routes: Routes = [
       { path: 'floral', component: FloralComponent },
       { path: 'frames', component: FramesComponent },
       { path: 'trending', component: TrendingComponent },
+      {
+        path:'wallpaper/:id',
+        component:WallpaperComponent
+      },
       {
         path: 'profile',
         // canActivate: [profileGuard],
