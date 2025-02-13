@@ -5,11 +5,11 @@ import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { EditProfileComponent } from '../../shared/modals/edit-profile/edit-profile.component';
 import { LoaderComponent } from '../../component/loader/loader.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, EditProfileComponent, LoaderComponent],
+  imports: [CommonModule, EditProfileComponent, LoaderComponent,RouterLink],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

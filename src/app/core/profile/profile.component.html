@@ -20,8 +20,8 @@
 
                 </div>
                 <ul class="dropdown-menu dropdown-menu-dark w-50">
-                  <li><button class="dropdown-item" type="button">Dashboard</button></li>
-                  <li><button class="dropdown-item" type="button">Edit pic</button></li>
+                  <li><button *ngIf="user.role==='admin'" [routerLink]="['/admin-dashboard']" routerLinkActive="router-link-active"  class="dropdown-item" type="button">Dashboard</button></li>
+                  <li><button class="dropdown-item" type="button">Edit picture</button></li>
                   <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
                       info</button></li>
                   <li>
