@@ -84,12 +84,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.selectedFile) {
-      this.isLoaded = true;
-      this.uploadProfileFile();
-    } else {
-      this.isLoaded = true;
-      this.onUpdate();
-    }
+    this.isLoaded = true;
+    this.onUpdate();
   }
+  
 }

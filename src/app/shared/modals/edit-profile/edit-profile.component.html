@@ -1,14 +1,14 @@
 
-<div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit profile</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form class="col-12 row"  >
-                    <div class="mb-3 text-center">
+            <div class="modal-body p-3">
+                <form class="row g-3"  >
+                    <!-- <div class="mb-3 text-center">
                         <label for="formFile" class="form-label  px-4 text-center">choose profile <i
                                 class="fa-solid fa-upload"></i></label>
                         <input class="form-control form-control-sm" type="file" id="formFile" name="file"
@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3 text-center">
                         <img [src]="updatedUser?.image" class="rounded-circle" width="100" alt="profile pic" />
-                    </div>
+                    </div> -->
                     <div class="col-6">
                         <label for="inputName" class="form-label">Name</label>
                         <input type="text" class="form-control form-control-sm" name="name" [(ngModel)]="updatedUser.name"
@@ -68,9 +68,9 @@
                             [(ngModel)]="updatedUser.address.zip" id="inputZip" placeholder="431601" />
                     </div>
                     <div class="col-12 my-2 text-center">
-                        <button class="btn btn-outline-primary w-50" type="submit" (click)="onSubmit()" >
+                        <button class="btn  btn-sm btn-outline-primary w-50" data-bs-dismiss="modal" type="submit" (click)="onSubmit()" >
                             <div *ngIf="!isLoaded" >
-                                Save changes
+                                Save
                             </div>
                               <div *ngIf="isLoaded" class="spinner-grow text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
