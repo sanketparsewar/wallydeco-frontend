@@ -1,0 +1,176 @@
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-sm-flex align-items-center mb-3">
+                <h4 class="card-title mb-sm-0">Wallpapers</h4>
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#addWallpaperModal">
+                    <i class="fa-solid fa-circle-plus"></i>
+                </button>
+
+                <a class="text-dark ms-auto mb-3 mb-sm-0"> View all Wallpapers</a>
+            </div>
+            <div class="row g-2">
+                <div class="col-6 col-md-3">
+                    <label for="inputCity" class="form-label">Title</label>
+                    <input class="form-control" type="search" (ngModelChange)="onFilterChange()"
+                        [(ngModel)]="queryParameter.search" name="search by title" placeholder="Search by title"
+                        aria-label="Search">
+                </div>
+                <div class="col-md-3 col-6">
+                    <label for="inputCategory" class="form-label">Category</label>
+                    <select id="inputCategory" name="category" [(ngModel)]="queryParameter.category"
+                        (ngModelChange)="onFilterChange()" class="form-select">
+                        <option value="">All</option>
+                        <option *ngFor="let item of category" [value]="item">{{ item }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-lg-2 col-4">
+                    <label for="inputZip" class="form-label">Price</label>
+                    <input type="number" min="0" class="form-control" placeholder="Max price"
+                        (ngModelChange)="onFilterChange()" [(ngModel)]="queryParameter.price" name="price"
+                        id="inputZip">
+                </div>
+                <div class="col-md-2 col-lg-2  col-4">
+                    <label for="inputZip" class="form-label">Stock</label>
+                    <input type="number" min="0" placeholder="Ex: 1" class="form-control"
+                        (ngModelChange)="onFilterChange()" [(ngModel)]="queryParameter.stock" name="stock"
+                        id="inputZip">
+                </div>
+                <div class="col-md-2 col-lg-2  col-4">
+                    <label for="inputLimit" class="form-label">Limit</label>
+                    <select id="inputLimit" name="limit" [(ngModel)]="queryParameter.limit"
+                        (ngModelChange)="onFilterChange()" class="form-select">
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+
+            @if(isLoaded){
+            <app-loader></app-loader>
+            }@else{
+
+            <div class="table-responsive rounded p-1">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="font-weight-bold">Img</th>
+                            <th class="font-weight-bold">Title</th>
+                            <th class="font-weight-bold">Size</th>
+                            <th class="font-weight-bold">Price</th>
+                            <th class="font-weight-bold">Stock</th>
+                            <th class="font-weight-bold">Colors</th>
+                            <th class="font-weight-bold">Category</th>
+                            <th class="font-weight-bold">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" *ngIf="tableData.length==0">
+                            <td colspan="8">No Wallpaper Data!</td>
+                        </tr>
+                        <tr *ngFor="let item of tableData">
+                            <td>
+                                <div>
+                                    <img [src]="item.images[0]" style="width: 2rem; height: 2rem;" alt="">
+                                </div>
+                            </td>
+                            <td>{{item.title}}</td>
+                            <td>{{item.size}}</td>
+                            <td>{{item.price | currency:"INR"}}</td>
+                            <td>{{item.stock}}</td>
+                            <td>
+                                {{item.colorOptions}}
+                            </td>
+                            <td>{{item.category}}</td>
+                            <td>
+                                <div class="d-flex justify-content-evenly">
+                                    <button class="btn btn-sm btn-primary">edit</button>
+                                    <button class="btn btn-sm btn-primary" (click)="onDelete(item._id)">delete</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex mt-4 flex-wrap align-items-center">
+                <p class="text-muted mb-sm-0">Showing 1 to {{queryParameter.limit}} of {{tableData.length}} entries</p>
+                <nav class="ms-auto">
+                    <!-- <ul class="pagination separated pagination-info mb-sm-0">
+                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                    </ul> -->
+                    <ul class="pagination">
+                        <li class="page-item" [class.disabled]="queryParameter.page === 1">
+                            <button class="page-link" (click)="changePage(queryParameter.page - 1)"> <i class="fa-solid fa-angles-left"></i></button>
+                        </li>
+                        <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item"
+                            [class.active]="queryParameter.page === i + 1">
+                            <button class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+                        </li>
+                        <li class="page-item" [class.disabled]="queryParameter.page === totalPages">
+                            <button class="page-link" (click)="changePage(queryParameter.page + 1)"><i class="fa-solid fa-angles-right"></i></button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+<app-add-wallpaper (getAllWallpapers)="getAllWallpapers()"></app-add-wallpaper>
+
+
+
+
+<!---------- body part start here --------->
+<!-- <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th class="font-weight-bold">Img</th>
+            <th class="font-weight-bold">Title</th>
+            <th class="font-weight-bold">Size</th>
+            <th class="font-weight-bold">Price</th>
+            <th class="font-weight-bold">Stock</th>
+            <th class="font-weight-bold">Colors</th>
+            <th class="font-weight-bold">Category</th>
+            <th class="font-weight-bold">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngIf="!tableData">
+            <td colspan="8">No Wallpaper Data!</td>
+        </tr>
+        <tr *ngFor="let item of tableData">
+            <td>
+                <div>
+                    <img [src]="item.images[0]" style="width: 2rem; height: 2rem;" alt="">
+                </div>
+            </td>
+            <td>{{item.title}}</td>
+            <td>{{item.size}}</td>
+            <td>{{item.price | currency:"INR"}}</td>
+            <td>{{item.stock}}</td>
+            <td>
+                {{item.colorOptions}}
+            </td>
+            <td>{{item.category}}</td>
+            <td>
+                <div class="d-flex justify-content-evenly">
+                    <button class="btn btn-sm btn-primary">edit</button>
+                    <button class="btn btn-sm btn-primary" (click)="onDelete(item._id)">delete</button>
+                </div>
+            </td>
+        </tr>
+
+    </tbody>
+</table> -->
