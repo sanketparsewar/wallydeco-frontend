@@ -1,19 +1,41 @@
 @if(isLoaded){
 <app-loader></app-loader>
-}@else  {
+}@else {
 
 <div class="container mt-5 pt-5 mb-3">
   <div class="row d-flex justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
       <div class="card rounded-4 ">
         <div class="row g-0  ">
-          <div class="col-md-4 text-white text-center py-4 rounded-4" style="background: rgba(176, 163, 141, 0.7);" >
-            <img
-              width="100"
-              [src]="user?.image"
-              alt="User"
-              class="img-fluid rounded-circle mb-3"
-            />
+          <div class="col-md-4 text-white text-center py-2 rounded-4" style="background: rgba(176, 163, 141, 0.7);">
+            <div class="justify-content-end d-flex">
+              <div class="dropdown">
+
+                <button class="btn border-0 bg-transparent mx-2 dropdown-toggle" type="button"
+                  data-bs-toggle="dropdown">
+                  <i class="fa-solid fa-ellipsis-vertical text-dark fs-4"></i>
+                </button>
+
+                <div>
+
+                </div>
+                <ul class="dropdown-menu dropdown-menu-dark w-50">
+                  <li><button class="dropdown-item" type="button">Dashboard</button></li>
+                  <li><button class="dropdown-item" type="button">Edit pic</button></li>
+                  <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
+                      info</button></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><button class="dropdown-item text-danger" (click)="logout()" type="button">Log out</button></li>
+                </ul>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center ">
+              <img width="100" [src]="user?.image" alt="User" class="img-fluid rounded-circle mb-3" />
+              
+            </div>
+
             <h4 class="fw-bold m-0 p-0 text-capitalize">{{ user?.name }}</h4>
             <p class="m-0 p-0">{{ user?.role }}</p>
             <i class="bi bi-pencil-fill"></i>
@@ -21,7 +43,11 @@
 
           <div class="col-md-8">
             <div class="card-body">
-              <h6 class="fw-bold border-bottom pb-2">Information</h6>
+              <div class="d-flex justify-content-between">
+                <h6 class="fw-bold border-bottom pb-2">Information</h6>
+                <!-- <i data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  class="fa-solid fa-pen-to-square text-primary"></i> -->
+              </div>
               <div class="row mb-3">
                 <div class="col-6">
                   <p class="fw-bold mb-1">Email</p>
@@ -46,16 +72,12 @@
                   <p class="text-muted">{{ user?.Orders }}</p>
                 </div>
               </div>
-              <div class="d-flex justify-content-between">
-                <button
-                  class="btn btn-outline-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  Edit profile
+              <!-- <div class="d-flex justify-content-between">
+                <button *ngIf="user.role=='admin'" class="btn btn-sm btn-outline-primary" >
+                  Dashboard
                 </button>
-                <button class="btn btn-outline-danger" (click)="logout()">Log out</button>
-              </div>
+                <button class="btn btn-sm btn-danger" (click)="logout()">Log out</button>
+              </div> -->
             </div>
           </div>
         </div>
@@ -64,6 +86,6 @@
   </div>
 </div>
 
-<app-edit-profile [user]="user"  > </app-edit-profile>
+<app-edit-profile [user]="user"> </app-edit-profile>
 
 }

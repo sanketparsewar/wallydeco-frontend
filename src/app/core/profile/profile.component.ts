@@ -16,19 +16,23 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   user: any;
   isLoaded: boolean = false;
-  isOpen:boolean=false
-  constructor(private router:Router,
+  constructor(
+    private router: Router,
     private userService: UserService,
-    private authService: AuthService,
-    // private localStorageService: LocalStorageService
-  ) {}
+    private authService: AuthService
+  ) // private localStorageService: LocalStorageService
+  {}
 
   ngOnInit() {
+    this.getLoggedUser();
+  }
+
+  getLoggedUser() {
     this.isLoaded = true;
     this.authService.getLoggedUser().subscribe({
       next: (data: any) => {
-        console.log('User data:', data);
         this.user = data.user;
+        console.log('User data:', data);
         this.isLoaded = false;
       },
       error: (error: any) => {
@@ -36,14 +40,10 @@ export class ProfileComponent implements OnInit {
         console.error('Error fetching user data:', error);
         this.router.navigateByUrl('/auth/login');
       },
-    })
-  }
-  openModal() {
-    console.log("open from profile clicke")
-    this.isOpen = true;
+    });
   }
 
-  logout(){
+  logout() {
     this.authService.logoutUser().subscribe({
       next: () => {
         console.log('User logged out');
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
       },
       error: (error: any) => {
         console.error('Error logging out user:', error);
-      }
-    })
+      },
+    });
   }
 }
