@@ -11,22 +11,22 @@ export class OrderService {
       this.BASE_URL = apiService.getBaseUrl();
     }
   createOrder(orderData:any) {
-    return this.http.post(`${this.BASE_URL}order/`, orderData);
+    return this.http.post(`${this.BASE_URL}/order/`, orderData);
   }
   
   getOrders() {
-    return this.http.get(`${this.BASE_URL}order/`);
+    return this.http.get(`${this.BASE_URL}/order/`);
   }
   
   getOrderById(orderId:string) {
-    return this.http.get(`${this.BASE_URL}order/${orderId}/`);
+    return this.http.get(`${this.BASE_URL}/order/${orderId}/`);
   }
   
   updateOrder(orderId:string, orderData:any) {
-    return this.http.put(`${this.BASE_URL}order/${orderId}/`, orderData);
+    return this.http.put(`${this.BASE_URL}/order/${orderId}/`, orderData);
   }
   
   deleteOrder(orderId:string) {
-    return this.http.delete(`${this.BASE_URL}order/${orderId}/`);
+    return this.http.delete(`${this.BASE_URL}/order/${orderId}/`);
   }
 }
