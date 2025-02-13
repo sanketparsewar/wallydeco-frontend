@@ -1,0 +1,67 @@
+<div class="container-scroller pt-5 mt-5">
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <!-- Quick Action Toolbar Starts-->
+                <div class="row g-3">
+                    <div class="col-md-6 col-6 stretch-card">
+                        <div class="card bg-gradient-danger ">
+                            <div class="card-body text-center">
+                                <p class="mb-2">Total Orders</p>
+                                <h6 class="fw-bold">$150,000</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-6 stretch-card">
+                        <div class="card bg-gradient-primary ">
+                            <div class="card-body text-center">
+                                <p class="mb-2">Total Sales</p>
+                                <h6 class="fw-bold">$150,000</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-4 stretch-card">
+                        <div class="card bg-gradient-success ">
+                            <div class="card-body text-center">
+                                <p class="mb-2">Weekly Sales</p>
+                                <h6 class="fw-bold">$150,000</h6>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+
+                <div class="row quick-action-toolbar">
+                    <div class="col-md-12 grid-margin">
+                        <div class="card">
+                            <div class="card-header d-block d-md-flex">
+                                <h5 class="mb-0">Quick Actions</h5>
+
+                            </div>
+                            <div class="btn-group-custom m-3">
+                                <button class="btn" type="button" (click)="onOption('orders')">Orders</button>
+                                <button class="btn" type="button" (click)="onOption('wallpapers')">Wallpaper</button>
+                                <button class="btn" type="button" (click)="onOption('transaction')">Transaction</button>
+                                <button class="btn" type="button" onchange="onOption()">Sales</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Quick Action Orders-->
+                <div class="row" *ngIf="option=='orders'">
+                    <app-order-data-table></app-order-data-table>
+                </div>
+                
+                
+                <!-- Quick Action wallapaper-->
+                <div class="row" *ngIf="option==='wallpapers'">
+                    <app-wallpaper-data-table></app-wallpaper-data-table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

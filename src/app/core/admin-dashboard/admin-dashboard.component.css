@@ -1,0 +1,15 @@
+.card,.card-body{
+    border-radius: 0;
+}
+
+.btn-wrapper .btn {
+    background-color: #f8f9fa; /* Default button color */
+    border: 1px solid #ccc;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-wrapper .btn.active-btn {
+    background-color: #007bff !important; /* Highlighted color */
+    color: white !important;
+    border-color: #007bff;
+}
