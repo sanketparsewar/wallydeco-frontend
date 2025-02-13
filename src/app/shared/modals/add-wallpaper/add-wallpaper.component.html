@@ -1,0 +1,74 @@
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="addWallpaperModal" tabindex="-1" aria-labelledby="addWallpaperLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addWallpaperLabel">Add Wallpaper</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #wallpaperForm="ngForm" (ngSubmit)="onSubmit()">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" name="title" [(ngModel)]="wallpaper.title" placeholder="Enter title" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Color Options (if-any)</label>
+                            <div class="d-flex flex-wrap gap-1">
+                                <div *ngFor="let item of availableColors" class="form-check">
+                                    <input type="checkbox" class="form-check-input" [value]="item" (change)="onColorChange($event, item)"> 
+                                    <label class="form-check-label">{{ item }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+
+                        <div class="col-md-12">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" [(ngModel)]="wallpaper.description" rows="3" placeholder="Enter description" required></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Price</label>
+                            <input type="number" class="form-control" name="price" [(ngModel)]="wallpaper.price" placeholder="Enter price" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category" [(ngModel)]="wallpaper.category">
+                                <option *ngFor="let item of category" [value]="item">{{ item }}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Size</label>
+                            <input type="text" class="form-control" name="size" [(ngModel)]="wallpaper.size" placeholder="Enter size (e.g., 11x12)" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Stock</label>
+                            <input type="number" class="form-control" name="stock" [(ngModel)]="wallpaper.stock" placeholder="Enter stock quantity" required>
+                        </div>
+
+                        <div>
+                            <label for="formFileSm" class="form-label">Image</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input class="form-control form-control-sm w-75" id="formFileSm" type="file" required (change)="onFileSelected($event)">
+                                <i *ngIf="selectedFile" (click)="uploadWallpaper()" class="fa-solid fa-cloud-arrow-up fs-3"></i>
+                                <i *ngIf="wallpaper.images.length!==0" (click)="uploadWallpaper()" class="fa-regular fs-3 text-success fa-circle-check"></i>
+                            </div>
+                            
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="wallpaperForm.invalid || wallpaper.images.length===0">Add Wallpaper</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
