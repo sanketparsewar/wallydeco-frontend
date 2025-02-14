@@ -19,8 +19,8 @@ import { OrderDataTableComponent } from '../../component/order-data-table/order-
 })
 export class AdminDashboardComponent implements OnInit {
   tableData: any;
-  option: string='orders';
-  // option: string = 'wallpapers';
+  // option: string='orders';
+  option: string = 'wallpapers';
 
   constructor(private wallpaperService: WallpaperService) {}
 
