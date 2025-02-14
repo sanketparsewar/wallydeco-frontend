@@ -28,7 +28,7 @@ export const routes: Routes = [
       { path: 'frames', component: FramesComponent },
       { path: 'trending', component: TrendingComponent },
       {
-        path:'wallpaper/:id',
+        path:'wallpaper/:wallpaperId',
         component:WallpaperComponent
       },
       {
