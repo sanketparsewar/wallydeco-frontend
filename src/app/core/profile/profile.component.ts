@@ -1,15 +1,21 @@
 import { AuthService } from './../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { LocalStorageService } from './../../services/local/local-storage.service';
 import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { EditProfileComponent } from '../../shared/modals/edit-profile/edit-profile.component';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { Router, RouterLink } from '@angular/router';
+import { EditProfilePictureComponent } from '../../shared/modals/edit-profile-picture/edit-profile-picture.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, EditProfileComponent, LoaderComponent,RouterLink],
+  imports: [
+    CommonModule,
+    EditProfileComponent,
+    LoaderComponent,
+    RouterLink,
+    EditProfilePictureComponent,
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
@@ -18,10 +24,8 @@ export class ProfileComponent implements OnInit {
   isLoaded: boolean = false;
   constructor(
     private router: Router,
-    private userService: UserService,
     private authService: AuthService
-  ) // private localStorageService: LocalStorageService
-  {}
+  ) {}
 
   ngOnInit() {
     this.getLoggedUser();
