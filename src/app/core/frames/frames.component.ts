@@ -1,55 +1,46 @@
 import { Component, OnInit } from '@angular/core';
+import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { LoaderComponent } from '../../component/loader/loader.component';
 
 @Component({
   selector: 'app-frames',
-  imports: [],
+  imports: [CommonModule,FormsModule,LoaderComponent],
   templateUrl: './frames.component.html',
   styleUrl: './frames.component.css'
 })
 export class FramesComponent implements OnInit {
-  frames = [
-    { img: "10.jpg", code: "NZ-137" },
-    { img: "11.jpg", code: "NZ-139" },
-    { img: "12.jpg", code: "NZ-145" },
-    { img: "13.jpg", code: "NZ-147" },
-    { img: "14.jpg", code: "NZ-181" },
-    { img: "15.jpg", code: "NZ-182" },
-    { img: "16.jpg", code: "NZ-183" },
-    { img: "17.jpg", code: "NZ-243" },
-    { img: "18.jpg", code: "NZ-244" },
-    { img: "19.jpg", code: "NZ-245" },
-  ];
+  framesList: any;
+  isLoaded: boolean = false;
+  category: string = 'frames';
 
-  constructor() {}
+  constructor(private wallpaperService: WallpaperService,private router:Router) {
+     this.generateAbstractFrameCollection();
+   }
 
   ngOnInit(): void {
-    this.generateAbstractFrameCollection();
   }
 
   generateAbstractFrameCollection(): void {
-    // const container = document.getElementById('abstractFrameCollection');
-    
-    // if (!container) {
-    //   console.error('Container element not found.');
-    //   return;
-    // }
+    this.isLoaded = true;
 
-    // this.frames.forEach((frame) => {
-    //   const item = `
-    //     <div class="item features-image col-12 col-md-6 col-lg-3">
-    //       <div class="item-wrapper">
-    //         <div class="item-img mb-3">
-    //           <img src="assets/images/wallyart/${frame.img}" alt="Try Refreshing this site..." data-slide-to="3" data-bs-slide-to="4">
-    //         </div>
-    //         <div class="item-content align-left">
-    //           <h5 class="item-title mbr-fonts-style mb-3 mt-0 display-7">
-    //             <!-- ${frame.code} -->
-    //           </h5>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   `;
-    //   container.innerHTML += item;
-    // });
+    this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
+      next: (data: any) => {
+        this.framesList = data;
+        console.log(this.framesList);
+        this.isLoaded = false;
+
+      },
+      error: (error) => {
+        console.error('Error fetching wallpapers:', error);
+        this.isLoaded = false;
+
+      },
+    });
+  }
+  openFrame(wallpaperId:string){
+    this.router.navigate(['/wallpaper', wallpaperId]);
   }
 }
