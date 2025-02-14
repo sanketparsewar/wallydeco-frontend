@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { FormControlName, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AddWallpaperComponent } from '../../shared/modals/add-wallpaper/add-wallpaper.component';
 import { LoaderComponent } from '../loader/loader.component';
 import { debounceTime, Subject } from 'rxjs';
-
 @Component({
   selector: 'app-wallpaper-data-table',
   imports: [
@@ -21,7 +20,7 @@ import { debounceTime, Subject } from 'rxjs';
 export class WallpaperDataTableComponent {
   isLoaded: boolean = false;
   tableData: any;
-  totalPages: number = 0;
+  totalPages: number[] = [];
   category: string[] = [
     'floral',
     'trending',
@@ -53,7 +52,9 @@ export class WallpaperDataTableComponent {
     this.wallpaperService.getWallpapers(this.queryParameter).subscribe({
       next: async (data: any) => {
         this.tableData = await data.wallpapers;
-        this.totalPages = data.totalPages; // Store total pages for pagination UI
+        for (let i = 0; i < data.totalPages; i++) {
+          this.totalPages.push(i); // Store total pages for pagination UI
+        }
         this.isLoaded = false;
         console.log('tabledata', this.tableData);
         console.log('totalpage', this.totalPages);
@@ -68,13 +69,6 @@ export class WallpaperDataTableComponent {
   onFilterChange() {
     console.log(this.queryParameter);
     this.searchSubject.next(); // Triggers the debounced API call
-  }
-
-  changePage(newPage: number) {
-    if (newPage >= 1 && newPage <= this.totalPages) {
-      this.queryParameter.page = newPage;
-      this.getAllWallpapers(); // Fetch new page data
-    }
   }
 
   onDelete(id: string) {
