@@ -15,7 +15,7 @@ export class FloralComponent implements OnInit {
   wallpaperList: any;
   isLoaded: boolean = false;
 
-  category: string = 'floral-pushpa';
+  category: string = 'floral';
   constructor(private wallpaperService: WallpaperService,private router:Router) {
     this.generateFloralCollection();
   }

@@ -15,16 +15,15 @@
       </div>
     </div>
     <div class="row" id="floralCollection">
-      <!-- Dynamic content will be inserted here -->
       <div *ngFor="let item of wallpaperList"
-        class="item features-image col-6 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
-        <div class="item-wrapper d-flex flex-column flex-lg-row" (click)="openWallpaper(item._id)" >
-          <div class="item-img">
+        class="col-6 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
+          <div class="card border-0 rounded-0" (click)="openWallpaper(item._id)">
             <img [src]="item.images[0]" alt="Try Refreshing this site..." class="img-fluid">
-            <strong>{{item.title}}</strong>
+            <p class="text-capitalize">{{item.title}}</p>
           </div>
-        </div>
       </div>
+      
+      
     </div>
   </div>
 </section>
