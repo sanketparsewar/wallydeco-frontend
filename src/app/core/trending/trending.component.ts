@@ -1,54 +1,49 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
+import { Router } from '@angular/router';
+import { LoaderComponent } from '../../component/loader/loader.component';
 
 @Component({
   selector: 'app-trending',
-  imports: [],
+  imports: [FormsModule, CommonModule, LoaderComponent],
   templateUrl: './trending.component.html',
-  styleUrl: './trending.component.css'
+  styleUrl: './trending.component.css',
 })
 export class TrendingComponent implements OnInit {
-  trendImages: string[] = [];
+  wallpaperList: any;
+  isLoaded: boolean = false;
 
-  constructor() {}
-
-  ngOnInit(): void {
+  category: string = 'trending';
+  constructor(
+    private wallpaperService: WallpaperService,
+    private router: Router
+  ) {
     this.generateTrendingCollection();
   }
 
-  generateTrendingCollection(): void {
-    // const container = document.getElementById('trendingCollection');
-    
-    // if (!container) {
-    //   console.error('Container element not found.');
-    //   return;
-    // }
-
-    // // Generate array of image names
-    // for (let i = 8; i <= 36; i++) {
-    //   // Skip page 11 as it's not in the original sequence
-    //   if (i !== 11) {
-    //     this.trendImages.push(`TRENDS_page-00${i.toString().padStart(2, '0')}.jpg`);
-    //   }
-    // }
-
-    // // Create and append image elements
-    // this.trendImages.forEach((img, index) => {
-    //   const item = `
-    //     <div class="item features-image col-12 col-md-6 col-lg-3">
-    //       <div class="item-wrapper">
-    //         <div class="item-img mb-3">
-    //           <img src="assets/images/wallpapers/trends/${img}" alt="Try Refreshing this site..." data-slide-to="3" data-bs-slide-to="4">
-    //         </div>
-    //         <div class="item-content align-left">
-    //           <h5 class="item-title mbr-fonts-style mb-3 mt-0 display-7">
-    //             <!-- NZ-${137 + index} -->
-    //           </h5>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   `;
-    //   container.innerHTML += item;
-    // });
+  ngOnInit() {
+    // this.generateFloralCollection();
   }
 
+  generateTrendingCollection() {
+    this.isLoaded = true;
+
+    this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
+      next: (data: any) => {
+        this.wallpaperList = data;
+        console.log(this.wallpaperList);
+        this.isLoaded = false;
+      },
+      error: (error) => {
+        console.error('Error fetching wallpapers:', error);
+        this.isLoaded = false;
+      },
+    });
+  }
+
+  openWallpaper(wallpaperId: string) {
+    this.router.navigate(['/wallpaper', wallpaperId]);
+  }
 }

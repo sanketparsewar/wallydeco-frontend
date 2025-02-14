@@ -3,17 +3,22 @@
   background-color: #ffffff;
 }
 
-.trending img,
-.trending .item-img {
+.trending img{
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.trending .item-img{
-  margin-bottom: 2rem;
+  height: 20rem;
+  object-fit: fill;
+  
 }
 
 img{
   border-radius: 1rem;
+}
+@media screen and (max-width: 510px) {
+  
+.trending img{
+  width: 100%;
+  height: 12rem;
+  object-fit: fill;
+  
+}
 }
