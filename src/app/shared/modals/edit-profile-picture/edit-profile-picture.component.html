@@ -1,0 +1,33 @@
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="onClose()"></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <label for="formFile" class="form-label px-4 text-center">choose profile <i
+                            class="fa-solid fa-upload"></i></label>
+                    <input class="form-control form-control-sm" type="file" id="formFile" name="file"
+                        (change)="onFileSelected($event)" style="display: none" type="file" />
+                </div>
+                <div class="text-center">
+                    <img [src]="updatedUser?.image" class="rounded-circle" width="100" alt="profile pic" />
+                </div>
+
+            </div>
+            <div class="text-center my-2 ">
+                <button type="button" (click)="uploadProfileFile()" *ngIf="selectedFile"
+                    class="btn btn-outline-success">
+                    <p class="m-0" *ngIf="!isLoaded">Upload</p>
+                    <div *ngIf="isLoaded" class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

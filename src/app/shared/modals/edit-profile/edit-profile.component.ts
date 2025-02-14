@@ -1,6 +1,6 @@
 import { UserService } from './../../../services/user/user.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../../../services/fileUpload/upload.service';
 @Component({
@@ -10,29 +10,11 @@ import { UploadService } from '../../../services/fileUpload/upload.service';
   styleUrl: './edit-profile.component.css',
 })
 export class EditProfileComponent implements OnInit {
-  @Input() user: any = {}
-  // @Input() user: any = {
-  //   name: '',
-  //   image: '',
-  //   email: '',
-  //   phone: '',
-  //   address: {
-  //     street: '',
-  //     city: '',
-  //     state: '',
-  //     zip: '',
-  //   },
-  //   gender: '',
-  // };
+  @Input() user: any = {};
+  @Output() getUpdatedUserData = new EventEmitter();
   updatedUser: any;
 
-  isLoaded: boolean = false;
-  selectedFile!: File;
-
-  constructor(
-    private uploadService: UploadService,
-    private userService: UserService
-  ) {}
+  constructor(private userService: UserService) {}
   ngOnInit(): void {
     this.updatedUser = {
       name: this.user.name,
@@ -49,30 +31,11 @@ export class EditProfileComponent implements OnInit {
     };
   }
 
-  onFileSelected(event: any): void {
-    if (event.target.files && event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0]; // Select the first file
-    }
-  }
-  uploadProfileFile() {
-    this.uploadService
-      .uploadFile(this.selectedFile, 'wallydeco/profile')
-      .subscribe({
-        next: (res: any) => {
-          this.updatedUser.image = res.file.url;
-          console.log('File uploaded successfully:', res.file.url);
-          this.onUpdate();
-        },
-        error: (error: any) => {
-          console.error('File upload failed:', error);
-        },
-      });
-  }
-
   onUpdate() {
     this.userService.updateUser(this.user._id, this.updatedUser).subscribe({
       next: (res: any) => {
         console.log('User updated successfully:', res);
+        this.getUpdatedUserData.emit();
       },
       error: (error: any) => {
         console.error('User update failed:', error);
@@ -82,8 +45,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.isLoaded = true;
     this.onUpdate();
   }
-  
 }

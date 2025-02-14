@@ -1,0 +1,19 @@
+label{
+    margin: 0;
+}
+
+
+.modal-dialog {
+    max-width: 300px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    min-height: 100vh; /* Ensures vertical centering */
+}
+
+.modal.fade .modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+
