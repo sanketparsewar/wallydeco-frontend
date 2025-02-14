@@ -23,7 +23,7 @@ export class WallpaperDataTableComponent {
   tableData: any;
   totalPages: number = 0;
   category: string[] = [
-    'floral-pushpa',
+    'floral',
     'trending',
     'top-picked',
     'frames',
