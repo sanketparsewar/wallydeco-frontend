@@ -14,7 +14,7 @@ export class AddWallpaperComponent {
   @Output() getAllWallpapers = new EventEmitter();
   availableColors: string[] = ['Red', 'Blue', 'Green', 'Black', 'White'];
   category: string[] = [
-    'floral-pushpa',
+    'floral',
     'trending',
     'top-picked',
     'frames',
