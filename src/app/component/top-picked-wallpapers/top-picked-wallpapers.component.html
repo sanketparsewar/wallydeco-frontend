@@ -1,47 +1,19 @@
 <section class="top-pick-wallpaper">
-    <div class="container-fluid">
-      <div class="row justify-content-center mb-5">
-        <div class="col-12 text-center">
-          <h1 class="fw-bold">Top Picked Wallpapers</h1>
-        </div>
-      </div>
-      <div class="row d-flex flex-wrap" id="topPickedWallpapers">
-        <!-- Dynamic content will be inserted here -->
-        <div class="item features-image col-12 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
-          <div class="item-wrapper d-flex flex-column flex-lg-row">
-            <div class="item-img mb-3">
-              <img src="assets/images/wallpapers/w14.jpg" alt="Try Refreshing this site..." class="img-fluid">
-              <strong>Wallpaper Title</strong>
-            </div>
-          </div>
-        </div>
-        <div class="item features-image col-12 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
-          <div class="item-wrapper d-flex flex-column flex-lg-row">
-            <div class="item-img mb-3">
-              <img src="assets/images/wallpapers/w14.jpg" alt="Try Refreshing this site..." class="img-fluid">
-              <strong>Wallpaper Title</strong>
-            </div>
-          </div>
-        </div>
-        <div class="item features-image col-12 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
-          <div class="item-wrapper d-flex flex-column flex-lg-row">
-            <div class="item-img mb-3">
-              <img src="assets/images/wallpapers/w14.jpg" alt="Try Refreshing this site..." class="img-fluid">
-              <strong>Wallpaper Title</strong>
-            </div>
-          </div>
-        </div>
-        
-        <div class="item features-image col-12 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
-          <div class="item-wrapper d-flex flex-column flex-lg-row">
-            <div class="item-img mb-3">
-              <img src="assets/images/wallpapers/w14.jpg" alt="Try Refreshing this site..." class="img-fluid">
-              <strong>Wallpaper Title</strong>
-            </div>
-          </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row justify-content-center mb-4">
+      <div class="col-12 text-center">
+        <h1 class="fw-bold">Top Picked Wallpapers</h1>
       </div>
     </div>
-  </section>
-  
-  
+
+    <div class="row" id="top-pick-wallpaper">
+      <div *ngFor="let item of wallpaperList" class="col-6 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
+        <div class="card border-0 rounded-0" (click)="openWallpaper(item._id)">
+          <img [src]="item.images[0]" alt="Try Refreshing this site..." class="img-fluid">
+          <p class="text-capitalize">{{item.title}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
