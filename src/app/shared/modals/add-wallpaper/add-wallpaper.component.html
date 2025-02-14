@@ -39,16 +39,17 @@
                         <div class="col-md-6">
                             <label class="form-label">Category</label>
                             <select class="form-select" name="category" [(ngModel)]="wallpaper.category">
+                                <option value="">Choose...</option>
                                 <option *ngFor="let item of category" [value]="item">{{ item }}</option>
                             </select>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-6">
                             <label class="form-label">Size</label>
                             <input type="text" class="form-control" name="size" [(ngModel)]="wallpaper.size" placeholder="Enter size (e.g., 11x12)" required>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-6">
                             <label class="form-label">Stock</label>
                             <input type="number" class="form-control" name="stock" [(ngModel)]="wallpaper.stock" placeholder="Enter stock quantity" required>
                         </div>
@@ -58,13 +59,14 @@
                             <div class="d-flex align-items-center gap-2">
                                 <input class="form-control form-control-sm w-75" id="formFileSm" type="file" required (change)="onFileSelected($event)">
                                 <i *ngIf="selectedFile" (click)="uploadWallpaper()" class="fa-solid fa-cloud-arrow-up fs-3"></i>
-                                <i *ngIf="wallpaper.images.length!==0" (click)="uploadWallpaper()" class="fa-regular fs-3 text-success fa-circle-check"></i>
+                                <i *ngIf="wallpaper.images.length!==0" class="fa-regular fs-3 text-success fa-circle-check"></i>
                             </div>
                             
                         </div>
 
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="wallpaperForm.invalid || wallpaper.images.length===0">Add Wallpaper</button>
+                        <div class="d-flex justify-content-between">
+                            <p class="text-secondary " ><i>Note: All Fields are required</i></p>
+                            <button type="submit" class="btn btn-sm btn-primary" data-bs-dismiss="modal" [disabled]="wallpaperForm.invalid || wallpaper.images.length===0">Add Wallpaper</button>
                         </div>
                     </div>
                 </form>
