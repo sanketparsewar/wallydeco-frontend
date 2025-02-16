@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class FramesComponent implements OnInit {
   isLoaded: boolean = false;
   category: string = 'frames';
 
-  constructor(private wallpaperService: WallpaperService,private router:Router) {
+  constructor(private wallpaperService: WallpaperService,private router:Router,private alertService:AlertService) {
      this.generateAbstractFrameCollection();
    }
 
@@ -29,12 +30,10 @@ export class FramesComponent implements OnInit {
     this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
       next: (data: any) => {
         this.framesList = data;
-        console.log(this.framesList);
-        this.isLoaded = false;
-
+          this.isLoaded = false;
       },
       error: (error) => {
-        console.error('Error fetching wallpapers:', error);
+        this.alertService.showError(error.error.message)
         this.isLoaded = false;
 
       },

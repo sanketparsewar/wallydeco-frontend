@@ -106,7 +106,11 @@
         *ngIf="wallpaperData?.stock != 0"
       >
         <button class="btn btn-outline-success w-100 mt-3 fw-bold text-success">
-          <a href="https://wa.me/917021018644" target="_blank">
+          <!-- <a class=" text-decoration-none text-dark"  href="https://wa.me/917021018644" target="_blank">
+            Order On WhatsApp
+            <i class="fa-brands fa-whatsapp text-success fs-4"></i>
+          </a> -->
+          <a class=" text-decoration-none text-dark" (click)="sendWhatsAppMessage()">
             Order On WhatsApp
             <i class="fa-brands fa-whatsapp text-success fs-4"></i>
           </a>

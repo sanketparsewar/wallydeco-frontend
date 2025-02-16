@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert/alert.service';
 import { LocalStorageService } from './../../../services/local/local-storage.service';
 import { AuthService } from './../../../services/auth/auth.service';
 import { Component } from '@angular/core';
@@ -19,19 +20,18 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    // private localStorageService: LocalStorageService
+    private alertService:AlertService
   ) {}
 
   onLogin() {
     this.authService.loginUser(this.loginData).subscribe({
       next: (res) => {
-        console.log(res);
-        // this.localStorageService.setItem('token', res.token);
+        this.alertService.showSuccess('Login successful!');
         // history.back()
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/profile');
       },
       error: (err) => {
-        console.log(err);
+        this.alertService.showError(err.error.message);
       },
     });
   }

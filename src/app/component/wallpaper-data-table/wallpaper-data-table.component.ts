@@ -1,3 +1,5 @@
+import { ConfirmService } from './../../services/confirm/confirm.service';
+import { AlertService } from './../../services/alert/alert.service';
 import { Component } from '@angular/core';
 import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
@@ -27,6 +29,7 @@ export class WallpaperDataTableComponent {
     'top-picked',
     'frames',
     'abstract-frames',
+    'scrollable',
   ];
   queryParameter: any = {
     search: '',
@@ -37,7 +40,11 @@ export class WallpaperDataTableComponent {
     limit: 10, // Default 10 items per page
   };
   private searchSubject = new Subject<void>(); // Debounce trigger
-  constructor(private wallpaperService: WallpaperService) {}
+  constructor(
+    private wallpaperService: WallpaperService,
+    private alertService: AlertService,
+    private confirmService: ConfirmService
+  ) {}
 
   ngOnInit() {
     this.getAllWallpapers();
@@ -56,8 +63,6 @@ export class WallpaperDataTableComponent {
           this.totalPages.push(i); // Store total pages for pagination UI
         }
         this.isLoaded = false;
-        console.log('tabledata', this.tableData);
-        console.log('totalpage', this.totalPages);
       },
       error: (error) => {
         console.error('Error fetching wallpapers:', error);
@@ -67,21 +72,24 @@ export class WallpaperDataTableComponent {
   }
 
   onFilterChange() {
-    console.log(this.queryParameter);
     this.searchSubject.next(); // Triggers the debounced API call
   }
 
   onDelete(id: string) {
-    if (confirm('Are you sure you want to delete?')) {
-      this.wallpaperService.deleteWallpaper(id).subscribe({
-        next: () => {
-          console.log('Wallpaper deleted successfully');
-          this.getAllWallpapers();
-        },
-        error: (error) => {
-          console.error('Error deleting wallpaper:', error);
-        },
+    this.confirmService
+      .showConfirm('Deleted Wallpaper')
+      .then((isConfirmed: any) => {
+        if (isConfirmed) {
+          this.wallpaperService.deleteWallpaper(id).subscribe({
+            next: (res) => {
+              this.alertService.showSuccess(res.message);
+              this.getAllWallpapers();
+            },
+            error: (error) => {
+              this.alertService.showError(error.error.message);
+            },
+          });
+        }
       });
-    }
   }
 }

@@ -19,29 +19,17 @@ import { OrderDataTableComponent } from '../../component/order-data-table/order-
 })
 export class AdminDashboardComponent implements OnInit {
   tableData: any;
-  // option: string='orders';
-  option: string = 'wallpapers';
+  option: string='orders';
+  // option: string = 'wallpapers';
 
   constructor(private wallpaperService: WallpaperService) {}
 
   onOption(option: string) {
     this.option = option;
-    console.log(this.option);
   }
 
   ngOnInit() {
-    // this.getAllWallpapers()
   }
 
-  // getAllWallpapers(){
-  //   this.wallpaperService.getWallpapers().subscribe({
-  //     next: (data: any) => {
-  //       this.tableData=data
-  //       console.log(this.tableData)
-  //     },
-  //     error: (error) => {
-  //       console.error('Error fetching wallpapers:', error);
-  //     }
-  //   })
-  // }
+  
 }

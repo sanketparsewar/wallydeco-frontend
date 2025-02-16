@@ -1,6 +1,7 @@
 .hero-container {
   display: flex;
-  background-image: url("../../../../public/assets/images/NZ-14.jpg");
+  background-image: url("https://res.cloudinary.com/dgcc3397p/image/upload/v1739708360/NZ-14_jgubdb.jpg");
+  /* background-image: url("../../../../public/assets/images/NZ-14.jpg"); */
   /* background-image: url("./images/wallpapers/pushpa/pushpa_15.jpg"); */
   background-size: cover;
   background-position: center;

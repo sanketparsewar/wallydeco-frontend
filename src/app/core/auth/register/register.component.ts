@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert/alert.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './../../../services/auth/auth.service';
 import { Component } from '@angular/core';
@@ -26,16 +27,16 @@ export class RegisterComponent {
     },
     gender: '',
   };
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,private alertService:AlertService) {}
 
   onRegister() {
     this.authService.registerUser(this.userData).subscribe({
-      next: () => {
-        console.log('User registered successfully');
+      next: (res) => {
+        this.alertService.showSuccess(res.message);
         this.router.navigateByUrl('/auth/login');
       },
       error: (error) => {
-        console.log('Error registering user', error);
+        this.alertService.showError(error.error.message)
       },
     });
   }

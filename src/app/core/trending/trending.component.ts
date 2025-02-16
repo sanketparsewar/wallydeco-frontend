@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert/alert.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +19,8 @@ export class TrendingComponent implements OnInit {
   category: string = 'trending';
   constructor(
     private wallpaperService: WallpaperService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {
     this.generateTrendingCollection();
   }
@@ -33,11 +35,10 @@ export class TrendingComponent implements OnInit {
     this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
       next: (data: any) => {
         this.wallpaperList = data;
-        console.log(this.wallpaperList);
         this.isLoaded = false;
       },
       error: (error) => {
-        console.error('Error fetching wallpapers:', error);
+        this.alertService.showError(error.error.message);
         this.isLoaded = false;
       },
     });

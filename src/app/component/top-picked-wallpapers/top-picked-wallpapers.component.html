@@ -1,4 +1,7 @@
-<section class="top-pick-wallpaper">
+@if(isLoaded){
+<app-loader></app-loader>
+}
+@else {<section class="top-pick-wallpaper">
   <div class="container-fluid">
     <div class="row justify-content-center mb-4">
       <div class="col-12 text-center">
@@ -16,4 +19,4 @@
 
     </div>
   </div>
-</section>
+</section>}
