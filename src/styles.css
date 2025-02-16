@@ -1,3 +1,7 @@
+/* // regular style toast */
+@import "ngx-toastr/toastr";
+
+
 img,
 .card-wrap,
 .card-wrapper,
