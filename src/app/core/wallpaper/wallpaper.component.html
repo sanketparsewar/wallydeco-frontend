@@ -3,132 +3,202 @@
 }@else {
 
 <div class="container mt-5 pt-5 bg-light p-3">
-    <div class="row">
-        <!-- Thumbnail Images -->
-        <div class="col-md-1 d-none d-md-block">
-            <div class="d-flex flex-column gap-2">
-                <img *ngFor="let image of wallpaperData?.images" [src]="image" alt="shoe image"
-                    (click)="onChangeMainImage(image)" class="thumbnail img-fluid" />
-                <!-- <img src="thumb4.jpg" class="thumbnail img-fluid" onclick="changeImage('main4.jpg')"> -->
-            </div>
-        </div>
+  <div class="row">
+    <!-- Thumbnail Images -->
+    <div class="col-md-1 d-none d-md-block">
+      <div class="d-flex flex-column gap-2">
+        <img
+          *ngFor="let image of wallpaperData?.images"
+          [src]="image"
+          alt="shoe image"
+          (click)="onChangeMainImage(image)"
+          class="thumbnail img-fluid"
+        />
+        <!-- <img src="thumb4.jpg" class="thumbnail img-fluid" onclick="changeImage('main4.jpg')"> -->
+      </div>
+    </div>
 
-        <!-- Main Image -->
-        <div class="col-md-5">
-            <!-- <img id="mainImage" src="main1.jpg" class="main-image img-fluid"> -->
-            <img *ngIf="!mainImage" [src]="wallpaperData?.images[0]" alt="shoe image" class="main-image img-fluid" />
-            <img *ngIf="mainImage" [src]="mainImage" alt="shoe image" class="main-image img-fluid" />
-        </div>
+    <!-- Main Image -->
+    <div class="col-md-5">
+      <!-- <img id="mainImage" src="main1.jpg" class="main-image img-fluid"> -->
+      <img
+        *ngIf="!mainImage"
+        [src]="wallpaperData?.images[0]"
+        alt="shoe image"
+        class="main-image img-fluid"
+      />
+      <img
+        *ngIf="mainImage"
+        [src]="mainImage"
+        alt="shoe image"
+        class="main-image img-fluid"
+      />
+    </div>
 
-        <!-- Product Details -->
-        <div class="col-md-6">
-            <span class="badge badge-custom mt-1 text-capitcalize">#1 Best Seller</span>
-            <h2 class="mt-2 text-capitalize">{{ wallpaperData?.title }}</h2>
-            <p class="text-muted">{{ wallpaperData?.description }}</p>
+    <!-- Product Details -->
+    <div class="col-md-6">
+      <span class="badge badge-custom mt-1 text-capitcalize"
+        >#1 Best Seller</span
+      >
+      <h2 class="mt-2 text-capitalize">{{ wallpaperData?.title }}</h2>
+      <p class="text-muted">{{ wallpaperData?.description }}</p>
 
-            <div class="btn-group my-3">
-                <button class="btn btn-dark">CATEGORY</button>
-                <button class="btn btn-outline-secondary text-capitalize">
-                    {{ wallpaperData?.category }}
-                </button>
-            </div>
+      <div class="btn-group my-3">
+        <button class="btn btn-dark">CATEGORY</button>
+        <button class="btn btn-outline-secondary text-capitalize">
+          {{ wallpaperData?.category }}
+        </button>
+      </div>
 
-            <h4 class="fw-bold">
-                MRP: {{ wallpaperData?.price | currency : "INR" }}
-            </h4>
-            <p class="text-muted">Inclusive of all taxes</p>
+      <h4 class="fw-bold">
+        MRP: {{ wallpaperData?.price | currency : "INR" }}
+      </h4>
+      <p class="text-muted">Inclusive of all taxes</p>
 
-            <div *ngIf="wallpaperData?.colorOptions.length !== 0">
-                <label class="fw-bold mt-2">COLOR OPTIONS</label>
-                <select class="form-select">
-                    <option value="" selected>Select Color</option>
-                    <option *ngFor="let color of wallpaperData?.colorOptions" [value]="color">
-                        {{ color }}
-                    </option>
-                </select>
-            </div>
+      <div *ngIf="wallpaperData?.colorOptions.length !== 0">
+        <label class="fw-bold mt-2">COLOR OPTIONS</label>
+        <select class="form-select">
+          <option value="" selected>Select Color</option>
+          <option
+            *ngFor="let color of wallpaperData?.colorOptions"
+            [value]="color"
+          >
+            {{ color }}
+          </option>
+        </select>
+      </div>
 
-            <label class="fw-bold mt-2">SIZE</label>
-            <input type="text" class="form-control bg-light" [value]="wallpaperData?.size" disabled />
+      <label class="fw-bold mt-2">SIZE</label>
+      <input
+        type="text"
+        class="form-control bg-light"
+        [value]="wallpaperData?.size"
+        disabled
+      />
 
-            <p class="text-danger mt-2">How To Measure?</p>
+      <p class="text-danger mt-2">How To Measure?</p>
 
-            <label class="fw-bold">QUANTITY (Available {{ wallpaperData?.stock }} )</label>
-            <div class="d-flex align-items-center">
-                <button class="quantity-btn btn" type="button" onclick="changeQuantity(-1)">
-                    <i class="fa-solid fa-minus"></i>
-                </button>
-                <input type="text" id="quantity" class="form-control text-center mx-2" value="1" style="width: 50px" />
-                <button class="quantity-btn btn" onclick="changeQuantity(1)">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-            </div>
+      <label class="fw-bold"
+        >QUANTITY (Available {{ wallpaperData?.stock }} )</label
+      >
+      <div class="d-flex align-items-center">
+        <button
+          class="quantity-btn btn"
+          type="button"
+          onclick="changeQuantity(-1)"
+        >
+          <i class="fa-solid fa-minus"></i>
+        </button>
+        <input
+          type="text"
+          id="quantity"
+          class="form-control text-center mx-2"
+          value="1"
+          style="width: 50px"
+        />
+        <button class="quantity-btn btn" onclick="changeQuantity(1)">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
 
-            <div class="d-flex gap-3 justify-content-center" *ngIf="wallpaperData?.stock != 0">
-                <button class="btn btn-outline-success w-100 mt-3 fw-bold text-success">
-                    Order On WhatsApp
-                    <i class="fa-brands fa-whatsapp text-success fs-4"></i>
-                </button>
-                <button class="btn w-100 mt-3 text-dark fw-bold" style="background-color: #c9beac">
-                    Add to Cart
-                </button>
-            </div>
+      <div
+        class="d-flex gap-3 justify-content-center"
+        *ngIf="wallpaperData?.stock != 0"
+      >
+        <button class="btn btn-outline-success w-100 mt-3 fw-bold text-success">
+          <a href="https://wa.me/917021018644" target="_blank">
+            Order On WhatsApp
+            <i class="fa-brands fa-whatsapp text-success fs-4"></i>
+          </a>
+        </button>
+        <button
+          class="btn w-100 mt-3 text-dark fw-bold"
+          style="background-color: #c9beac"
+        >
+          Add to Cart
+        </button>
+      </div>
 
-            <button class="btn btn-dark w-100 mt-3 fw-bold" disabled *ngIf="wallpaperData?.stock == 0">
-                Out of Stock
-            </button>
-            <!-- <button type="button" class="btn btn-primary" (click)="back()">
+      <button
+        class="btn btn-dark w-100 mt-3 fw-bold"
+        disabled
+        *ngIf="wallpaperData?.stock == 0"
+      >
+        Out of Stock
+      </button>
+      <!-- <button type="button" class="btn btn-primary" (click)="back()">
                 See more
             </button> -->
-        </div>
-        
+    </div>
+  </div>
 
+  <div class="row"></div>
+
+  <div class="row my-5 text-center d-flex justify-content-center">
+    <!-- Feature 1 -->
+    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
+      <img
+        width="70"
+        height="70"
+        src="https://img.icons8.com/color/48/rgb-circle-1--v1.png"
+        alt="Shiny Colors"
+      />
+      <p class="fw-bold mt-2">Shiny Colors</p>
     </div>
 
-    <div class="row">
-        
+    <!-- Feature 2 -->
+    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
+      <img
+        width="70"
+        height="70"
+        src="https://img.icons8.com/dotty/80/gloss-paper.png"
+        alt="Best Quality Material"
+      />
+      <p class="fw-bold mt-2">Top Quality Material</p>
     </div>
 
-    <div class="row my-5 text-center d-flex justify-content-center">
-        <!-- Feature 1 -->
-        <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-            <img width="70" height="70" src="https://img.icons8.com/color/48/rgb-circle-1--v1.png"
-                alt="Shiny Colors" />
-            <p class="fw-bold mt-2">Shiny Colors</p>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-            <img width="70" height="70" src="https://img.icons8.com/dotty/80/gloss-paper.png"
-                alt="Best Quality Material" />
-            <p class="fw-bold mt-2">Top Quality Material</p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-            <img width="70" height="70"
-                src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/external-man-male-profession-vitaliy-gorbachev-lineal-vitaly-gorbachev-44.png"
-                alt="Professional Installers" />
-            <p class="fw-bold mt-2">Professional Installation Services</p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-            <img width="70" height="70" src="https://img.icons8.com/ios/50/cleaning-a-surface.png"
-                alt="Easy to Clean" />
-            <p class="fw-bold mt-2">Easy to Clean</p>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-            <img width="70" height="70" src="https://img.icons8.com/dotty/80/consultation.png" alt="consultation"/>
-            <p class="fw-bold mt-2">Consultation with Experts</p>
-        </div>
-        <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-            <img width="70" height="70" src="https://img.icons8.com/pastel-glyph/64/security-checked--v2.png" alt="security-checked--v2"/>
-            <p class="fw-bold mt-2">Damage Protection Warranty</p>
-        </div>
+    <!-- Feature 3 -->
+    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
+      <img
+        width="70"
+        height="70"
+        src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/external-man-male-profession-vitaliy-gorbachev-lineal-vitaly-gorbachev-44.png"
+        alt="Professional Installers"
+      />
+      <p class="fw-bold mt-2">Professional Installation Services</p>
     </div>
+
+    <!-- Feature 4 -->
+    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
+      <img
+        width="70"
+        height="70"
+        src="https://img.icons8.com/ios/50/cleaning-a-surface.png"
+        alt="Easy to Clean"
+      />
+      <p class="fw-bold mt-2">Easy to Clean</p>
+    </div>
+
+    <!-- Feature 5 -->
+    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
+      <img
+        width="70"
+        height="70"
+        src="https://img.icons8.com/dotty/80/consultation.png"
+        alt="consultation"
+      />
+      <p class="fw-bold mt-2">Consultation with Experts</p>
+    </div>
+    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
+      <img
+        width="70"
+        height="70"
+        src="https://img.icons8.com/pastel-glyph/64/security-checked--v2.png"
+        alt="security-checked--v2"
+      />
+      <p class="fw-bold mt-2">Damage Protection Warranty</p>
+    </div>
+  </div>
 </div>
 
 <!-- Floating WhatsApp & Call Buttons -->
