@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert/alert.service';
 import { UserService } from './../../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -14,7 +15,10 @@ export class EditProfileComponent implements OnInit {
   @Output() getUpdatedUserData = new EventEmitter();
   updatedUser: any;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private alertService: AlertService
+  ) {}
   ngOnInit(): void {
     this.updatedUser = {
       name: this.user.name,
@@ -34,12 +38,11 @@ export class EditProfileComponent implements OnInit {
   onUpdate() {
     this.userService.updateUser(this.user._id, this.updatedUser).subscribe({
       next: (res: any) => {
-        console.log('User updated successfully:', res);
+        this.alertService.showSuccess(res.message);
         this.getUpdatedUserData.emit();
       },
       error: (error: any) => {
-        console.error('User update failed:', error);
-        alert('User update failed!');
+        this.alertService.showError(error.error.message);
       },
     });
   }

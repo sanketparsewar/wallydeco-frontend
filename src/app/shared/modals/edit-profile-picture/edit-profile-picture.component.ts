@@ -1,3 +1,5 @@
+import { ConfirmService } from './../../../services/confirm/confirm.service';
+import { AlertService } from './../../../services/alert/alert.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UploadService } from '../../../services/fileUpload/upload.service';
 import { UserService } from '../../../services/user/user.service';
@@ -19,7 +21,9 @@ export class EditProfilePictureComponent {
 
   constructor(
     private uploadService: UploadService,
-    private userService: UserService
+    private userService: UserService,
+    private alertService: AlertService,
+    private confirmService: ConfirmService
   ) {}
   ngOnInit(): void {
     this.updatedUser = {
@@ -38,11 +42,22 @@ export class EditProfilePictureComponent {
   }
 
   onFileSelected(event: any): void {
+    console.log(this.selectedFile)
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0]; // Select the first file
+      console.log(this.selectedFile)
     }
   }
   uploadProfileFile() {
+    this.confirmService
+      .showConfirm('Update Profile')
+      .then((isConfirmed: any) => {
+        if (isConfirmed) {
+          this.update();
+        }
+      });
+  }
+  update() {
     this.isLoaded = true;
     if (!this.selectedFile) {
       console.error('No file selected');
@@ -53,7 +68,6 @@ export class EditProfilePictureComponent {
       .subscribe({
         next: (res: any) => {
           this.updatedUser.image = res.file.url;
-          console.log('File uploaded successfully:', res.file.url);
           this.onUpdate();
         },
         error: (error: any) => {
@@ -65,13 +79,12 @@ export class EditProfilePictureComponent {
   onUpdate() {
     this.userService.updateUser(this.user._id, this.updatedUser).subscribe({
       next: (res: any) => {
-        console.log('User updated successfully:', res);
+        this.alertService.showSuccess(res.message);
         this.selectedFile = null;
         this.isLoaded = false;
       },
       error: (error: any) => {
-        console.error('User update failed:', error);
-        alert('User update failed!');
+        this.alertService.showError(error.error.message);
         this.isLoaded = false;
       },
     });

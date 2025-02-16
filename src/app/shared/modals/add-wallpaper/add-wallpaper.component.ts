@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert/alert.service';
 import { WallpaperService } from './../../../services/wallpaper/wallpaper.service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
@@ -19,6 +20,7 @@ export class AddWallpaperComponent {
     'top-picked',
     'frames',
     'abstract-frames',
+    'scrollable'
   ];
   imagePreview: string = '';
   selectedFile: File | null = null;
@@ -37,7 +39,8 @@ export class AddWallpaperComponent {
 
   constructor(
     private wallpaperService: WallpaperService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private alertService:AlertService
   ) {}
 
   onColorChange(event: any, selectedcolorOptions: string) {
@@ -69,14 +72,14 @@ export class AddWallpaperComponent {
         next: (res: any) => {
           if (res.file && res.file.url) {
             this.wallpaper.images.push(res.file.url);
-            console.log('File uploaded successfully:', res.file.url);
+            this.alertService.showSuccess('File uploaded successfully.')
             this.selectedFile = null;
           } else {
-            console.error('Invalid response structure:', res);
+            this.alertService.showError('Invalid response structure.');
           }
         },
         error: (error: any) => {
-          console.error('File upload failed:', error);
+          this.alertService.showError(error.error.message);
         },
       });
   }
@@ -85,12 +88,11 @@ export class AddWallpaperComponent {
   onAddWallpaper() {
     this.wallpaperService.createWallpaper(this.wallpaper).subscribe({
       next: (res: any) => {
-        console.log('Wallpaper added successfully:', res);
+        this.alertService.showSuccess('Wallpaper added successfully!');
         this.getAllWallpapers.emit();
       },
       error: (error: any) => {
-        console.error('Wallpaper addition failed:', error);
-        alert('Wallpaper addition failed!');
+        this.alertService.showError(error.error.message);
       },
     });
   }
