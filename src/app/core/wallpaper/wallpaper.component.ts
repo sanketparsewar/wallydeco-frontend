@@ -54,7 +54,7 @@ I would like to place an order for a wallpaper. Below are the details:
 
 🖼 Wallpaper Name: ${this.wallpaperData.title}  
 📂 Category: ${this.wallpaperData.category}  
-🎨 Color: ${this.wallpaperData.color}  
+🎨 Color: ${this.wallpaperData.colorOptions}  
 📝 Description: ${this.wallpaperData.description}  
 💰 Price: ₹${this.wallpaperData.price}  
 📏 Size: ${this.wallpaperData.size}  
