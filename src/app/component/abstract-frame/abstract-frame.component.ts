@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert/alert.service';
 import { Component } from '@angular/core';
 import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
 import { Router } from '@angular/router';
@@ -17,7 +18,8 @@ export class AbstractFrameComponent {
 
   constructor(
     private wallpaperService: WallpaperService,
-    private router: Router
+    private router: Router,
+    private alertService:AlertService
   ) {}
 
   ngOnInit(): void {
@@ -30,11 +32,10 @@ export class AbstractFrameComponent {
     this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
       next: (data: any) => {
         this.framesList = data;
-        console.log(this.framesList);
         this.isLoaded = false;
       },
       error: (error) => {
-        console.error('Error fetching wallpapers:', error);
+        this.alertService.showError(error.error.message)
         this.isLoaded = false;
       },
     });
