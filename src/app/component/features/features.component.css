@@ -2,7 +2,8 @@
 .features {
     padding-top: 3rem;
     padding-bottom: 3rem;
-    background-image: url("../../../../public/assets/images/NZ-6.jpg");
+    background-image: url("https://res.cloudinary.com/dgcc3397p/image/upload/v1739708520/NZ-6_tl4cr8.jpg");
+    /* background-image: url("../../../../public/assets/images/NZ-6.jpg"); */
   }
   .features .item-wrapper img {
     width: 80px;
