@@ -11,13 +11,9 @@ export class WallpaperService {
   constructor(private http: HttpClient, private apiService: ApiService) {
     this.BASE_URL = apiService.getBaseUrl();
   }
-  // getWallpapers(): Observable<any> {
-  //   return this.http.get<any>(`${this.BASE_URL}/wallpaper`,);
-  // }
 
   getWallpapers(filters: any = {}): Observable<any> {
     let params = new HttpParams();
-    // Add filters to params if they exist and are not empty.
     Object.keys(filters).forEach((key) => {
       if (filters[key]) {
         params = params.set(key, filters[key]);
