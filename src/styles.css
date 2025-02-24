@@ -23,18 +23,11 @@ body {
   );
 }
 
-/* img,
-.item-img {
-  width: 100%;
-  height: 20rem;
-  object-fit:cover;
-} */
 
-/* @media screen and (max-width: 767px) {
-  img,
-  .item-img {
-    width: 100%;
-    height: 12rem;
-    object-fit: cover;
-  }
-} */
+
+.heart-icon {
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  transition: color 0.1s ease-in-out;
+}
