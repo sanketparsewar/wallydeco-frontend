@@ -5,10 +5,11 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Iuser } from '../../../shared/models/user.interface';
+import { FooterComponent } from '../../../component/footer/footer.component';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule,FooterComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

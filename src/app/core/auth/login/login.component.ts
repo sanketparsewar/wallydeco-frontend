@@ -5,10 +5,11 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { FooterComponent } from '../../../component/footer/footer.component';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule,RouterLink],
+  imports: [FormsModule, CommonModule,RouterLink,FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

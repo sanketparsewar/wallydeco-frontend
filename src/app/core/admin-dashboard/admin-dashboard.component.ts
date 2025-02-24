@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AddWallpaperComponent } from '../../shared/modals/add-wallpaper/add-wallpaper.component';
 import { WallpaperDataTableComponent } from '../../component/wallpaper-data-table/wallpaper-data-table.component';
 import { OrderDataTableComponent } from '../../component/order-data-table/order-data-table.component';
+import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,13 +14,14 @@ import { OrderDataTableComponent } from '../../component/order-data-table/order-
     FormsModule,
     WallpaperDataTableComponent,
     OrderDataTableComponent,
+    FooterComponent,
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
 })
 export class AdminDashboardComponent implements OnInit {
   tableData: any;
-  option: string='orders';
+  option: string = 'orders';
   // option: string = 'wallpapers';
 
   constructor(private wallpaperService: WallpaperService) {}
@@ -28,8 +30,5 @@ export class AdminDashboardComponent implements OnInit {
     this.option = option;
   }
 
-  ngOnInit() {
-  }
-
-  
+  ngOnInit() {}
 }
