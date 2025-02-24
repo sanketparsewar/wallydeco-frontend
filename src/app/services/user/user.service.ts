@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,9 @@ export class UserService {
     private apiService: ApiService,
     private localStorageService: LocalStorageService
   ) {
-    this.BASE_URL = this.apiService.getBaseUrl();
+    // this.BASE_URL = this.apiService.getBaseUrl();
+        this.BASE_URL = environment.apiUrl;
+    
   }
 
   getUser(userId: string): Observable<any> {

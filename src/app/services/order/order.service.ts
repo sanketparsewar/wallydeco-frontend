@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import { ApiService } from '../api/api.service';
 export class OrderService {
   private BASE_URL: string;
     constructor(private http: HttpClient, private apiService: ApiService) {
-      this.BASE_URL = apiService.getBaseUrl();
+      // this.BASE_URL = apiService.getBaseUrl();
+      this.BASE_URL = environment.apiUrl;
     }
   createOrder(orderData:any) {
     return this.http.post(`${this.BASE_URL}/order/`, orderData);

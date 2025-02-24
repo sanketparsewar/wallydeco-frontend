@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../api/api.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,8 @@ import { ApiService } from '../api/api.service';
 export class UploadService {
   private BASE_URL: string;
     constructor(private http: HttpClient, private apiService: ApiService) {
-      this.BASE_URL = apiService.getBaseUrl();
+      // this.BASE_URL = apiService.getBaseUrl();
+      this.BASE_URL = environment.apiUrl;
     }
 
     uploadFile(file: File, folder: string): Observable<any> {

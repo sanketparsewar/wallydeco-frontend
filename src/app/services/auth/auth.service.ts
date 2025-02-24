@@ -2,6 +2,7 @@ import { ApiService } from './../api/api.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,8 @@ export class AuthService {
   private BASE_URL: string;
 
   constructor(private http: HttpClient, private apiService: ApiService) {
-    this.BASE_URL = apiService.getBaseUrl();
+    // this.BASE_URL = apiService.getBaseUrl();
+    this.BASE_URL = environment.apiUrl;
   }
 
   registerUser(user: any): Observable<any> {

@@ -17,6 +17,6 @@ export class ConfirmService {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
-    }).then((result) => result.isConfirmed);
+    }).then((result:any) => result.isConfirmed);
   }
 }
