@@ -7,6 +7,7 @@ import { AbstractFrameComponent } from '../../component/abstract-frame/abstract-
 import { TopPickedWallpapersComponent } from '../../component/top-picked-wallpapers/top-picked-wallpapers.component';
 import { StoryComponent } from '../../component/story/story.component';
 import { FollowComponent } from '../../component/follow/follow.component';
+import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ import { FollowComponent } from '../../component/follow/follow.component';
     AbstractFrameComponent,
     FeaturesComponent,
     FaqComponent,
-    FollowComponent
+    FollowComponent,FooterComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

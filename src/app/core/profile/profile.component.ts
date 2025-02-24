@@ -9,6 +9,7 @@ import { LoaderComponent } from '../../component/loader/loader.component';
 import { Router, RouterLink } from '@angular/router';
 import { EditProfilePictureComponent } from '../../shared/modals/edit-profile-picture/edit-profile-picture.component';
 import Swal from 'sweetalert2';
+import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,7 @@ import Swal from 'sweetalert2';
     LoaderComponent,
     RouterLink,
     EditProfilePictureComponent,
+    FooterComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',

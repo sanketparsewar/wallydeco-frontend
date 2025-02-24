@@ -17,7 +17,10 @@
       <div *ngFor="let item of framesList" class="col-6 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
           <div class="card border-0 rounded-0" (click)="openFrame(item._id)">
             <img [src]="item.images[0]" alt="Try Refreshing this site..." class="">
-            <p class="   text-capitalize">{{item.title}}</p>
+            <div class="d-flex flex-column justify-content-between" >
+              <p class="text-capitalize m-0">{{item.title}}</p>
+              <p class="">starts at {{item.price | currency:"INR" }}</p>
+            </div>
           </div>
       </div>
       
@@ -25,4 +28,7 @@
     </div>
   </div>
 </section>
+
+<app-footer></app-footer>
 }
+

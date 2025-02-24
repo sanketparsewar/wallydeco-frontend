@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../../component/loader/loader.component';
+import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-trending',
-  imports: [FormsModule, CommonModule, LoaderComponent],
+  imports: [FormsModule, CommonModule, LoaderComponent,FooterComponent],
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.css',
 })
@@ -28,6 +29,13 @@ export class TrendingComponent implements OnInit {
   ngOnInit() {
     // this.generateFloralCollection();
   }
+  toggleFavorite(event: Event, item: any) {
+    const target = event.target as HTMLElement;
+    target.classList.toggle('text-danger'); // Toggle red color
+    target.classList.toggle('fa-solid'); // Change icon to solid heart
+    target.classList.toggle('fa-regular'); // Toggle back to regular heart
+  }
+  
 
   generateTrendingCollection() {
     this.isLoaded = true;

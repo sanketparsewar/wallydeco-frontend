@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from '../../component/loader/loader.component';
+import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-frames',
-  imports: [CommonModule,FormsModule,LoaderComponent],
+  imports: [CommonModule,FormsModule,LoaderComponent,FooterComponent],
   templateUrl: './frames.component.html',
   styleUrl: './frames.component.css'
 })

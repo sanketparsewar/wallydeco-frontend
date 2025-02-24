@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { LoaderComponent } from '../../component/loader/loader.component';
+import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-wallpaper',
-  imports: [CurrencyPipe, CommonModule, LoaderComponent],
+  imports: [CurrencyPipe, CommonModule, LoaderComponent,FooterComponent],
   templateUrl: './wallpaper.component.html',
   styleUrl: './wallpaper.component.css',
 })

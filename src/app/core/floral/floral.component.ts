@@ -5,10 +5,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../../component/loader/loader.component';
+import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-floral',
-  imports: [FormsModule, CommonModule, LoaderComponent],
+  imports: [FormsModule, CommonModule, LoaderComponent,FooterComponent],
   templateUrl: './floral.component.html',
   styleUrl: './floral.component.css',
 })

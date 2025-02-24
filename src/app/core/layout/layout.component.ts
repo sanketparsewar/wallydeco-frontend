@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-layout',
   imports: [
-    FooterComponent,
+    
     RouterOutlet,
     RouterLink,
     CommonModule,

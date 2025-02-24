@@ -36,8 +36,9 @@
 
       </ul>
       <form class="d-flex justify-content-center gap-2 " role="search">
-        <a type="submit"><span class="material-icons">shopping_bag</span></a>
-        <a type="submit" [routerLink]="['profile']" class="text-dark" (click)="closeNavbar()"><span
+        <span class="material-icons">favorite</span>
+        <a ><span [routerLink]="['cart']" class="material-icons">shopping_bag</span></a>
+        <a [routerLink]="['profile']" class="text-dark" (click)="closeNavbar()"><span
             class="material-icons">account_circle</span></a>
       </form>
     </div>
@@ -47,5 +48,3 @@
 
 <router-outlet></router-outlet>
 
-
-<app-footer></app-footer>
