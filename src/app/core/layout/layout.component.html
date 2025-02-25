@@ -36,8 +36,8 @@
 
       </ul>
       <form class="d-flex justify-content-center gap-2 " role="search">
-        <span class="material-icons">favorite</span>
-        <a ><span [routerLink]="['cart']" class="material-icons">shopping_bag</span></a>
+        <span class="material-icons" (click)="closeNavbar()">favorite</span>
+        <a ><span [routerLink]="['/cart']" class="material-icons" (click)="closeNavbar()">shopping_bag</span></a>
         <a [routerLink]="['profile']" class="text-dark" (click)="closeNavbar()"><span
             class="material-icons">account_circle</span></a>
       </form>

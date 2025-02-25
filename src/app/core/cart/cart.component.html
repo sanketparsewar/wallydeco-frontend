@@ -1,88 +1,65 @@
-<main class="container py-5">
-    <div class="mb-3">
-      <a href="#" class="text-dark fw-bold">&larr; Shop</a>
-    </div>
-    
-    <h1 class="text-center fw-bold mb-4">Your Cart</h1>
-    
-    <div class="row">
-      <!-- Cart Items -->
-      <div class="col-12 col-sm-8">
-        
-        <!-- Item 1 -->
-        <div class="row align-items-center bg-white shadow-sm p-3 rounded mb-3">
-          <div class="col-3">
-            <img class="w-100 rounded" src="https://badux.co/smc/codepen/birdcage-posters.jpg" alt="art image">
-          </div>
-          <div class="col-5">
-            <h6 class="fw-bold">Dark Art 1</h6>
-            <p class="mb-1">20 x 24</p>
-          </div>
-          <div class="col-2 text-center">
-            <div class="d-flex align-items-center">
-                <button
-                  class="quantity-btn btn"
-                  type="button"
-                  onclick="changeQuantity(-1)"
-                >
-                  <i class="fa-solid fa-minus"></i>
-                </button>
-                <input
-                  type="text"
-                  id="quantity"
-                  class="form-control text-center mx-2"
-                  value="1"
-                  style="width: 50px"
-                />
-                <button class="quantity-btn btn" onclick="changeQuantity(1)">
-                  <i class="fa-solid fa-plus"></i>
-                </button>
-              </div>
-          </div>
-          <div class="col-2 text-end">
-            <p class="fw-bold">Total $66</p>
-          </div>
+<main class="container pt-4 mt-5">
+  <h1 class="text-center fw-bold mb-4">Your Bag</h1>
+
+  <div class="row">
+    <!-- Cart Items -->
+    <div class="col-12 col-md-8">
+      <div class="row align-items-center bg-white shadow-sm p-2 rounded mb-2 mx-1">
+        <div class="col-2 p-2">
+          <img
+            class="w-100 rounded"
+            src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wallpaper/w/c/c/wd45-325-40-walldecor-original-imagtdgzughf4ehn.jpeg?q=90&crop=false"
+            alt="art image"
+          />
         </div>
-
-        <!-- Item 2 -->
-        <div class="row align-items-center bg-white shadow-sm p-3 rounded mb-3">
-          <div class="col-3">
-            <img class="w-100 rounded" src="https://badux.co/smc/codepen/birdcage-posters.jpg" alt="art image">
-          </div>
-          <div class="col-5">
-            <h6 class="fw-bold">Dark Art 2</h6>
-            <p class="mb-1">20 x 24</p>
-            <p class="mb-1">Matte Print</p>
-          </div>
-          <div class="col-2 text-center">
-            <p class="bg-light py-1 px-3 rounded border">1</p>
-          </div>
-          <div class="col-2 text-end">
-            <p class="fw-bold">$66</p>
-          </div>
+        <div class="col-4 p-0 text-start">
+          <h6 class="fw-bold mb-1 text-truncate">
+            Dark Art 1Lorem ipsum dolor sit amet.
+          </h6>
+          <p class="mb-1">20 x 24</p>
         </div>
-
-      </div>
-
-      <!-- Checkout Section -->
-      <div class="col-12 col-sm-4">
-        <div class="bg-white shadow-sm p-4 rounded">
-          <div class="d-flex justify-content-between mb-2">
-            <h6 class="fw-bold">Subtotal</h6>
-            <p class="fw-bold">$132.00</p>
-          </div>
-          <div class="d-flex justify-content-between mb-2">
-            <h6 class="fw-bold">Tax</h6>
-            <p class="fw-bold">$6.40</p>
-          </div>
-          <hr>
-          <div class="d-flex justify-content-between mb-3">
-            <h5 class="fw-bold">Total</h5>
-            <p class="fw-bold fs-5">$138.40</p>
-          </div>
-          <a href="#" class="btn btn-dark w-100 text-uppercase py-2">Checkout</a>
+        <div class="col-4 d-flex align-items-center justify-content-center p-0">
+          <button class="btn btn-sm" type="button" (click)="changeQuantity(-1)">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <input
+            type="text"
+            id="quantity" readonly disabled
+            class="form-control text-center border-0"
+            value="15"
+            style="width: 50px"
+          />
+          <button class="btn btn-sm" type="button" (click)="changeQuantity(1)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+        <div class="col-2 p-0 text-center">
+          <p class="fw-bold m-0">$66</p>
         </div>
       </div>
-      
     </div>
-  </main>
+
+    <!-- Checkout Section -->
+    <div class="col-12 col-md-4">
+      <div class="bg-white shadow-sm p-4 rounded">
+        <div class="d-flex justify-content-between">
+          <h6 class="fw-bold">Subtotal</h6>
+          <p class="fw-bold">$132.00</p>
+        </div>
+        <div class="d-flex justify-content-between ">
+          <h6 class="fw-bold">Tax</h6>
+          <p class="fw-bold">$6.40</p>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-between">
+          <h5 class="fw-bold">Total</h5>
+          <p class="fw-bold fs-5">$138.40</p>
+        </div>
+        <a class="btn btn-dark w-100 text-uppercase py-2">Checkout</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<app-footer></app-footer>
