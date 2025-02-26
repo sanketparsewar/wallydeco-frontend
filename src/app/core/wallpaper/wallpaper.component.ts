@@ -1,11 +1,18 @@
-import { CartService } from './../../services/cart/cart.service';
 import { AlertService } from './../../services/alert/alert.service';
 import { WallpaperService } from './../../services/wallpaper/wallpaper.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { FooterComponent } from '../../component/footer/footer.component';
+// import { IcartItem } from '../../shared/models/cart.interface';
+// import { Store } from '@ngrx/store';
+// import { addItem, addToCart } from '../../shared/store/cart.actions';
+import { Observable } from 'rxjs';
+import { selectCartItems } from '../../shared/store/cart.selectors';
+import { IcartItem } from '../../shared/store/cart.state';
+import { Store } from '@ngrx/store';
+import { addItem } from '../../shared/store/cart.actions';
 
 @Component({
   selector: 'app-wallpaper',
@@ -19,12 +26,14 @@ export class WallpaperComponent implements OnInit {
   isLoaded: boolean = false;
   selectedColor: any;
 
+  store = inject(Store);
+  cartItems$: Observable<IcartItem[]> = this.store.select(selectCartItems);
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private wallpaperService: WallpaperService,
-    private alertService: AlertService,
-    private cartService: CartService
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {
@@ -56,20 +65,44 @@ export class WallpaperComponent implements OnInit {
     this.selectedColor = event.target.value;
   }
 
-  addToCart() {
-    this.cartService.addToCart({
-      id: this.wallpaperData._id,
+  // addToCart() {
+  //   this.cartService.addToCart({
+  //     id: this.wallpaperData._id,
+  //     title: this.wallpaperData.title,
+  //     image: this.wallpaperData.images[0],
+  //     category: this.wallpaperData.category,
+  //     stock: this.wallpaperData.stock,
+  //     size: this.wallpaperData.size,
+  //     color: this.selectedColor,
+  //     price: this.wallpaperData.price,
+  //     quantity: 1,
+  //     totalPrice: this.wallpaperData.price,
+  //   });
+  //   this.alertService.showSuccess('Wallpaper added to cart successfully!');
+  //   this.router.navigateByUrl('/cart');
+  // }
+  // addToCart(item: IcartItem) {
+  //   this.store.dispatch(addToCart({ item }));
+  //   console.log('added',item)
+  // }
+
+  addToCart(productObj: any) {
+    const cartItem: IcartItem = {
+      id: productObj._id,
       title: this.wallpaperData.title,
+      price: this.wallpaperData.price,
       image: this.wallpaperData.images[0],
       category: this.wallpaperData.category,
       stock: this.wallpaperData.stock,
       size: this.wallpaperData.size,
       color: this.selectedColor,
-      price: this.wallpaperData.price,
-      quantity: 1,
-      totalPrice: this.wallpaperData.price,
-    });
-    this.alertService.showSuccess('Wallpaper added to cart successfully!');
+      quantity: 1, // Default to quantity 1
+    };
+    this.store.dispatch(addItem({ item: cartItem }));
+    this.alertService.showSuccess('Added to cart!');
+  }
+
+  openCart() {
     this.router.navigateByUrl('/cart');
   }
 

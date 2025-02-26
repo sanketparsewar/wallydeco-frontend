@@ -3,10 +3,11 @@
 }@else {
 
 <div class="container mt-5 pt-5 bg-light p-3">
+
   <div class="row">
     <!-- Thumbnail Images -->
     <div class="col-md-1 d-none d-md-block">
-      <div class="d-flex flex-column gap-2">
+      <div class="d-flex flex-column gap-2 ">
         <img *ngFor="let image of wallpaperData?.images" [src]="image" alt="shoe image"
           (click)="onChangeMainImage(image)" class="thumbnail img-fluid" />
         <!-- <img src="thumb4.jpg" class="thumbnail img-fluid" onclick="changeImage('main4.jpg')"> -->
@@ -14,11 +15,13 @@
     </div>
 
     <!-- Main Image -->
-    <div class="col-md-5">
+    <div class="col-md-5 position-relative">
       <!-- <img id="mainImage" src="main1.jpg" class="main-image img-fluid"> -->
       <img *ngIf="!mainImage" [src]="wallpaperData?.images[0]" alt="shoe image" class="main-image img-fluid" />
       <img *ngIf="mainImage" [src]="mainImage" alt="shoe image" class="main-image img-fluid" />
+
     </div>
+    <p (click)="back()" class="position-absolute"><i class="fa-solid p-2 m-1 rounded-circle fs-3 fa-circle-left" style="background-color: rgba(218, 207, 188, 0.7);backdrop-filter: blur(10px);"></i></p>
 
     <!-- Product Details -->
     <div class="col-md-6">
@@ -40,7 +43,7 @@
 
       <div *ngIf="wallpaperData?.colorOptions.length !== 0">
         <label class="fw-bold mt-2">COLOR OPTIONS</label>
-        <select class="form-select" (click)="selectColor($event)" >
+        <select class="form-select" (click)="selectColor($event)">
           <option value="" selected>Select Color</option>
           <option *ngFor="let color of wallpaperData?.colorOptions" [value]="color">
             {{ color }}
@@ -54,24 +57,16 @@
       <p class="text-danger mt-2">How To Measure?</p>
 
       <label class="fw-bold">IN STOCK (Available {{ wallpaperData?.stock }} )</label>
-      <!-- <div class="d-flex align-items-center">
-        <button class="quantity-btn btn" type="button" onclick="changeQuantity(-1)">
-          <i class="fa-solid fa-minus"></i>
-        </button>
-        <input type="text" id="quantity" class="form-control text-center mx-2" value="1" style="width: 50px" />
-        <button class="quantity-btn btn" onclick="changeQuantity(1)">
-          <i class="fa-solid fa-plus"></i>
-        </button>
-      </div> -->
 
       <div class="d-flex gap-3 justify-content-center" *ngIf="wallpaperData?.stock != 0">
         <button class="btn btn-outline-success w-100 mt-3 fw-bold text-success" (click)="sendWhatsAppMessage()">
-          <a class=" text-decoration-none text-dark" >
+          <a class=" text-decoration-none text-dark">
             Order On WhatsApp
             <i class="fa-brands fa-whatsapp text-success fs-4"></i>
           </a>
         </button>
-        <button class="btn w-100 mt-3 text-dark fw-bold" (click)="addToCart()" style="background-color: #c9beac">
+        <button class="btn w-100 mt-3 text-dark fw-bold" (click)="addToCart(wallpaperData)"
+          style="background-color: #c9beac">
           Add to Cart
         </button>
       </div>
@@ -125,9 +120,19 @@
 </div>
 
 <!-- Floating WhatsApp & Call Buttons -->
+<div class="floating-icons" *ngIf="(cartItems$ | async)?.length">
+  <button type="button" (click)="openCart()" style="background-color: #c2a671;"
+    class=" border-0 btn rounded-circle btn-lg btn-primary position-relative">
+    <i class="fa-solid text-dark fa-bag-shopping"></i>
+    <span class="position-absolute top-1 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+      <span class="visually-hidden">New item</span>
+    </span>
+  </button>
+</div>
+
 <!-- <div class="floating-icons">
     <a href="tel:+919876543210" class="call"><i class="bi bi-telephone"></i></a>
-    <a href="https://wa.me/919876543210" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
+    <a href="https://wa.me/919876543210" class="whatsapp"><i class="fa-solid fa-bag-shopping"></i></a>
 </div> -->
 
 <app-footer></app-footer>
