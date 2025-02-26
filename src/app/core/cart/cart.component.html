@@ -1,13 +1,12 @@
 @if(isLoaded){
 <app-loader></app-loader>
 }@else {
-
   
   <div class="container pt-4 mt-5 ">
     <h1 class="text-center fw-bold mb-4">Your Bag</h1>
     <div class="text-center" *ngIf="!(cartItems$ | async)?.length">
       <p>Empty!</p>
-      <button class="btn btn-dark btn-sm my-3" (click)="back()"  >Continue Shopping</button>
+      <button class="btn btn-sm my-3" style="background-color: #c9beac;"  (click)="back()">Continue Shopping</button>
     </div>
     <div class="row" *ngIf="(cartItems$ | async)?.length">
       <!-- Cart Items -->
