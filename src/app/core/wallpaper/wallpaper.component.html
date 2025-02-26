@@ -59,18 +59,18 @@
       <label class="fw-bold">IN STOCK (Available {{ wallpaperData?.stock }} )</label>
 
       <div class="d-flex gap-3 justify-content-center" *ngIf="wallpaperData?.stock != 0">
-        <button class="btn btn-outline-success w-100 mt-3 fw-bold text-success" (click)="sendWhatsAppMessage()">
+        <button class="btn btn-sm btn-outline-success w-100 mt-3 fw-bold text-success" (click)="sendWhatsAppMessage()">
           <a class=" text-decoration-none text-dark">
             Order On WhatsApp
             <i class="fa-brands fa-whatsapp text-success fs-4"></i>
           </a>
         </button>
-        <button class="btn w-100 mt-3 text-dark fw-bold" (click)="addToCart(wallpaperData)"
+        <button class="btn btn-sm w-100 mt-3 text-dark fw-bold" (click)="addToCart(wallpaperData)"
           style="background-color: #c9beac">
           Add to Cart
         </button>
       </div>
-      <button class="btn btn-danger w-100 mt-3 fw-bold" disabled *ngIf="wallpaperData?.stock == 0">
+      <button class="btn btn-sm btn-danger w-100 mt-3 fw-bold" disabled *ngIf="wallpaperData?.stock == 0">
         Out of Stock
       </button>
 
@@ -120,7 +120,7 @@
 </div>
 
 <!-- Floating WhatsApp & Call Buttons -->
-<div class="floating-icons" *ngIf="(cartItems$ | async)?.length">
+<!-- <div class="floating-icons" *ngIf="(cartItems$ | async)?.length">
   <button type="button" (click)="openCart()" style="background-color: #c2a671;"
     class=" border-0 btn rounded-circle btn-lg btn-primary position-relative">
     <i class="fa-solid text-dark fa-bag-shopping"></i>
@@ -128,7 +128,7 @@
       <span class="visually-hidden">New item</span>
     </span>
   </button>
-</div>
+</div> -->
 
 <!-- <div class="floating-icons">
     <a href="tel:+919876543210" class="call"><i class="bi bi-telephone"></i></a>
