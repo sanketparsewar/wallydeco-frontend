@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart/cart.service';
 import { AlertService } from './../../services/alert/alert.service';
 import { WallpaperService } from './../../services/wallpaper/wallpaper.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +9,7 @@ import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-wallpaper',
-  imports: [CurrencyPipe, CommonModule, LoaderComponent,FooterComponent],
+  imports: [CurrencyPipe, CommonModule, LoaderComponent, FooterComponent],
   templateUrl: './wallpaper.component.html',
   styleUrl: './wallpaper.component.css',
 })
@@ -16,13 +17,16 @@ export class WallpaperComponent implements OnInit {
   wallpaperData: any;
   mainImage: string = '';
   isLoaded: boolean = false;
+  selectedColor: any;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private wallpaperService: WallpaperService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private cartService: CartService
   ) {}
+
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       if (params['wallpaperId']) {
@@ -48,6 +52,26 @@ export class WallpaperComponent implements OnInit {
       },
     });
   }
+  selectColor(event: any) {
+    this.selectedColor = event.target.value;
+  }
+
+  addToCart() {
+    this.cartService.addToCart({
+      id: this.wallpaperData._id,
+      title: this.wallpaperData.title,
+      image: this.wallpaperData.images[0],
+      category: this.wallpaperData.category,
+      stock: this.wallpaperData.stock,
+      size: this.wallpaperData.size,
+      color: this.selectedColor,
+      price: this.wallpaperData.price,
+      quantity: 1,
+      totalPrice: this.wallpaperData.price,
+    });
+    this.alertService.showSuccess('Wallpaper added to cart successfully!');
+    this.router.navigateByUrl('/cart');
+  }
 
   sendWhatsAppMessage() {
     const message = `Dear Team, 
@@ -61,11 +85,8 @@ I would like to place an order for a wallpaper. Below are the details:
 📏 Size: ${this.wallpaperData.size}  
 
 Kindly confirm availability and share the ordering process. Looking forward to your response.  `;
-
     const encodedMessage = encodeURIComponent(message);
-
     const whatsappURL = `https://wa.me/917021018644?text=${encodedMessage}`;
-
     window.open(whatsappURL, '_blank');
   }
 
