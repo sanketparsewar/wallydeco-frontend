@@ -1,50 +1,53 @@
 <nav class="navbar navbar-expand-lg custom-navbar" style="background-color:rgba(176, 163, 141, 0.5);">
-  <div class="container-fluid gap-2">
-    <div>
-      <a [routerLink]="['/']" class="navbar-brand">
-        <img src="assets/images/0001.jpg" style="height: 2.3rem" />
-      </a>
-      <a class="text-dark text-decoration-none fw-bold mx-1 " href="https://mybillbook.in/store/wallydeco"
-        target="_blank">Buy Frames Online</a>
-    </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+  <div class="container d-flex gap-2">
+    <a class="navbar-toggler btn btn-sm mb-auto px-0 border-0" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center gap-2">
-        <li class="nav-item">
-          <a class="nav-link link text-black active"
-            [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='home'}" [routerLink]="['/']"
-            (click)="closeNavbar()">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link link text-black "
-            [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='floral'}" [routerLink]="['floral']"
-            aria-expanded="false" (click)="closeNavbar()">Floral</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link link text-black "
-            [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='trending'}" [routerLink]="['trending']"
-            (click)="closeNavbar()">Trending</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link link text-black "
-            [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='frames'}" [routerLink]="['frames']"
-            (click)="closeNavbar()">Frames</a>
-        </li>
+    </a>
 
-      </ul>
-      <form class="d-flex justify-content-center gap-2 " role="search">
-        <span class="material-icons" (click)="closeNavbar()">favorite</span>
-        <a ><span [routerLink]="['/cart']" class="material-icons" (click)="closeNavbar()">shopping_bag</span></a>
-        <a [routerLink]="['profile']" class="text-dark" (click)="closeNavbar()"><span
-            class="material-icons">account_circle</span></a>
-      </form>
+    <div class="d-lg-flex">
+      <a [routerLink]="['/']" class=" navbar-brand rounded-pill">
+        <h5 class="fw-bold pt-2 d-inline text-dark">WALLYDECO</h5>
+      </a>
+
+      <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center gap-2">
+          <li class="nav-item">
+            <a class="nav-link link text-black active"
+              [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='home'}" [routerLink]="['/']"
+              (click)="closeNavbar()">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link text-black "
+              [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='floral'}" [routerLink]="['floral']"
+              aria-expanded="false" (click)="closeNavbar()">Floral</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link text-black "
+              [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='trending'}" [routerLink]="['trending']"
+              (click)="closeNavbar()">Trending</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link text-black "
+              [ngClass]="{'text-decoration-underline fw-bold': currentRoute==='frames'}" [routerLink]="['frames']"
+              (click)="closeNavbar()">Frames</a>
+          </li>
+        </ul>
+      </div>
     </div>
+
+
+      <div class="mb-auto ">
+        <div class="d-flex pt-2  align-items-start justify-content-center gap-2">
+          <span class="material-icons" (click)="closeNavbar()">favorite</span>
+          <a><span [routerLink]="['/cart']" class="material-icons" (click)="closeNavbar()">shopping_bag</span></a>
+          <a [routerLink]="['profile']" class="text-dark" (click)="closeNavbar()"><span
+              class="material-icons">account_circle</span></a>
+        </div>
+      </div>
+
   </div>
 </nav>
 
 
 <router-outlet></router-outlet>
-
