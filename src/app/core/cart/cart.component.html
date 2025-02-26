@@ -4,37 +4,33 @@
   <div class="row">
     <!-- Cart Items -->
     <div class="col-12 col-md-8">
-      <div class="row align-items-center bg-white shadow-sm p-2 rounded mb-2 mx-1">
+      <div class="row align-items-center bg-white shadow-sm p-2 rounded mb-2 mx-1"
+        *ngFor="let item of cart.items;let i =index">
         <div class="col-2 p-2">
-          <img
-            class="w-100 rounded"
-            src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wallpaper/w/c/c/wd45-325-40-walldecor-original-imagtdgzughf4ehn.jpeg?q=90&crop=false"
-            alt="art image"
-          />
+          <img class="w-100 rounded" [src]="item.image" alt="art image" />
         </div>
-        <div class="col-4 p-0 text-start">
-          <h6 class="fw-bold mb-1 text-truncate">
-            Dark Art 1Lorem ipsum dolor sit amet.
+        <div class="col-3 p-0 text-start">
+          <h6 class="fw-bold m-0 text-truncate">
+            {{item.title}}
           </h6>
-          <p class="mb-1">20 x 24</p>
+          <p class="m-0">{{item.size}}</p>
         </div>
-        <div class="col-4 d-flex align-items-center justify-content-center p-0">
-          <button class="btn btn-sm" type="button" (click)="changeQuantity(-1)">
-            <i class="fa-solid fa-minus"></i>
-          </button>
-          <input
-            type="text"
-            id="quantity" readonly disabled
-            class="form-control text-center border-0"
-            value="15"
-            style="width: 50px"
-          />
-          <button class="btn btn-sm" type="button" (click)="changeQuantity(1)">
-            <i class="fa-solid fa-plus"></i>
-          </button>
+        <div class="col-3 d-flex flex-column align-items-center justify-content-center p-0">
+          <div class="d-flex">
+            <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==1"
+              (click)="minusQuantity(item.id)">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <p class="px-1">{{item.quantity}}</p>
+
+            <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==item.stock"
+              (click)="addQuantity(item.id)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
         </div>
-        <div class="col-2 p-0 text-center">
-          <p class="fw-bold m-0">$66</p>
+        <div class="col-4 p-0 text-center">
+          <p class="fw-bold m-0">{{item.totalPrice | currency:"INR"}}</p>
         </div>
       </div>
     </div>
@@ -44,16 +40,16 @@
       <div class="bg-white shadow-sm p-4 rounded">
         <div class="d-flex justify-content-between">
           <h6 class="fw-bold">Subtotal</h6>
-          <p class="fw-bold">$132.00</p>
+          <p class="fw-bold">{{cart.totalPrice |currency:"INR" }}</p>
         </div>
         <div class="d-flex justify-content-between ">
           <h6 class="fw-bold">Tax</h6>
-          <p class="fw-bold">$6.40</p>
+          <p class="fw-bold">$12.3</p>
         </div>
         <hr />
         <div class="d-flex justify-content-between">
           <h5 class="fw-bold">Total</h5>
-          <p class="fw-bold fs-5">$138.40</p>
+          <p class="fw-bold fs-5">{{cart.totalPrice  + 12.3  | currency:"INR" }}</p>
         </div>
         <a class="btn btn-dark w-100 text-uppercase py-2">Checkout</a>
       </div>
