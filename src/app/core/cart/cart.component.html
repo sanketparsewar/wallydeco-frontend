@@ -10,13 +10,12 @@
           <img class="w-100 rounded" [src]="item.image" alt="art image" />
         </div>
         <div class="col-3 p-0 text-start">
-          <h6 class="fw-bold m-0 text-truncate">
+          <p class="fw-bold m-0 text-truncate">
             {{item.title}}
-          </h6>
+          </p>
           <p class="m-0">{{item.size}}</p>
         </div>
-        <div class="col-3 d-flex flex-column align-items-center justify-content-center p-0">
-          <div class="d-flex">
+        <div class="col-3 d-flex align-items-center justify-content-center p-0">
             <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==1"
               (click)="minusQuantity(item.id)">
               <i class="fa-solid fa-minus"></i>
@@ -27,10 +26,9 @@
               (click)="addQuantity(item.id)">
               <i class="fa-solid fa-plus"></i>
             </button>
-          </div>
         </div>
         <div class="col-4 p-0 text-center">
-          <p class="fw-bold m-0">{{item.totalPrice | currency:"INR"}}</p>
+          <p class="fw-bold m-0 pe-2 text-end">{{item.totalPrice | currency:"INR"}}</p>
         </div>
       </div>
     </div>

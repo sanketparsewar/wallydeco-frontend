@@ -19,10 +19,7 @@ export class CartService {
 
   addToCart(item: IcartItem) {
     const existingItem = this.cartItems.find((i) => i.id === item.id);
-    if (existingItem) {
-      existingItem.quantity++;
-      existingItem.totalPrice = existingItem.price * existingItem.quantity;
-    } else {
+    if (!existingItem) {
       this.cartItems.push({ ...item, totalPrice: item.price * item.quantity });
     }
     this.updateCart();
