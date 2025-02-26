@@ -10,19 +10,20 @@
       <div class="d-flex flex-column gap-2 ">
         <img *ngFor="let image of wallpaperData?.images" [src]="image" alt="shoe image"
           (click)="onChangeMainImage(image)" class="thumbnail img-fluid" />
-        <!-- <img src="thumb4.jpg" class="thumbnail img-fluid" onclick="changeImage('main4.jpg')"> -->
       </div>
     </div>
 
     <!-- Main Image -->
-    <div class="col-md-5 position-relative">
-      <!-- <img id="mainImage" src="main1.jpg" class="main-image img-fluid"> -->
-      <img *ngIf="!mainImage" [src]="wallpaperData?.images[0]" alt="shoe image" class="main-image img-fluid" />
+    <div class="col-md-5 ">
       <img *ngIf="mainImage" [src]="mainImage" alt="shoe image" class="main-image img-fluid" />
-
+      <div class="position-relative d-inline-block">
+        <img *ngIf="!mainImage" [src]="wallpaperData?.images[0]" alt="wallpaper image" class="main-image img-fluid" />
+        <p (click)="back()" class="position-absolute top-0 start-0 m-2">
+          <i class="fa-solid p-2 rounded-circle fs-3 fa-circle-left"
+            style="background-color: rgba(218, 207, 188, 0.7); backdrop-filter: blur(10px);"></i>
+        </p>
+      </div>
     </div>
-    <p (click)="back()" class="position-absolute"><i class="fa-solid p-2 m-1 rounded-circle fs-3 fa-circle-left"
-        style="background-color: rgba(218, 207, 188, 0.7);backdrop-filter: blur(10px);"></i></p>
 
     <!-- Product Details -->
     <div class="col-md-6">
@@ -31,8 +32,8 @@
       <p class="text-muted">{{ wallpaperData?.description }}</p>
 
       <div class="btn-group my-3">
-        <button class="btn btn-dark">CATEGORY</button>
-        <button class="btn btn-outline-secondary text-capitalize">
+        <button class="btn btn-dark btn-sm">CATEGORY</button>
+        <button class="btn btn-outline-secondary btn-sm  text-capitalize">
           {{ wallpaperData?.category }}
         </button>
       </div>
