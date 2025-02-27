@@ -5,9 +5,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { FooterComponent } from '../../component/footer/footer.component';
-// import { IcartItem } from '../../shared/models/cart.interface';
-// import { Store } from '@ngrx/store';
-// import { addItem, addToCart } from '../../shared/store/cart.actions';
 import { Observable } from 'rxjs';
 import { selectCartItems } from '../../shared/store/cart.selectors';
 import { IcartItem } from '../../shared/store/cart.state';
@@ -65,27 +62,6 @@ export class WallpaperComponent implements OnInit {
     this.selectedColor = event.target.value;
   }
 
-  // addToCart() {
-  //   this.cartService.addToCart({
-  //     id: this.wallpaperData._id,
-  //     title: this.wallpaperData.title,
-  //     image: this.wallpaperData.images[0],
-  //     category: this.wallpaperData.category,
-  //     stock: this.wallpaperData.stock,
-  //     size: this.wallpaperData.size,
-  //     color: this.selectedColor,
-  //     price: this.wallpaperData.price,
-  //     quantity: 1,
-  //     totalPrice: this.wallpaperData.price,
-  //   });
-  //   this.alertService.showSuccess('Wallpaper added to cart successfully!');
-  //   this.router.navigateByUrl('/cart');
-  // }
-  // addToCart(item: IcartItem) {
-  //   this.store.dispatch(addToCart({ item }));
-  //   console.log('added',item)
-  // }
-
   addToCart(productObj: any) {
     const cartItem: IcartItem = {
       id: productObj._id,
@@ -99,7 +75,7 @@ export class WallpaperComponent implements OnInit {
       quantity: 1, // Default to quantity 1
     };
     this.store.dispatch(addItem({ item: cartItem }));
-    this.alertService.showSuccess('Added to cart!');
+    this.alertService.showSuccess('Added to Shopping bag!');
   }
 
   openCart() {
