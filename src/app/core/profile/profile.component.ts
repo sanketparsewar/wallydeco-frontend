@@ -1,68 +1,66 @@
-import { ConfirmService } from './../../services/confirm/confirm.service';
-import { AlertService } from './../../services/alert/alert.service';
-import { AuthService } from './../../services/auth/auth.service';
-import { CommonModule } from '@angular/common';
-import { UserService } from './../../services/user/user.service';
+
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { AlertService } from '../../services/alert/alert.service';
+import { ConfirmService } from '../../services/confirm/confirm.service';
+import { CommonModule } from '@angular/common';
 import { EditProfileComponent } from '../../shared/modals/edit-profile/edit-profile.component';
 import { LoaderComponent } from '../../component/loader/loader.component';
-import { Router, RouterLink } from '@angular/router';
 import { EditProfilePictureComponent } from '../../shared/modals/edit-profile-picture/edit-profile-picture.component';
-import Swal from 'sweetalert2';
 import { FooterComponent } from '../../component/footer/footer.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [
-    CommonModule,
-    EditProfileComponent,
-    LoaderComponent,
-    RouterLink,
-    EditProfilePictureComponent,
-    FooterComponent
-  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
+  imports: [
+    CommonModule,
+   LoaderComponent,
+    RouterLink,
+    FooterComponent,
+    EditProfileComponent,
+    EditProfilePictureComponent
+  ],
 })
 export class ProfileComponent implements OnInit {
-  user: any;
-  isLoaded: boolean = false;
+  loggedUser: any = null;
+  isLoaded:boolean=false;
   constructor(
     private router: Router,
     private authService: AuthService,
     private alertService: AlertService,
     private confirmService: ConfirmService
-  ) {}
-
-  ngOnInit() {
-    this.getLoggedUser();
+  ) {
+    this.authService.loggedUser$.subscribe({
+      next: (user) => {
+        this.loggedUser = user;
+        console.log('1',this.loggedUser,Date.now());
+      },
+    });
   }
 
-  getLoggedUser() {
-    this.isLoaded = true;
+
+  ngOnInit() {
+  }
+  getLoggedUser(){
     this.authService.getLoggedUser().subscribe({
       next: (data: any) => {
-        this.user = data.user;
-        this.isLoaded = false;
-      },
-      error: (error: any) => {
-        this.isLoaded = false;
-        this.alertService.showError(error.error.message);
-        this.router.navigateByUrl('/auth/login');
+        this.loggedUser = data.user;
       },
     });
   }
 
   logout() {
-    this.confirmService.showConfirm('Logout').then((confirmed: any) => {
+    this.confirmService.showConfirm('Logout').then((confirmed: boolean) => {
       if (confirmed) {
         this.authService.logoutUser().subscribe({
           next: () => {
-            this.alertService.showSuccess('Logged out.')
+            this.alertService.showSuccess('Logged out.');
             this.router.navigate(['/home']);
           },
-          error: (error: any) => {
-            this.alertService.showError(error.error.message)
+          error: (error) => {
+            this.alertService.showError(error.error.message);
           },
         });
       }
