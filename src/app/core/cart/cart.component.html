@@ -1,62 +1,72 @@
 @if(isLoaded){
 <app-loader></app-loader>
 }@else {
-  
-  <div class="container pt-4 mt-5 ">
-    <h1 class="text-center fw-bold mb-4">Your Bag</h1>
-    <div class="text-center" *ngIf="!(cartItems$ | async)?.length">
-      <p>Empty!</p>
-      <button class="btn btn-sm my-3" style="background-color: #c9beac;"  (click)="back()">Continue Shopping</button>
-    </div>
-    <div class="row" *ngIf="(cartItems$ | async)?.length">
-      <!-- Cart Items -->
-      <div class="col-12 col-md-8">
-        <div class="row position-relative align-items-center bg-white shadow-sm p-2 rounded mb-2 mx-1"
+
+<div class="container pt-4 mt-5 ">
+  <h1 class="text-center fw-bold mb-4">Your Bag</h1>
+  <div class="text-center" *ngIf="!(cartItems$ | async)?.length">
+    <p>Empty!</p>
+    <button class="btn btn-sm my-3" style="background-color: #c9beac;" (click)="back()">Continue Shopping</button>
+  </div>
+  <div class="row" *ngIf="(cartItems$ | async)?.length">
+    <!-- Cart Items -->
+    <div class="col-12 col-md-8">
+      <div class="row position-relative align-items-center bg-white shadow-sm p-2 rounded mb-2 mx-1"
         *ngFor="let item of (cartItems$|async);let i =index">
-        <div class="position-absolute w-100 d-flex justify-content-end" style="left: 0;top: 5px;" >
+        <div class="position-absolute w-100 d-flex justify-content-end" style="left: 0;top: 5px;">
           <i class="fas fa-times" (click)="removeItem(item.id)"></i>
         </div>
-        
+
         <div class="col-2 p-2">
           <img class="w-100 rounded" (click)="openWallpaper(item.id)" [src]="item.image" alt="art image" />
         </div>
         <div class="col-3 p-0">
-          <p class="fw-bold m-0 text-truncate"  (click)="openWallpaper(item.id)"  >
+          <p class="fw-bold m-0 text-truncate" (click)="openWallpaper(item.id)">
             {{item.title}}
           </p>
           <p class="m-0">{{item.size}}</p>
         </div>
         <div class="col-3 d-flex align-items-center justify-content-center p-0">
-          <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==1"
-          (click)="
+          <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==1" (click)="
             updateQuantity(item, item.id, item.quantity - 1)
             ">
-              <i class="fa-solid fa-minus"></i>
-            </button>
-            <p class="px-1">{{item.quantity}}</p>
-            
-            <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==item.stock"
-            (click)="
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <p class="px-1">{{item.quantity}}</p>
+
+          <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==item.stock" (click)="
             updateQuantity(item, item.id, item.quantity + 1)
             ">
-              <i class="fa-solid fa-plus"></i>
-            </button>
-          </div>
-          <div class="col-4 p-0 text-center">
-            <p class="fw-bold m-0 pe-2 text-end">{{item.price * item.quantity | currency:"INR"}}</p>
-          </div>
+            <i class="fa-solid fa-plus"></i>
+          </button>
         </div>
-        <div class="text-end my-2" >
-          <button class="btn btn-dark btn-sm" (click)="clearCart()">Clear Bag</button>
+        <div class="col-4 p-0 text-center">
+          <p class="fw-bold m-0 pe-2 text-end">{{item.price * item.quantity | currency:"INR"}}</p>
         </div>
+      </div>
+      <div class="text-end my-2">
+        <button class="btn btn-dark btn-sm" (click)="clearCart()">Clear Bag</button>
+      </div>
     </div>
 
     <!-- Checkout Section -->
     <div class="col-12 col-md-4">
+
+      <div class="bg-white shadow-sm p-4 mb-2 rounded">
+        <h6 class="fw-bold">HAVE A COUPON CODE?</h6>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" name="couponCode" [(ngModel)]="couponCode" type="search" placeholder="Enter a Coupon Code" aria-label="Search">
+          <button class="btn btn-outline-success" type="button">Apply</button>
+        </form>
+        <div class="text-danger">
+          <p class="m-0">Invalid Code!</p>
+        </div>
+        </div>
+
       <div class="bg-white shadow-sm p-4 rounded">
         <div class="d-flex justify-content-between">
           <h6 class="fw-bold">Subtotal</h6>
-          <p class="fw-bold">{{cartTotal$ | async | currency : "INR"  }}</p>
+          <p class="fw-bold">{{cartTotal$ | async | currency : "INR" }}</p>
         </div>
         <div class="d-flex justify-content-between ">
           <h6 class="fw-bold">Delivery Charges</h6>
@@ -68,7 +78,7 @@
           <p class="fw-bold fs-5">{{
             (cartTotal$ | async) + orderObj?.deliveryCharges | currency : "INR"}}</p>
         </div>
-        <a class="btn btn-success w-100 text-uppercase py-2" (click)="checkout()" >Checkout</a>
+        <a class="btn btn-success w-100 text-uppercase py-2" (click)="checkout()">Checkout</a>
       </div>
     </div>
   </div>

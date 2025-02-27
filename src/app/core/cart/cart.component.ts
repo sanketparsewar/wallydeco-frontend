@@ -1,8 +1,7 @@
+import { CouponService } from './../../services/coupon/coupon.service';
 import { AlertService } from './../../services/alert/alert.service';
-// import { selectTotalPrice } from './../../shared/store/cart.selectors';
 import { Component, inject, OnInit } from '@angular/core';
 import { FooterComponent } from '../../component/footer/footer.component';
-// import { Icart, IcartItem } from '../../shared/models/cart.interface';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -19,9 +18,10 @@ import {
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { ConfirmService } from '../../services/confirm/confirm.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cart',
-  imports: [FooterComponent, CommonModule, LoaderComponent],
+  imports: [FooterComponent, CommonModule, LoaderComponent,FormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
@@ -35,9 +35,11 @@ export class CartComponent implements OnInit {
   cartItems$: Observable<IcartItem[]> = this.store.select(selectCartItems);
   cartTotal$: Observable<number> = this.store.select(selectCartTotal);
   isLoaded: boolean = false;
+  couponCode:string=''
   constructor(
     private confirmService: ConfirmService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private couponService:CouponService
   ) {}
   ngOnInit() {
     this.isLoaded = true;
@@ -70,6 +72,13 @@ export class CartComponent implements OnInit {
   openWallpaper(wallpaperId: string) {
     this.router.navigate(['/wallpaper', wallpaperId]);
   }
+
+  applyCoupon() {
+    
+  }
+
+
+
   checkout() {
     console.log(this.cartItems);
   }
