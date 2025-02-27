@@ -15,13 +15,12 @@
                 </div>
                 <div class="text-center" *ngIf="selectedFile">
                     <!-- <img [src]="selectedFile.name" class="rounded-circle" width="100" alt="profile pic" /> -->
-                     <p class="my-1" >{{selectedFile.name}}</p>
+                    <p class="my-1">{{selectedFile.name}}</p>
                 </div>
 
             </div>
             <div class="text-center my-2 ">
-                <button type="button" (click)="uploadProfileFile()" *ngIf="selectedFile"
-                    class="btn Upload border-0">
+                <button type="button" (click)="uploadProfileFile()" *ngIf="selectedFile" class="btn Upload border-0">
                     <p class="m-0 text-success" *ngIf="!isLoaded">Upload</p>
                     <div *ngIf="isLoaded" class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>

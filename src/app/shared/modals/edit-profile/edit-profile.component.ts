@@ -21,22 +21,22 @@ export class EditProfileComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.updatedUser = {
-      name: this.user.name,
-      image: this.user.image,
-      email: this.user.email,
-      phone: this.user.phone,
+      name: this.user?.name,
+      image: this.user?.image,
+      email: this.user?.email,
+      phone: this.user?.phone,
       address: {
-        street: this.user.address.street,
-        city: this.user.address.city,
-        state: this.user.address.state,
-        zip: this.user.address.zip,
+        street: this.user?.address.street,
+        city: this.user?.address.city,
+        state: this.user?.address.state,
+        zip: this.user?.address.zip,
       },
-      gender: this.user.gender,
+      gender: this.user?.gender,
     };
   }
 
   onUpdate() {
-    this.userService.updateUser(this.user._id, this.updatedUser).subscribe({
+    this.userService.updateUser(this.user?._id, this.updatedUser).subscribe({
       next: (res: any) => {
         this.alertService.showSuccess(res.message);
         this.getUpdatedUserData.emit();
