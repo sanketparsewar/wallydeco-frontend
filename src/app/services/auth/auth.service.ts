@@ -1,42 +1,55 @@
-import { ApiService } from './../api/api.service';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private BASE_URL: string;
+  private BASE_URL: string = environment.apiUrl;
+  private loggedUserSubject = new BehaviorSubject<any>(null);
+  loggedUser$ = this.loggedUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private apiService: ApiService) {
-    // this.BASE_URL = apiService.getBaseUrl();
-    this.BASE_URL = environment.apiUrl;
-  }
+  constructor(private http: HttpClient) {}
 
   registerUser(user: any): Observable<any> {
     return this.http.post(`${this.BASE_URL}/auth/register`, user, {
-      withCredentials: true, // Ensure cookies are stored
+      withCredentials: true,
     });
   }
 
   loginUser(user: any): Observable<any> {
-    return this.http.post<any>(`${this.BASE_URL}/auth/login`, user, {
-      withCredentials: true, // Allow cookies to be sent and received
-    });
+    return this.http
+      .post<any>(`${this.BASE_URL}/auth/login`, user, {
+        withCredentials: true,
+      })
+      .pipe(
+        tap((response) => {
+          this.loggedUserSubject.next(response.user); // Store logged-in user
+          localStorage.setItem('token', JSON.stringify(response.token)); // Store in localStorage
+        })
+      );
   }
 
   getLoggedUser(): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/auth/profile`, {
-      withCredentials: true, // Ensures cookies are sent with the request
-    });
+    return this.http
+      .get<any>(`${this.BASE_URL}/auth/profile`, { withCredentials: true })
+      .pipe(
+        tap((response) => {
+          this.loggedUserSubject.next(response.user);
+        })
+      );
   }
 
   logoutUser(): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/auth/logout`, {
-      withCredentials: true, // Ensure cookies are sent
-    });
+    return this.http
+      .get<any>(`${this.BASE_URL}/auth/logout`, { withCredentials: true })
+      .pipe(
+        tap(() => {
+          this.loggedUserSubject.next(null);
+          localStorage.removeItem('token');
+        })
+      );
   }
-  
 }
