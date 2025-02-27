@@ -10,6 +10,8 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { AdminDashboardComponent } from './core/admin-dashboard/admin-dashboard.component';
 import { WallpaperComponent } from './core/wallpaper/wallpaper.component';
 import { CartComponent } from './core/cart/cart.component';
+import { profileGuard } from './shared/guards/profile/profile.guard';
+import { authGuard } from './shared/guards/auth/auth.guard';
 // import { profileGuard } from './shared/guards/profile/profile.guard';
 // import { authGuard } from './shared/guards/auth/auth.guard';
 
@@ -34,7 +36,7 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        // canActivate: [profileGuard],
+        canActivate: [profileGuard],
         component: ProfileComponent,
       },
       {
@@ -49,7 +51,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     component: LayoutComponent,
     children: [
       {
