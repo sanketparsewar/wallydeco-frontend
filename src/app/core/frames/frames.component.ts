@@ -67,7 +67,7 @@ export class FramesComponent implements OnInit {
         // Successfully toggled
       },
       error: (error) => {
-        this.alertService.showError(error.message);
+        this.router.navigate(['auth','login'])
       },
     });
   }
