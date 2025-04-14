@@ -1,0 +1,27 @@
+.trending {
+    padding-bottom: 3rem;
+    background-color: #ffffff;
+  }
+  
+  .trending img{
+    width: 100%;
+    height: 20rem;
+    object-fit: fill;
+    
+  }
+  
+  img{
+    border-radius: 1rem;
+  }
+  @media screen and (max-width: 510px) {
+    
+  .trending img{
+    width: 100%;
+    height: 12rem;
+    object-fit: fill;
+    
+  }
+  }
+  
+  
+  
