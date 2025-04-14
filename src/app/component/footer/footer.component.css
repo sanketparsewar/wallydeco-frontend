@@ -1,91 +1,51 @@
-body {
-  font-family: "Signika", sans-serif;
-}
-.bg-grey {
-  background: #292929;
-}
-.logo-footer {
-  margin-bottom: 40px;
-}
 footer {
-  color: grey;
-}
-footer p,
-a {
-  font-size: 12px;
-  font-family: "Roboto", sans-serif;
-}
-footer h6 {
-  font-family: "Playfair Display", serif;
-  margin-bottom: 40px;
-  position: relative;
-}
-footer h5 {
-  font-family: "Playfair Display", serif;
-}
-footer h6:after {
-  position: absolute;
-  content: "";
-  background: grey;
-  width: 12%;
-  height: 1px;
-  left: 0;
-  bottom: -20px;
-}
-.btn-footer {
-  color: grey;
-}
-.btn-footer:hover {
-  color: white;
-}
-.form-footer input[type="text"] {
-  border: none;
-  border-radius: 16px 0 0 16px;
-  outline: none;
-  padding-left: 10px;
-}
-::placeholder {
-  font-size: 10px;
-  padding-left: 10px;
-  font-style: italic;
-}
-.form-footer input[type="button"] {
-  border: none;
-  background: #232323;
-  margin-left: -5px;
-  color: #fff;
-  outline: none;
-  border-radius: 0 16px 16px 0;
-  padding: 2px 12px;
-}
-.social .fa {
-  color: grey;
-  font-size: 22px;
-  padding: 10px 15px;
-  background: #3c3c3c;
-}
-footer ul li {
-  list-style: none;
-  display: block;
-}
-footer ul {
-  padding-left: 0;
-}
-footer ul li a {
-  text-decoration: none;
-  color: grey;
-  text-decoration: none;
-}
-a:hover {
-  cursor: pointer;
-  text-decoration: none;
-  color: rgb(59, 59, 59) !important;
-}
-.logo-part {
-  border-right: 1px solid grey;
-  height: 100%;
-}
+  background-color: #f8f9fa;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: #343a40;
 
-.connect-with-us a {
-  font-size: .8rem;
+  .brand-name {
+    background-color: #212529;
+    color: #fff;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    border-radius: 0.25rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-links li a {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links li a:hover {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .connect-with-us ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.4rem 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .text-center h5 {
+      font-size: 1.1rem;
+    }
+  }
 }

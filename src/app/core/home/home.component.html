@@ -1,60 +1,59 @@
-<section class="hero-container" id="hero-container">
-  <div class="container">
-    <div class="row">
-      <div class="text-center col-12 col-md-10">
-        <h1 id="typewriter">
-          <strong class="text-white">
-            WALLY<span class="text-dark" id="job"></span>_
-          </strong>
+<section class="hero-container position-relative overflow-hidden py-5 py-md-8">
+  <div class="container position-relative z-2 mt-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 text-center">
+        <h1 class="display-3 display-md-1 fw-bold text-white mb-3 mb-md-4">
+          <span class="typewriter">
+            WALLY<span class="text-warning" id="job">DECO</span>_
+          </span>
+          <span class="cursor">|</span>
         </h1>
-        <p class="text-white">
+        <p class="lead text-white mb-4 mb-md-5 text-shadow">
           Unleash Your Walls with the Most Dazzling Wallpaper Designs
         </p>
-        <div class="d-flex align-items-center flex-column">
-          <a class="py-2 px-3 my-2 d-inline btn btn-dark text-center rounded-pill"
-            href="https://maps.app.goo.gl/gphgPPppa2vM7mY76" target="_blank">
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+          <a class="btn btn-dark btn-lg rounded-pill px-4 hover-grow" 
+             href="https://maps.app.goo.gl/gphgPPppa2vM7mY76" 
+             target="_blank">
+            <i class="fas fa-store me-2"></i>
             Store Location
-            <i class="fa-solid fa-store fs-5"></i>
           </a>
-          <!-- <a class="my-2 px-3 btn btn-success rounded-pill" href="https://wa.me/917021018644" target="_blank">
-            <i style="font-size: 24px" class="fa">&#xf232;</i>
-            Say Hi!
-          </a> -->
-          <a class="my-2 btn btn-success rounded-pill" href="https://mybillbook.in/store/wallydeco" target="_blank"
-            style="animation: blink 1s infinite;">
+          <a class="btn btn-success btn-lg rounded-pill px-4 hover-grow shine-effect" 
+             href="https://mybillbook.in/store/wallydeco" 
+             target="_blank">
+            <i class="fas fa-globe me-2"></i>
             Shop Online!
-            <i class="fa-solid fa-globe fs-5"></i>
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+</section>
+
+<section class="loop-scroll bg-light py-2 border-top border-bottom mb-4">
+  <div class="container-fluid px-0">
+    <div class="row g-0">
+      <div class="col-12">
+        <div class="scrolling-text fw-bold fs-5 text-primary">
+          <span *ngFor="let item of marqueeItems">
+            ✦ {{item}} ✦
+          </span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="loopScrollSection">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <marquee behavior="scroll" direction="left" style="font-weight: bold; font-size: 20px">
-          * Endless Designs * Premium Quality * Easy Customization * Swift
-          Delivery * Affordable Price * Endless Designs * Premium Quality * Easy
-          Customization * Swift Delivery * Affordable Price *
-        </marquee>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
 <!-- carousel -->
 <app-scroll-carousel></app-scroll-carousel>
 
-
 <!-- top-picked wallpaper -->
-<app-top-picked-wallpapers></app-top-picked-wallpapers>
+<div class="container my-5 py-4">
+  <app-top-picked-wallpapers></app-top-picked-wallpapers>
+</div>
 
-<!-- store histtory -->
+<!-- store history -->
 <app-story></app-story>
 
 <!-- abstract frames -->

@@ -22,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideStore(),
     provideState({ name: 'cart', reducer: cartReducer }),
-    provideEffects()
+    provideEffects(),
+    provideAnimations()
 ],
 };

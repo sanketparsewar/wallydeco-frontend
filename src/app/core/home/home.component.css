@@ -1,62 +1,104 @@
 .hero-container {
-  display: flex;
+  background: linear-gradient(135deg, rgba(110, 72, 170, 0.7) 0%, rgba(157, 80, 187, 0.7) 100%);
+  position: relative;
+  z-index: 0;
+  padding: 8rem 0; /* Add padding if missing */
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("https://res.cloudinary.com/dgcc3397p/image/upload/v1739708360/NZ-14_jgubdb.jpg");
-  /* background-image: url("../../../../public/assets/images/NZ-14.jpg"); */
-  /* background-image: url("./images/wallpapers/pushpa/pushpa_15.jpg"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 80vh;
-  width: 100%;
-  position: relative;
+  opacity: 0.15; /* Adjusted opacity */
+  z-index: 1;
 }
 
-.loopScrollSection {
-  padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
-  background-color: #ffffff;
-  padding-left: 0;
-  padding-right: 0;
+.typewriter {
+  position: relative;
+  display: inline-block;
+}
+
+.cursor {
+  animation: blink 0.7s infinite;
+  color: white;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Button Effects */
+.hover-grow {
+  transition: all 0.3s ease;
+}
+
+.hover-grow:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.shine-effect {
+  position: relative;
   overflow: hidden;
 }
 
-@media (min-width: 768px) {
-  .hero-container {
-    align-items: flex-end;
-  }
-  .hero-container .row {
-    justify-content: center;
-  }
-  .hero-container .content-wrap {
-    padding: 1rem 3rem;
-  }
-}
-@media (max-width: 991px) and (min-width: 768px) {
-  .hero-container .content-wrap {
-    min-width: 50%;
-  }
-}
-@media (max-width: 767px) {
-  .hero-container {
-    -webkit-align-items: center;
-    align-items: flex-end;
-  }
-  .hero-container .mbr-row {
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-  .hero-container .content-wrap {
-    width: 100%;
-  }
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.1);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
 }
 
-.container {
-  /* margin: 0; */
-  width: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(153, 153, 153, 0.1),
-    rgba(0, 0, 0, 0.6)
-  );
-  padding-bottom: 1rem;
+@keyframes shine {
+  0% { left: -50%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* Scrolling Text */
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollText 20s linear infinite;
+}
+
+.scrolling-text span {
+  margin-right: 2rem;
+  display: inline-block;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-container {
+    padding: 4rem 0;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .scrolling-text {
+    font-size: 1rem;
+  }
 }

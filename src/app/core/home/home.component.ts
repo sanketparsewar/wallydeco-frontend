@@ -8,6 +8,7 @@ import { TopPickedWallpapersComponent } from '../../component/top-picked-wallpap
 import { StoryComponent } from '../../component/story/story.component';
 import { FollowComponent } from '../../component/follow/follow.component';
 import { FooterComponent } from '../../component/footer/footer.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ import { FooterComponent } from '../../component/footer/footer.component';
     AbstractFrameComponent,
     FeaturesComponent,
     FaqComponent,
-    FollowComponent,FooterComponent
+    FollowComponent,FooterComponent,CommonModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -41,6 +42,15 @@ export class HomeComponent implements OnInit {
   currentText = '';
   isDeleting = false;
 
+  // Marquee text
+  marqueeItems = [
+    'Endless Designs',
+    'Premium Quality',
+    'Easy Customization',
+    'Swift Delivery',
+    'Affordable Price'
+  ];
+
   constructor() {}
 
   ngOnInit(): void {
@@ -56,12 +66,10 @@ export class HomeComponent implements OnInit {
   }
 
   typeWriterEffect(): void {
-    const jobElement = document
-      .getElementById('typewriter')
-      ?.querySelector('span');
+    const jobElement = document.getElementById('job');
 
     if (!jobElement) {
-      console.error('Typewriter element not found.');
+      console.error('Job element not found for typewriter effect.');
       return;
     }
 
@@ -84,11 +92,11 @@ export class HomeComponent implements OnInit {
 
       if (!this.isDeleting && this.currentText === currentJob) {
         this.isDeleting = true;
-        typeSpeed = 500;
+        typeSpeed = 700;
       } else if (this.isDeleting && this.currentText === '') {
         this.isDeleting = false;
         this.stepIndex = (this.stepIndex + 1) % this.jobSteps.length;
-        typeSpeed = 200;
+        typeSpeed = 500;
       }
 
       setTimeout(updateText, typeSpeed);

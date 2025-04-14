@@ -1,27 +1,95 @@
-.favourite {
-    padding-bottom: 3rem;
-    background-color: #ffffff;
-  }
+/* favourites.component.scss */
+.favourites {
+  background-color: #f8f9fa;
+  min-height: 70vh;
+}
+
+.divider {
+  height: 4px;
+  width: 80px;
+  margin: 1rem auto;
+  background: linear-gradient(to right, #6e48aa, #9d50bb);
+  border-radius: 2px;
+}
+
+.favourite-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: none;
   
-  .favourite img{
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    
+    .card-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.card-image {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+  
+  img {
+    height: 100%;
     width: 100%;
-    /* height: 20rem; */
-    object-fit: fill;
-    
+    object-fit: cover;
+    transition: transform 0.5s ease;
   }
   
-  img{
-    border-radius: 1rem;
+  &:hover img {
+    transform: scale(1.05);
   }
-  @media screen and (max-width: 510px) {
-    
-  .favourite img{
-    width: 100%;
-    height: 11rem;
-    object-fit: fill;
-    
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.empty-state {
+  background: white;
+  border-radius: 10px;
+  padding: 3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  
+  .empty-icon {
+    i {
+      animation: pulse 1.5s infinite;
+    }
   }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .card-image {
+    height: 180px;
   }
   
-  
-  
+  .favourites {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .card-image {
+    height: 200px;
+  }
+}

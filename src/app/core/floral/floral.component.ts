@@ -6,12 +6,21 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { FooterComponent } from '../../component/footer/footer.component';
-
+import { trigger, transition, style, animate, state } from '@angular/animations';
 @Component({
   selector: 'app-floral',
   imports: [FormsModule, CommonModule, LoaderComponent,FooterComponent],
   templateUrl: './floral.component.html',
   styleUrl: './floral.component.css',
+  animations: [
+    trigger('fadeInUp', [
+      state('void', style({ opacity: 0, transform: 'translateY(20px)' })),
+      transition(':enter', [
+        animate('400ms {{delay}} ease-out', 
+          style({ opacity: 1, transform: 'translateY(0)' }))
+      ], { params: { delay: '0ms' } })
+    ])
+  ]
 })
 export class FloralComponent implements OnInit {
   
@@ -82,3 +91,4 @@ export class FloralComponent implements OnInit {
       this.router.navigate(['/wallpaper', wallpaperId]);
     }
 }
+

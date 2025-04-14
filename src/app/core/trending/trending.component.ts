@@ -6,12 +6,37 @@ import { WallpaperService } from '../../services/wallpaper/wallpaper.service';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { FooterComponent } from '../../component/footer/footer.component';
-
+import { 
+  trigger,
+  transition,
+  style,
+  animate,
+  stagger,
+  query
+} from '@angular/animations';
 @Component({
   selector: 'app-trending',
   imports: [FormsModule, CommonModule, LoaderComponent,FooterComponent],
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.css',
+  animations: [
+    trigger('listAnimation', [  // Changed from 'fadeInStagger' to 'listAnimation'
+      transition('* => *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger('100ms', [
+            animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ]),
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class TrendingComponent implements OnInit {
     wallpaperList: any[] = [];

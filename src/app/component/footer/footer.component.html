@@ -1,95 +1,78 @@
 <footer>
   <div class="container mt-5 mb-3">
     <div class="row">
+      <!-- Left Column -->
       <div class="col-md-6">
         <div class="row">
+          <!-- Brand Info -->
           <div class="col-md-6">
-            <div class="">
-              <!-- <img
-                src="https://res.cloudinary.com/dgcc3397p/image/upload/v1739708293/0001_dkdjbl.jpg"
-                class="w-50 logo-footer rounded-0"
-              /> -->
-              <h4 class="bg-dark text-white d-inline p-3 ">WALLYDECO</h4>
-
-              <p class="mt-3">WalyDeco Store, Nanded MH-431601</p>
-              <p>
-                WALLYDECO, founded in 2022, is committed to delivering
-                high-quality wall decor solutions with exceptional service. Our
-                passion for design has helped us grow into a trusted name in
-                home styling.
-              </p>
-            </div>
+            <h4 class="brand-name">WALLYDECO</h4>
+            <p class="mt-3">WallyDeco Store, Nanded MH-431601</p>
+            <p>
+              WALLYDECO, founded in 2022, is committed to delivering high-quality wall decor
+              solutions with exceptional service. Our passion for design has helped us grow into a
+              trusted name in home styling.
+            </p>
           </div>
+          <!-- About Company -->
           <div class="col-md-6 px-4">
             <h6>About Company</h6>
             <p>
-              We offer a wide range of premium wallpapers and customization
-              options to suit every style. Our commitment to excellence and
-              customer satisfaction drives us to deliver innovative designs and
-              top-notch service, making us a trusted name in home and interior
-              decor.
+              We offer a wide range of premium wallpapers and customization options to suit every
+              style. Our commitment to excellence and customer satisfaction drives us to deliver
+              innovative designs and top-notch service.
             </p>
-            <button
-              class="btn btn-footer btn-outline-secondary rounded-pill mb-2"
+            <a class="btn btn-outline-secondary rounded-pill mb-2" href="#">More Info</a><br />
+            <a
+              class="btn btn-outline-success rounded-pill mb-2 d-inline-flex align-items-center"
+              href="https://wa.me/917021018644"
+              target="_blank"
             >
-              More Info</button
-            ><br />
-            <button class="btn btn-footer btn-outline-secondary rounded-pill mb-2"
-            > <a class=" text-decoration-none btn-footer"  href="https://wa.me/917021018644" target="_blank">
-              Contact Us <i class="fa-brands fa-whatsapp text-success fs-4"></i>
+              Contact Us <i class="fa-brands fa-whatsapp ms-2 fs-5"></i>
             </a>
-            </button>
           </div>
         </div>
       </div>
+
+      <!-- Right Column -->
       <div class="col-md-6">
         <div class="row">
+          <!-- Navigation Links -->
           <div class="col-md-6 px-4">
             <h6>Explore</h6>
-            <div class="row">
-              <div class="col-md-6">
-                <ul>
-                  <li><a [routerLink]="['/home']"> Home</a></li>
-                  <li><a [routerLink]="['/floral']"> Floral</a></li>
-                  <li><a [routerLink]="['/trending']"> Trending</a></li>
-                  <li><a [routerLink]="['/frames']"> Frames</a></li>
-                  <li><a [routerLink]="['/user/profile']"> Profile</a></li>
-                </ul>
-              </div>
-            </div>
+            <ul class="footer-links">
+              <li><a routerLink="/home">Home</a></li>
+              <li><a routerLink="/floral">Floral</a></li>
+              <li><a routerLink="/trending">Trending</a></li>
+              <li><a routerLink="/frames">Frames</a></li>
+              <li><a routerLink="/user/profile">Profile</a></li>
+            </ul>
           </div>
+
+          <!-- Contact Info -->
           <div class="col-md-6 connect-with-us">
             <h6>Connect With Us</h6>
-
             <ul>
+              <li><b>Email:</b> wallydecostore&#64;gmail.com</li>
               <li>
-                <a> <b>Email:</b> wallydecostore&#64;gmail.com</a>
+                <b>Available Cities:</b> Nanded, Latur, Parbhani, Chhatrapati Sambhaji Nagar &
+                Hyderabad
               </li>
-              <li>
-                <a>
-                  <b>Available Cities:</b> Nanded, Latur, Parbhani, Chhatrapati
-                  Sambhaji Nagar & Hyderabad
-                </a>
-              </li>
-              <li>
-                <a> <b>Working Hours:</b> Mon-Sun: 11am-9pm</a>
-              </li>
+              <li><b>Working Hours:</b> Mon–Sun: 11am–9pm</li>
             </ul>
 
-            <div class="d-flex align-items-center justify-content-center">
-              <div class="text-center">
-                <h5 class="fw-bold">Stay tuned for exciting updates!</h5>
-                <p class="text-muted">More features coming soon...</p>
-              </div>
+            <div class="text-center mt-3">
+              <h5 class="fw-bold">Stay tuned for exciting updates!</h5>
+              <p class="text-muted">More features coming soon...</p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Copyright -->
       <div class="row mt-2">
         <div class="col-md-12 text-center">
-          <p class="m-0 text-secondary">
-            © 2024 Wallydeco. All Rights Reserved
-          </p>
+          <p class="m-0 text-secondary">© 2024 Wallydeco. All Rights Reserved</p>
         </div>
       </div>
     </div>
