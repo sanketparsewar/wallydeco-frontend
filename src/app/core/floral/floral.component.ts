@@ -14,37 +14,68 @@ import { FooterComponent } from '../../component/footer/footer.component';
   styleUrl: './floral.component.css',
 })
 export class FloralComponent implements OnInit {
-  wallpaperList: any;
-  isLoaded: boolean = false;
-
-  category: string = 'floral';
-  constructor(
-    private wallpaperService: WallpaperService,
-    private router: Router,
-    private alertService: AlertService  // Added AlertService for error handling
-  ) {
-    this.generateFloralCollection();
-  }
-
-  ngOnInit() {
-    // this.generateFloralCollection();
-  }
-
-  generateFloralCollection() {
-    this.isLoaded = true;
-    this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
-      next: (data: any) => {
-        this.wallpaperList = data;
-        this.isLoaded = false;
-      },
-      error: (error) => {
-        this.alertService.showError(error.error.message)
-        this.isLoaded = false;
-      },
-    });
-  }
-
-  openWallpaper(wallpaperId: string) {
-    this.router.navigate(['/wallpaper', wallpaperId]);
-  }
+  
+  wallpaperList: any[] = [];
+    isLoaded: boolean = false;
+    category: string = 'floral';
+    favouriteIds: string[] = [];
+  
+    constructor(
+      private wallpaperService: WallpaperService,
+      private router: Router,
+      private alertService: AlertService
+    ) {}
+  
+    ngOnInit() {
+      this.generateTrendingCollection();
+    }
+  
+    generateTrendingCollection() {
+      this.isLoaded = true;
+  
+      // Get trending wallpapers
+      this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
+        next: (data: any) => {
+          this.wallpaperList = data;
+  
+          // Now get user's favourites
+          this.wallpaperService.getFavouriteWallpapers().subscribe({
+            next: (favRes: any) => {
+              this.favouriteIds = favRes.favourites.map((fav: any) => fav._id);
+  
+              // Mark wallpapers as favourite
+              this.wallpaperList.forEach((item) => {
+                item.isFavourite = this.favouriteIds.includes(item._id);
+              });
+  
+              this.isLoaded = false;
+            },
+            error: () => {
+              this.isLoaded = false;
+            }
+          });
+        },
+        error: (error) => {
+          this.alertService.showError(error.error.message);
+          this.isLoaded = false;
+        },
+      });
+    }
+  
+    toggleFavorite(item: any) {
+      item.isFavourite = !item.isFavourite;
+  
+      this.wallpaperService.addWallpaperToFavourite(item._id).subscribe({
+        next: () => {
+          // Successfully toggled
+        },
+        error: (error) => {
+          this.alertService.showError(error.message);
+        },
+      });
+    }
+  
+    openWallpaper(wallpaperId: string) {
+      this.router.navigate(['/wallpaper', wallpaperId]);
+    }
 }

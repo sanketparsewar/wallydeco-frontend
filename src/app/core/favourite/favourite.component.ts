@@ -16,33 +16,22 @@ import { FormsModule } from '@angular/forms';
 export class FavouriteComponent {
 wallpaperList: any;
   isLoaded: boolean = false;
-
-  category: string = 'trending';
   constructor(
     private wallpaperService: WallpaperService,
     private router: Router,
     private alertService: AlertService
   ) {
-    // this.generateTrendingCollection();
+    this.getFavouriteWallpapers();
   }
 
   ngOnInit() {
-    // this.generateFloralCollection();
   }
-  toggleFavorite(event: Event, item: any) {
-    const target = event.target as HTMLElement;
-    target.classList.toggle('text-danger'); // Toggle red color
-    target.classList.toggle('fa-solid'); // Change icon to solid heart
-    target.classList.toggle('fa-regular'); // Toggle back to regular heart
-  }
-  
 
-  generateTrendingCollection() {
+  getFavouriteWallpapers() {
     this.isLoaded = true;
-
-    this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
+    this.wallpaperService.getFavouriteWallpapers().subscribe({
       next: (data: any) => {
-        this.wallpaperList = data;
+        this.wallpaperList = data.favourites;
         this.isLoaded = false;
       },
       error: (error) => {
@@ -50,6 +39,16 @@ wallpaperList: any;
         this.isLoaded = false;
       },
     });
+  }
+  removeFavourite(id:string){
+    this.wallpaperService.addWallpaperToFavourite(id).subscribe({
+      next: () => {
+        this.getFavouriteWallpapers()
+      },
+      error: (error) => {
+        this.alertService.showError(error.message); 
+          }
+    })
   }
 
   openWallpaper(wallpaperId: string) {

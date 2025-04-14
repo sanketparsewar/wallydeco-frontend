@@ -1,40 +1,45 @@
 @if(isLoaded){
-    <app-loader></app-loader>
-    }@else {
-    
-    
-    <section class="trending mt-5 pt-4">
-      <div class="container">
+<app-loader></app-loader>
+}@else {
+
+
+<section class="favourite mt-5 pt-4">
+    <div class="container">
         <div class="row justify-content-center">
-          <div class="col-12">
-            <div class="text-center">
-              <h1 class="fw-bold">
-                Favourites
-              </h1>
+            <div class="col-12">
+                <div class="text-center">
+                    <h1 class="fw-bold">
+                        Favourites
+                    </h1>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="row" id="trendingCollection">
-          <div *ngFor="let item of wallpaperList" class="col-6 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
-            <div class="card border-0 rounded-0 position-relative">
-              <i 
-                class="fa-regular fa-heart position-absolute top-0 end-0 m-2 p-2 rounded-circle heart-icon"
-                (click)="toggleFavorite($event, item)">
-              </i>
-              <img [src]="item.images[0]" alt="Try Refreshing this site..." (click)="openWallpaper(item._id)" class="img-fluid">
-              <div class="d-flex flex-column justify-content-between p-2">
-                <p class="text-capitalize m-0">{{ item.title }}</p>
-                <p>Starts at {{ item.price | currency: 'INR' }}</p>
-              </div>
+        <div class="row" id="favouriteCollection">
+            @if(wallpaperList.length>0){
+            <div *ngFor="let item of wallpaperList" class="col-6 col-md-6 col-lg-3 d-flex flex-column flex-lg-row">
+                <div class="card border-0 rounded-0 position-relative">
+                    <i class="fa-regular fa-heart  text-danger fa-solid position-absolute top-0 end-0 m-2 p-2 rounded-circle heart-icon"
+                        (click)="removeFavourite(item._id)">
+                    </i>
+                    <img [src]="item.images[0]" alt="Try Refreshing this site..." (click)="openWallpaper(item._id)"
+                        class="img-fluid">
+                    <div class="d-flex flex-column justify-content-between p-2">
+                        <p class="text-capitalize m-0">{{ item.title }}</p>
+                        <p>Starts at {{ item.price | currency: 'INR' }}</p>
+                    </div>
+                </div>
             </div>
-            
-          </div>
-    
-          
+            }@else{
+                <div class="col-12 text-center">
+                    <p class="text-capitalize m-0">No Favourites Found</p>
+                </div>
+            }
+
+
         </div>
-      </div>
-    </section>
-    
-    <app-footer></app-footer>
-    
-    }
+    </div>
+</section>
+
+<app-footer></app-footer>
+
+}

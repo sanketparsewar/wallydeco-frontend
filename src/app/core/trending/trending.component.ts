@@ -14,45 +14,70 @@ import { FooterComponent } from '../../component/footer/footer.component';
   styleUrl: './trending.component.css',
 })
 export class TrendingComponent implements OnInit {
-  wallpaperList: any;
-  isLoaded: boolean = false;
-
-  category: string = 'trending';
-  constructor(
-    private wallpaperService: WallpaperService,
-    private router: Router,
-    private alertService: AlertService
-  ) {
-    this.generateTrendingCollection();
-  }
-
-  ngOnInit() {
-    // this.generateFloralCollection();
-  }
-  toggleFavorite(event: Event, item: any) {
-    const target = event.target as HTMLElement;
-    target.classList.toggle('text-danger'); // Toggle red color
-    target.classList.toggle('fa-solid'); // Change icon to solid heart
-    target.classList.toggle('fa-regular'); // Toggle back to regular heart
-  }
+    wallpaperList: any[] = [];
+    isLoaded: boolean = false;
+    category: string = 'trending';
+    favouriteIds: string[] = [];
+  
+    constructor(
+      private wallpaperService: WallpaperService,
+      private router: Router,
+      private alertService: AlertService
+    ) {}
+  
+    ngOnInit() {
+      this.generateTrendingCollection();
+    }
+  
+    generateTrendingCollection() {
+      this.isLoaded = true;
+  
+      // Get trending wallpapers
+      this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
+        next: (data: any) => {
+          this.wallpaperList = data;
+  
+          // Now get user's favourites
+          this.wallpaperService.getFavouriteWallpapers().subscribe({
+            next: (favRes: any) => {
+              this.favouriteIds = favRes.favourites.map((fav: any) => fav._id);
+  
+              // Mark wallpapers as favourite
+              this.wallpaperList.forEach((item) => {
+                item.isFavourite = this.favouriteIds.includes(item._id);
+              });
+  
+              this.isLoaded = false;
+            },
+            error: () => {
+              this.isLoaded = false;
+            }
+          });
+        },
+        error: (error) => {
+          this.alertService.showError(error.error.message);
+          this.isLoaded = false;
+        },
+      });
+    }
+  
+    toggleFavorite(item: any) {
+      item.isFavourite = !item.isFavourite;
+  
+      this.wallpaperService.addWallpaperToFavourite(item._id).subscribe({
+        next: () => {
+          // Successfully toggled
+        },
+        error: (error) => {
+          this.alertService.showError(error.message);
+        },
+      });
+    }
+  
+    openWallpaper(wallpaperId: string) {
+      this.router.navigate(['/wallpaper', wallpaperId]);
+    }
+  
   
 
-  generateTrendingCollection() {
-    this.isLoaded = true;
-
-    this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
-      next: (data: any) => {
-        this.wallpaperList = data;
-        this.isLoaded = false;
-      },
-      error: (error) => {
-        this.alertService.showError(error.error.message);
-        this.isLoaded = false;
-      },
-    });
-  }
-
-  openWallpaper(wallpaperId: string) {
-    this.router.navigate(['/wallpaper', wallpaperId]);
-  }
 }

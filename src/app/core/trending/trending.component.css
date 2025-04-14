@@ -13,6 +13,8 @@
 img{
   border-radius: 1rem;
 }
+
+
 @media screen and (max-width: 510px) {
   
 .trending img{
