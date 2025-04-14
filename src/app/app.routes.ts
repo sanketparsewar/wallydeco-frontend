@@ -25,7 +25,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'floral', component: FloralComponent },
+      { path: 'floral', component: FloralComponent},
       { path: 'frames', component: FramesComponent },
       { path: 'trending', component: TrendingComponent },
       { path: 'favourite', component: FavouriteComponent },

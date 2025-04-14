@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from '../api/api.service';
 import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { environment } from '../../../environments/environment.prod';
 })
 export class WallpaperService {
   private BASE_URL: string;
-  constructor(private http: HttpClient, private apiService: ApiService) {
+  constructor(private http: HttpClient) {
     this.BASE_URL = environment.apiUrl;
   }
 

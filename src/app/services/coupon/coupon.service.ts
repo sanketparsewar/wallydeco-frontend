@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from '../api/api.service';
 import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
@@ -13,7 +12,6 @@ export class CouponService {
     constructor(
       private http: HttpClient,
     ) {
-      // this.BASE_URL = this.apiService.getBASE_URL();
           this.BASE_URL = environment.apiUrl;
       
     }

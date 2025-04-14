@@ -20,10 +20,12 @@ export class AbstractFrameComponent {
     private wallpaperService: WallpaperService,
     private router: Router,
     private alertService:AlertService
-  ) {}
+  ) {
+    this.generateAbstractFrameCollection();
+
+  }
 
   ngOnInit(): void {
-    this.generateAbstractFrameCollection();
   }
 
   generateAbstractFrameCollection(): void {
