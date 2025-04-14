@@ -1,15 +1,18 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AlertService } from '../../../services/alert/alert.service';
 
-export const profileGuard: CanActivateFn = (route, state) => {
-   // TODO: Implement authentication logic here. For now, always allow access.
-    const router=inject(Router)
-    const token = localStorage.getItem('token');
-    if(token){
-      return true;
-    }
-    else{
-      router.navigateByUrl('auth/login')
-      return false;
-    }
+export const profileGuard: CanActivateFn = () => {
+  const cookieService = inject(CookieService);
+  const router = inject(Router);
+  const alertService = inject(AlertService)
+
+  const token = cookieService.get('token');
+  if (token) {
+    return true;
+  } else {
+    router.navigate(['/auth/login']);
+    return false;
+  }
 };
