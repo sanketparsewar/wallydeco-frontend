@@ -24,7 +24,7 @@ export class LayoutComponent implements OnInit {
     private authService: AuthService
   ) {}
   ngOnInit() {
-    this.getLoggedUser()
+    // this.getLoggedUser()
   }
   getLoggedUser() {
     this.authService.getLoggedUser().subscribe({

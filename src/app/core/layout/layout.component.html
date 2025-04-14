@@ -39,9 +39,9 @@
 
       <div class="mb-auto ">
         <div class="d-flex pt-1  align-items-start justify-content-center gap-2">
-          <span class="material-icons" (click)="closeNavbar()">favorite</span>
-          <a><span [routerLink]="['/cart']" class="material-icons" (click)="closeNavbar()">shopping_bag</span></a>
-          <a [routerLink]="['profile']" class="text-dark" (click)="closeNavbar()"><span
+          <a [routerLink]="['/favourite']" class="text-dark" (click)="closeNavbar()"><span  class="material-icons">favorite</span></a>
+          <a [routerLink]="['/cart']" class="text-dark" (click)="closeNavbar()" ><span class="material-icons" >shopping_bag</span></a>
+          <a [routerLink]="['/user/profile']" class="text-dark" (click)="closeNavbar()"><span
               class="material-icons">account_circle</span></a>
         </div>
       </div>
