@@ -35,7 +35,7 @@ wallpaperList: any;
         this.isLoaded = false;
       },
       error: (error) => {
-        this.alertService.showError(error.error.message);
+        this.router.navigate(['auth','login'])
         this.isLoaded = false;
       },
     });

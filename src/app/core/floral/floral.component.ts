@@ -65,14 +65,15 @@ export class FloralComponent implements OnInit {
     }
   
     toggleFavorite(item: any) {
-      item.isFavourite = !item.isFavourite;
-  
+      
       this.wallpaperService.addWallpaperToFavourite(item._id).subscribe({
         next: () => {
+          item.isFavourite = !item.isFavourite;
           // Successfully toggled
         },
         error: (error) => {
-          this.alertService.showError(error.message);
+          // this.alertService.showError(error.message);
+          this.router.navigate(['auth','login'])
         },
       });
     }
