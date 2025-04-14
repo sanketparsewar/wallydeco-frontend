@@ -1,5 +1,4 @@
 import { AlertService } from './../../../services/alert/alert.service';
-import { LocalStorageService } from './../../../services/local/local-storage.service';
 import { AuthService } from './../../../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +27,7 @@ export class LoginComponent {
       next: (res) => {
         this.alertService.showSuccess('Login successful!');
         // history.back()
-        this.router.navigateByUrl('/profile');
+        this.router.navigateByUrl('/user/profile');
       },
       error: (err) => {
         this.alertService.showError(err.error.message);

@@ -17,7 +17,7 @@ export class RegisterComponent {
     name: '',
     email: '',
     password: '',
-    role: 'customer',
+    role: 'user',
     phone: '',
     address: {
       street: '',
