@@ -27,7 +27,6 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.loggedUserSubject.next(response.user); // Store logged-in user
-          localStorage.setItem('token', JSON.stringify(response.token)); // Store in localStorage
         })
       );
   }
@@ -48,7 +47,6 @@ export class AuthService {
       .pipe(
         tap(() => {
           this.loggedUserSubject.next(null);
-          localStorage.removeItem('token');
         })
       );
   }
