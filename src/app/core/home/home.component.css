@@ -1,8 +1,9 @@
+/* Hero Section */
 .hero-container {
   background: linear-gradient(135deg, rgba(110, 72, 170, 0.7) 0%, rgba(157, 80, 187, 0.7) 100%);
   position: relative;
   z-index: 0;
-  padding: 8rem 0; /* Add padding if missing */
+  padding: 8rem 0;
 }
 
 .hero-overlay {
@@ -15,10 +16,11 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.15; /* Adjusted opacity */
+  opacity: 0.15;
   z-index: 1;
 }
 
+/* Typewriter Cursor */
 .typewriter {
   position: relative;
   display: inline-block;
@@ -34,6 +36,7 @@
   50% { opacity: 0; }
 }
 
+/* Text Shadow */
 .text-shadow {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
@@ -48,6 +51,7 @@
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
+/* Shine Animation */
 .shine-effect {
   position: relative;
   overflow: hidden;
@@ -76,6 +80,8 @@
   display: inline-block;
   white-space: nowrap;
   animation: scrollText 20s linear infinite;
+  overflow: hidden;
+  width: 100%;
 }
 
 .scrolling-text span {
@@ -84,8 +90,8 @@
 }
 
 @keyframes scrollText {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 /* Responsive Adjustments */
@@ -93,12 +99,19 @@
   .hero-container {
     padding: 4rem 0;
   }
-  
+
   h1 {
     font-size: 2.5rem;
   }
-  
+
   .scrolling-text {
     font-size: 1rem;
+    white-space: nowrap;
   }
+}
+
+/* Utility */
+body {
+  padding-top: 4rem;
+  overflow-x: hidden;
 }

@@ -31,19 +31,18 @@
   <div class="hero-overlay"></div>
 </section>
 
-<section class="loop-scroll bg-light py-2 border-top border-bottom mb-4">
-  <div class="container-fluid px-0">
-    <div class="row g-0">
-      <div class="col-12">
-        <div class="scrolling-text fw-bold fs-5 text-primary">
-          <span *ngFor="let item of marqueeItems">
-            ✦ {{item}} ✦
-          </span>
-        </div>
+<section class="loop-scroll bg-light py-2 border-top border-bottom mb-4 overflow-hidden">
+  <div class="container px-3">
+    <div class="scrolling-text text-primary fw-bold">
+      <div class="marquee d-flex align-items-center">
+        <span class="me-4 fs-6 fs-md-5" *ngFor="let item of marqueeItems">
+          ✦ {{ item }} ✦
+        </span>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- carousel -->
 <app-scroll-carousel></app-scroll-carousel>
