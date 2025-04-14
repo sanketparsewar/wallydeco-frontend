@@ -10,10 +10,9 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { AdminDashboardComponent } from './core/admin-dashboard/admin-dashboard.component';
 import { WallpaperComponent } from './core/wallpaper/wallpaper.component';
 import { CartComponent } from './core/cart/cart.component';
+import { FavouriteComponent } from './core/favourite/favourite.component';
 import { profileGuard } from './shared/guards/profile/profile.guard';
 import { authGuard } from './shared/guards/auth/auth.guard';
-// import { profileGuard } from './shared/guards/profile/profile.guard';
-// import { authGuard } from './shared/guards/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -24,44 +23,54 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'floral', component: FloralComponent },
       { path: 'frames', component: FramesComponent },
       { path: 'trending', component: TrendingComponent },
+      { path: 'favourite', component: FavouriteComponent },
       {
-        path:'wallpaper/:wallpaperId',
-        component:WallpaperComponent
+        path: 'wallpaper/:wallpaperId',
+        component: WallpaperComponent,
       },
       {
-        path: 'profile',
+        path: 'user',
         canActivate: [profileGuard],
-        component: ProfileComponent,
+        children:[{
+          path:'profile',
+          component:ProfileComponent
+        },
+          {
+            path: 'admin-dashboard',
+            component: AdminDashboardComponent,
+          },
+        ]
       },
+      
       {
-        path:'admin-dashboard',
-        component:AdminDashboardComponent
-      },
-      {
-        path:'cart',
+        path: 'cart',
         component: CartComponent,
-      }
+      },
     ],
   },
   {
     path: 'auth',
-    canActivate: [authGuard],
     component: LayoutComponent,
     children: [
       {
         path: 'login',
+        canActivate: [authGuard],
         component: LoginComponent,
       },
       {
         path: 'register',
+        canActivate: [authGuard],
         component: RegisterComponent,
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
   },
 ];
