@@ -23,10 +23,12 @@ export class TrendingComponent implements OnInit {
       private wallpaperService: WallpaperService,
       private router: Router,
       private alertService: AlertService
-    ) {}
+    ) {
+      this.generateTrendingCollection();
+
+    }
   
     ngOnInit() {
-      this.generateTrendingCollection();
     }
   
     generateTrendingCollection() {

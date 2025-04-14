@@ -3,7 +3,7 @@ import { AlertService } from './../../services/alert/alert.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { FooterComponent } from '../../component/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IcartItem } from '../../shared/store/cart.state';
 import {
@@ -11,6 +11,7 @@ import {
   selectCartTotal,
 } from '../../shared/store/cart.selectors';
 import {
+  addItem,
   clearCart,
   removeItem,
   updateItemQuantity,
@@ -41,11 +42,40 @@ export class CartComponent implements OnInit {
     private alertService: AlertService,
     private couponService:CouponService
   ) {}
+
+  get cartItemsLength$(): Observable<number> {
+    return this.cartItems$.pipe(map((items) => items.length));
+  }
   ngOnInit() {
-    this.isLoaded = true;
-    setTimeout(() => {
-      this.isLoaded = false;
-    }, 1000);
+    // this.isLoaded = true;
+    // setTimeout(() => {
+    //   this.isLoaded = false;
+    // }, 1000);
+
+    this.cartItemsLength$.pipe(take(1)).subscribe((length: number) => {
+      if (length === 0) {
+        const storedItems = JSON.parse(
+          localStorage.getItem('cartItems') || '[]'
+        );
+        if (storedItems.length > 0) {
+          storedItems.forEach((item: any) => {
+            this.store.dispatch(addItem({ item }));
+          });
+        }
+      }
+    });
+
+    this.cartItemsLength$.subscribe((length: number) => {
+      if (length !== 0) {
+        this.cartItems$.subscribe((items: any) => {
+          localStorage.setItem('cartItems', JSON.stringify(items));
+        });
+      } else {
+        localStorage.removeItem('cartItems');
+      }
+    });
+
+
   }
 
   removeItem(itemId: string) {
@@ -54,6 +84,7 @@ export class CartComponent implements OnInit {
     // this.cartItems$.subscribe((items: any) => {
     //   localStorage.setItem('cartItems', JSON.stringify(items));
     // });
+
   }
 
   updateQuantity(item: any, itemId: string, quantity: number) {

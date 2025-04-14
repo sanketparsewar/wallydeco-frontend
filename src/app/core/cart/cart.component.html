@@ -26,25 +26,33 @@
           </p>
           <p class="m-0">{{item.size}}</p>
         </div>
-        <div class="col-3 d-flex align-items-center justify-content-center p-0">
-          <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==1" (click)="
+
+        <div class="col-3 d-flex flex-column align-items-center justify-content-center p-0">
+          <div class=" d-flex align-items-center justify-content-center p-0">
+            <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==1" (click)="
             updateQuantity(item, item.id, item.quantity - 1)
             ">
-            <i class="fa-solid fa-minus"></i>
-          </button>
-          <p class="px-1">{{item.quantity}}</p>
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <p class="px-1">{{item.quantity}}</p>
 
-          <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==item.stock" (click)="
+            <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity>=item.stock" (click)="
             updateQuantity(item, item.id, item.quantity + 1)
             ">
-            <i class="fa-solid fa-plus"></i>
-          </button>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <small class="text-secondary" *ngIf="item.quantity>=item.stock">
+            <i>Maxed</i>
+          </small>
         </div>
+
         <div class="col-4 p-0 text-center">
           <p class="fw-bold m-0 pe-2 text-end">{{item.price * item.quantity | currency:"INR"}}</p>
         </div>
       </div>
-      <div class="text-end my-2">
+      <div class="justify-content-between d-flex my-2">
+        <button class="btn btn-outline-success btn-sm" (click)="back()">+ Continue shopping</button>
         <button class="btn btn-dark btn-sm" (click)="clearCart()">Clear Bag</button>
       </div>
     </div>
@@ -55,13 +63,14 @@
       <div class="bg-white shadow-sm p-4 mb-2 rounded">
         <h6 class="fw-bold">HAVE A COUPON CODE?</h6>
         <form class="d-flex" role="search">
-          <input class="form-control me-2" name="couponCode" [(ngModel)]="couponCode" type="search" placeholder="Enter a Coupon Code" aria-label="Search">
+          <input class="form-control me-2" name="couponCode" [(ngModel)]="couponCode" type="search"
+            placeholder="Enter a Coupon Code" aria-label="Search">
           <button class="btn btn-outline-success" type="button">Apply</button>
         </form>
         <div class="text-danger">
           <p class="m-0">Invalid Code!</p>
         </div>
-        </div>
+      </div>
 
       <div class="bg-white shadow-sm p-4 rounded">
         <div class="d-flex justify-content-between">

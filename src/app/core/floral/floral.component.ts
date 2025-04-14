@@ -24,13 +24,15 @@ export class FloralComponent implements OnInit {
       private wallpaperService: WallpaperService,
       private router: Router,
       private alertService: AlertService
-    ) {}
-  
-    ngOnInit() {
-      this.generateTrendingCollection();
+    ) {
+      this.generateFloralCollection();
+
     }
   
-    generateTrendingCollection() {
+    ngOnInit() {
+    }
+  
+    generateFloralCollection() {
       this.isLoaded = true;
   
       // Get trending wallpapers

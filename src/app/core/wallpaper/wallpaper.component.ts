@@ -76,6 +76,14 @@ export class WallpaperComponent implements OnInit {
     };
     this.store.dispatch(addItem({ item: cartItem }));
     this.alertService.showSuccess('Added to Shopping bag!');
+    this.cartItems$.subscribe(
+      (items: any) => {
+        localStorage.setItem('cartItems', JSON.stringify(items));
+      },
+      () => {
+        this.alertService.showSuccess('Failed to add to cart.');
+      }
+    );
   }
 
   openCart() {
