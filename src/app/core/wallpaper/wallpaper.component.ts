@@ -85,7 +85,6 @@ export class WallpaperComponent implements OnInit {
       }
     );
   }
-
   openCart() {
     this.router.navigateByUrl('/cart');
   }
