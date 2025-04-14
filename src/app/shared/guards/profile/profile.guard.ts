@@ -10,7 +10,6 @@ export const profileGuard: CanActivateFn = () => {
 
   const token = cookieService.get('token');
   if (token) {
-    router.navigate(['/user/profile'])
     return true;
   } else {
     router.navigate(['/auth/login']);
