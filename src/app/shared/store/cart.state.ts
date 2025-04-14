@@ -9,13 +9,7 @@ export interface IcartItem {
     price: number;
     quantity: number;
   }
-  
-//   export interface Icart {
-//     items: IcartItem[];
-//     deliveryCharges:number;
-//     totalPrice: number;
-//     totalQuantity: number;
-//   }
+ 
 
 export interface IcartState {
     items: IcartItem[];
