@@ -31,6 +31,20 @@ export class WallpaperService {
       `${this.BASE_URL}/wallpaper/category/${category}`
     );
   }
+  getFavouriteWallpapers(): Observable<any> {
+    return this.http.get<any>(
+      `${this.BASE_URL}/wallpaper/favourite`,{
+        withCredentials: true, // Allow cookies to be sent and received
+      }
+    );
+  }
+  addWallpaperToFavourite(id:string): Observable<any> {
+    return this.http.get<any>(
+      `${this.BASE_URL}/wallpaper/favourite/${id}`,{
+        withCredentials: true, // Allow cookies to be sent and received
+      }
+    );
+  }
 
   createWallpaper(wallpaper: any): Observable<any> {
     return this.http.post<any>(`${this.BASE_URL}/wallpaper`, wallpaper, {
