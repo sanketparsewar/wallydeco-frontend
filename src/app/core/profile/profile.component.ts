@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
@@ -16,38 +15,39 @@ import { FooterComponent } from '../../component/footer/footer.component';
   styleUrl: './profile.component.css',
   imports: [
     CommonModule,
-   LoaderComponent,
-    RouterLink,
-    FooterComponent,
+    LoaderComponent,
     EditProfileComponent,
-    EditProfilePictureComponent
+    EditProfilePictureComponent,
+    FooterComponent,RouterLink
   ],
 })
 export class ProfileComponent implements OnInit {
   loggedUser: any = null;
-  isLoaded:boolean=false;
+  isLoaded: boolean = false;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private alertService: AlertService,
     private confirmService: ConfirmService
-  ) {
-    this.authService.loggedUser$.subscribe({
-      next: (user) => {
-        this.loggedUser = user;
-        console.log('1',this.loggedUser,Date.now());
-      },
-    });
-  }
-
+  ) {}
 
   ngOnInit() {
+    this.getLoggedUser();
   }
-  getLoggedUser(){
+
+  getLoggedUser() {
+    this.isLoaded = true;
     this.authService.getLoggedUser().subscribe({
       next: (data: any) => {
         this.loggedUser = data.user;
+        this.isLoaded = false;
       },
+      error: (error) => {
+        this.alertService.showError('Login required');
+        this.isLoaded = false;
+        // this.router.navigate(['/auth/login']); // Redirect to login if session expired or unauthorized
+      }
     });
   }
 
@@ -57,11 +57,11 @@ export class ProfileComponent implements OnInit {
         this.authService.logoutUser().subscribe({
           next: () => {
             this.alertService.showSuccess('Logged out.');
-            this.router.navigate(['/home']);
+            this.router.navigate(['/auth/login']); // Redirect to login page after logout
           },
           error: (error) => {
             this.alertService.showError(error.error.message);
-          },
+          }
         });
       }
     });
