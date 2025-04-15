@@ -2,7 +2,7 @@
 <app-loader></app-loader>
 }@else {
 
-<div class="container pt-4 mt-5 ">
+<div class="container pt-4 mt-5">
   <h1 class="text-center fw-bold mb-4">Your Bag</h1>
   <div class="text-center" *ngIf="!(cartItems$ | async)?.length">
     <p>Empty!</p>
@@ -72,6 +72,7 @@
         </div>
       </div>
 
+      <!-- total section -->
       <div class="bg-white shadow-sm p-4 rounded">
         <div class="d-flex justify-content-between">
           <h6 class="fw-bold">Subtotal</h6>

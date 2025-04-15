@@ -6,8 +6,6 @@ import { AlertService } from '../../../services/alert/alert.service';
 export const profileGuard: CanActivateFn = () => {
   const cookieService = inject(CookieService);
   const router = inject(Router);
-  const alertService = inject(AlertService)
-
   const token = cookieService.get('token');
   if (token) {
     return true;

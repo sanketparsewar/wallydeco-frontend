@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +27,8 @@ export class LoginComponent {
     this.authService.loginUser(this.loginData).subscribe({
       next: (res) => {
         this.alertService.showSuccess('Login successful!');
-        // history.back()
-        this.router.navigateByUrl('/user/profile');
+        history.back()
+        // this.router.navigateByUrl('/user/profile');
       },
       error: (err) => {
         this.alertService.showError(err.error.message);

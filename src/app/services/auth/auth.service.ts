@@ -8,10 +8,11 @@ import { environment } from '../../../environments/environment.prod';
 })
 export class AuthService {
   private BASE_URL: string = environment.apiUrl;
-  private loggedUserSubject = new BehaviorSubject<any>(null);
-  loggedUser$ = this.loggedUserSubject.asObservable();
+  private loggedUserSubject = new BehaviorSubject<any>(undefined);
+  public loggedUser$ = this.loggedUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
 
   registerUser(user: any): Observable<any> {
     return this.http.post(`${this.BASE_URL}/auth/register`, user, {

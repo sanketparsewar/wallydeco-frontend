@@ -3,7 +3,7 @@ import { AlertService } from './../../services/alert/alert.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { FooterComponent } from '../../component/footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { map, Observable, take } from 'rxjs';
+import { filter, map, Observable, take, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IcartItem } from '../../shared/store/cart.state';
 import {
@@ -20,9 +20,10 @@ import { Router } from '@angular/router';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { ConfirmService } from '../../services/confirm/confirm.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-cart',
-  imports: [FooterComponent, CommonModule, LoaderComponent,FormsModule],
+  imports: [FooterComponent, CommonModule, LoaderComponent, FormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
@@ -31,17 +32,23 @@ export class CartComponent implements OnInit {
   orderObj: any = {
     deliveryCharges: 200,
   };
+  loggedUser: any = null;
+
   store = inject(Store);
   router = inject(Router);
   cartItems$: Observable<IcartItem[]> = this.store.select(selectCartItems);
   cartTotal$: Observable<number> = this.store.select(selectCartTotal);
   isLoaded: boolean = false;
-  couponCode:string=''
+  couponCode: string = ''
   constructor(
     private confirmService: ConfirmService,
     private alertService: AlertService,
-    private couponService:CouponService
-  ) {}
+    private couponService: CouponService,
+    private authService: AuthService,
+  ) {
+    this.getLoggedUser()
+
+  }
 
   get cartItemsLength$(): Observable<number> {
     return this.cartItems$.pipe(map((items) => items.length));
@@ -74,8 +81,22 @@ export class CartComponent implements OnInit {
         localStorage.removeItem('cartItems');
       }
     });
+  }
 
-
+  getLoggedUser() {
+    this.authService.loggedUser$
+      .pipe(
+        tap((user: any) => {
+          if (!user) {
+            this.router.navigateByUrl('/auth/login');
+          }
+        }),
+        filter(user => !!user)
+      )
+      .subscribe((user: any) => {
+        this.loggedUser = user;
+        console.log(user);
+      });
   }
 
   removeItem(itemId: string) {
@@ -105,7 +126,7 @@ export class CartComponent implements OnInit {
   }
 
   applyCoupon() {
-    
+
   }
 
 

@@ -8,6 +8,7 @@ import { EditProfileComponent } from '../../shared/modals/edit-profile/edit-prof
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { EditProfilePictureComponent } from '../../shared/modals/edit-profile-picture/edit-profile-picture.component';
 import { FooterComponent } from '../../component/footer/footer.component';
+import { filter, tap } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,7 @@ import { FooterComponent } from '../../component/footer/footer.component';
     LoaderComponent,
     EditProfileComponent,
     EditProfilePictureComponent,
-    FooterComponent,RouterLink
+    FooterComponent, RouterLink
   ],
 })
 export class ProfileComponent implements OnInit {
@@ -30,25 +31,39 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private confirmService: ConfirmService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getLoggedUser();
   }
 
   getLoggedUser() {
-    this.isLoaded = true;
-    this.authService.getLoggedUser().subscribe({
-      next: (data: any) => {
-        this.loggedUser = data.user;
+    // this.isLoaded = true;
+    // this.authService.getLoggedUser().subscribe({
+    //   next: (data: any) => {
+    //     this.loggedUser = data.user;
+    //     this.isLoaded = false;
+    //   },
+    //   error: (error) => {
+    //     this.alertService.showError('Login required');
+    //     this.isLoaded = false;
+    //   }
+    // });
+    this.authService.loggedUser$
+      .pipe(
+        tap((user: any) => {
+          if (!user) {
+            this.isLoaded = false
+            this.router.navigateByUrl('/auth/login');
+          }
+        }),
+        filter(user => !!user)
+      )
+      .subscribe((user: any) => {
+        this.loggedUser = user;
         this.isLoaded = false;
-      },
-      error: (error) => {
-        this.alertService.showError('Login required');
-        this.isLoaded = false;
-        // this.router.navigate(['/auth/login']); // Redirect to login if session expired or unauthorized
-      }
-    });
+        console.log(user);
+      });
   }
 
   logout() {
