@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from '../../../environments/environment.prod';
 export class UserService {
   private BASE_URL: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     this.BASE_URL = environment.apiUrl;
   }
 
@@ -20,7 +21,11 @@ export class UserService {
   updateUser(userId: string, user: any): Observable<any> {
     return this.http.put<any>(`${this.BASE_URL}/user/${userId}`, user, {
       withCredentials: true,
-    });
+    }).pipe(
+      tap((response) => {
+        this.authService.setLoggedUser(response.user);
+      })
+    );;
   }
 
   deleteUser(id: string): Observable<any> {

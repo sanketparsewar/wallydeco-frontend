@@ -2,7 +2,7 @@
 <app-loader></app-loader>
 }@else {
 
-<div class="container pt-4 mt-5">
+<div class="container pt-4 mt-5 vh-100">
   <h1 class="text-center fw-bold mb-4">Your Bag</h1>
   <div class="text-center" *ngIf="!(cartItems$ | async)?.length">
     <p>Empty!</p>
@@ -58,7 +58,7 @@
     </div>
 
     <!-- Checkout Section -->
-    <div class="col-12 col-md-4">
+    <!-- <div class="col-12 col-md-4">
 
       <div class="bg-white shadow-sm p-4 mb-2 rounded">
         <h6 class="fw-bold">HAVE A COUPON CODE?</h6>
@@ -70,7 +70,28 @@
         <div class="text-danger">
           <p class="m-0">Invalid Code!</p>
         </div>
+      </div> -->
+
+      <div class="bg-white shadow-sm p-4 mb-2 rounded">
+        <h6 class="fw-bold">HAVE A COUPON CODE?</h6>
+        <form class="d-flex" role="search">
+          <input [disabled]="appliedCoupon" class="form-control me-2"  name="couponCode" [(ngModel)]="couponCode" type="search"
+            placeholder="Enter a Coupon Code" aria-label="Search">
+          <button *ngIf="!appliedCoupon" class="btn btn-outline-success" type="button" (click)="applyCoupon()">Apply</button>
+          <button *ngIf="appliedCoupon" class="btn " type="button" (click)="removeCoupon()"><i class="fa-solid fa-xmark"></i></button>
+        </form>
+      
+        <div *ngIf="couponError" class="text-danger">
+          <p class="m-0">{{ couponError }}</p>
+        </div>
+      
+        <div *ngIf="appliedCoupon" class="text-success">
+          <p class="m-0">Coupon "<strong>{{ appliedCoupon.code }}</strong>" applied: ₹{{ appliedCoupon.discount }} off</p>
+        </div>
       </div>
+      
+
+
 
       <!-- total section -->
       <div class="bg-white shadow-sm p-4 rounded">
@@ -80,19 +101,23 @@
         </div>
         <div class="d-flex justify-content-between ">
           <h6 class="fw-bold">Delivery Charges</h6>
-          <p class="fw-bold">{{orderObj?.deliveryCharges | currency:"INR"}}</p>
+          <p class="fw-bold">{{deliveryCharges | currency:"INR"}}</p>
+        </div>
+        <div *ngIf="appliedCoupon" class="d-flex justify-content-between ">
+          <h6 class="fw-bold text-muted text-decoration-italic">Discount</h6>
+          <p class="fw-bold text-success">-{{appliedCoupon.discount | currency:"INR"}}</p>
         </div>
         <hr />
         <div class="d-flex justify-content-between">
           <h5 class="fw-bold">Total</h5>
-          <p class="fw-bold fs-5">{{
-            (cartTotal$ | async) + orderObj?.deliveryCharges | currency : "INR"}}</p>
+          <p class="fw-bold fs-5">{{ finalTotal | currency: "INR" }}</p>
         </div>
+        
         <a class="btn btn-success w-100 text-uppercase py-2" (click)="checkout()">Checkout</a>
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 
 
 <app-footer></app-footer>

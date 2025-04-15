@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../../../services/fileUpload/upload.service';
+import { AuthService } from '../../../services/auth/auth.service';
 @Component({
   selector: 'app-edit-profile',
   imports: [CommonModule, FormsModule],
@@ -17,7 +18,8 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService:AuthService
   ) {}
   ngOnInit(): void {
     this.updatedUser = {
@@ -39,7 +41,6 @@ export class EditProfileComponent implements OnInit {
     this.userService.updateUser(this.user?._id, this.updatedUser).subscribe({
       next: (res: any) => {
         this.alertService.showSuccess(res.message);
-        this.getUpdatedUserData.emit();
       },
       error: (error: any) => {
         this.alertService.showError(error.error.message);
@@ -47,6 +48,7 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+ 
   onSubmit() {
     this.onUpdate();
   }

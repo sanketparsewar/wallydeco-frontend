@@ -75,6 +75,7 @@ export class WallpaperComponent implements OnInit {
       quantity: 1, // Default to quantity 1
     };
     this.store.dispatch(addItem({ item: cartItem }));
+    console.log('cartitem',cartItem)
     this.alertService.showSuccess('Added to Shopping bag!');
     this.cartItems$.subscribe(
       (items: any) => {

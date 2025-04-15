@@ -13,6 +13,7 @@ import { CartComponent } from './core/cart/cart.component';
 import { FavouriteComponent } from './core/favourite/favourite.component';
 import { profileGuard } from './shared/guards/profile/profile.guard';
 import { authGuard } from './shared/guards/auth/auth.guard';
+import { CheckoutComponent } from './core/checkout/checkout.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +26,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'floral', component: FloralComponent},
+      { path: 'floral', component: FloralComponent },
       { path: 'frames', component: FramesComponent },
       { path: 'trending', component: TrendingComponent },
       { path: 'favourite', component: FavouriteComponent },
@@ -36,20 +37,29 @@ export const routes: Routes = [
       {
         path: 'user',
         canActivate: [profileGuard],
-        children:[{
-          path:'profile',
-          component:ProfileComponent
+        children: [{
+          path: 'profile',
+          component: ProfileComponent
         },
-          {
-            path: 'admin-dashboard',
-            component: AdminDashboardComponent,
-          },
+        {
+          path: 'admin-dashboard',
+          component: AdminDashboardComponent,
+        },
         ]
       },
-      
+
       {
         path: 'cart',
-        component: CartComponent,
+        children: [
+          {
+            path: '',
+            component: CartComponent
+          },
+          {
+            path: 'checkout',
+            component: CheckoutComponent
+          }
+        ]
       },
     ],
   },

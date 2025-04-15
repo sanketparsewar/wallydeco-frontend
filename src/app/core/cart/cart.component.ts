@@ -29,10 +29,16 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class CartComponent implements OnInit {
   cartItems: IcartItem[] = [];
-  orderObj: any = {
-    deliveryCharges: 200,
-  };
+  deliveryCharges:number= 200;
   loggedUser: any = null;
+
+  couponError: string = '';
+  appliedCoupon: any = null;
+  finalTotal: number = 0;
+  discount:number=0
+  cartTotal:number=0
+
+
 
   store = inject(Store);
   router = inject(Router);
@@ -54,16 +60,9 @@ export class CartComponent implements OnInit {
     return this.cartItems$.pipe(map((items) => items.length));
   }
   ngOnInit() {
-    // this.isLoaded = true;
-    // setTimeout(() => {
-    //   this.isLoaded = false;
-    // }, 1000);
-
     this.cartItemsLength$.pipe(take(1)).subscribe((length: number) => {
       if (length === 0) {
-        const storedItems = JSON.parse(
-          localStorage.getItem('cartItems') || '[]'
-        );
+        const storedItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
         if (storedItems.length > 0) {
           storedItems.forEach((item: any) => {
             this.store.dispatch(addItem({ item }));
@@ -71,7 +70,7 @@ export class CartComponent implements OnInit {
         }
       }
     });
-
+  
     this.cartItemsLength$.subscribe((length: number) => {
       if (length !== 0) {
         this.cartItems$.subscribe((items: any) => {
@@ -81,35 +80,47 @@ export class CartComponent implements OnInit {
         localStorage.removeItem('cartItems');
       }
     });
+  
+    this.cartTotal$.subscribe((total) => {
+      this.calculateFinalTotal(total);
+    });
   }
+
+  calculateFinalTotal(cartTotal: number) {
+    this.cartTotal=cartTotal
+    this.discount = this.appliedCoupon ? this.appliedCoupon.discount : 0;
+    this.finalTotal = cartTotal + this.deliveryCharges - this.discount;
+    localStorage.setItem('discount',JSON.stringify(this.discount))
+    localStorage.setItem('deliveryCharges',JSON.stringify(this.deliveryCharges))
+    localStorage.setItem('cartTotal',JSON.stringify(this.cartTotal))
+    localStorage.setItem('finalTotal',JSON.stringify(this.finalTotal))
+  }
+  
 
   getLoggedUser() {
     this.authService.loggedUser$
       .pipe(
         tap((user: any) => {
-          if (!user) {
-            this.router.navigateByUrl('/auth/login');
-          }
+          // if (!user) {
+          //   this.router.navigateByUrl('/auth/login');
+          // }
         }),
         filter(user => !!user)
       )
       .subscribe((user: any) => {
         this.loggedUser = user;
-        console.log(user);
       });
   }
 
   removeItem(itemId: string) {
     this.store.dispatch(removeItem({ itemId }));
-    // localStorage.removeItem('cartItems');
-    // this.cartItems$.subscribe((items: any) => {
-    //   localStorage.setItem('cartItems', JSON.stringify(items));
-    // });
-
   }
 
   updateQuantity(item: any, itemId: string, quantity: number) {
     this.store.dispatch(updateItemQuantity({ itemId, quantity }));
+    if(this.couponCode) {
+      this.applyCoupon()
+    }
   }
 
   clearCart() {
@@ -125,14 +136,53 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/wallpaper', wallpaperId]);
   }
 
-  applyCoupon() {
-
+  removeCoupon(){
+    this.couponCode = '';
+    this.appliedCoupon = null;
   }
 
+  applyCoupon() {
+    this.couponError = '';
+    this.appliedCoupon = null;
+  
+    if (!this.couponCode.trim()) {
+      this.couponError = 'Please enter a coupon code.';
+      return;
+    }
+    
+    this.couponService.applyCoupon(this.loggedUser._id,this.couponCode).subscribe({
+      next: (res: any) => {
+        this.cartTotal$.pipe(take(1)).subscribe((total) => {
+          if (total < 999) {
+            this.couponError = 'Order must be above ₹999 to use this coupon.';
+            return;
+          }
+  
+          this.appliedCoupon = res.coupon;
+          this.calculateFinalTotal(total);
+        });
+      },
+      error: () => {
+        this.couponError = 'Invalid Coupon Code!';
+      }
+    });
+  }
+  
 
 
   checkout() {
+    this.cartItems$.subscribe({
+      next: (data: any) => {
+        this.cartItems=data
+      }
+    })
     console.log(this.cartItems);
+    
+    console.log('cartTotal',this.cartTotal)
+    console.log('deliveryCharges',this.deliveryCharges)
+    console.log('discount',this.discount)
+    console.log('finalTotal',this.finalTotal)
+    this.router.navigate(['/cart/checkout'])
   }
 
   back() {

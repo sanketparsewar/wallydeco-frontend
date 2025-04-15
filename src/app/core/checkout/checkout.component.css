@@ -1,0 +1,39 @@
+/* .card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+  }
+  
+  .card-header {
+    border-radius: 10px 10px 0 0 !important;
+  }
+  
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+  }
+  
+  .list-group-item:first-child {
+    border-top: none;
+  }
+  
+  .btn {
+    border-radius: 50px;
+    font-weight: 500;
+  }
+  
+  .form-control, .form-select {
+    border-radius: 8px;
+    padding: 10px 15px;
+  }
+  
+  .form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+  }
+  
+  @media (max-width: 768px) {
+    .sticky-top {
+      position: relative !important;
+      top: 0 !important;
+    }
+  } */

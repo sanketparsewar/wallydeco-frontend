@@ -62,7 +62,6 @@ export class ProfileComponent implements OnInit {
       .subscribe((user: any) => {
         this.loggedUser = user;
         this.isLoaded = false;
-        console.log(user);
       });
   }
 

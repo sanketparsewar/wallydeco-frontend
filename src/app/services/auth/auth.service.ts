@@ -51,4 +51,8 @@ export class AuthService {
         })
       );
   }
+
+  setLoggedUser(data:any){
+    this.loggedUserSubject.next(data);
+  }
 }
