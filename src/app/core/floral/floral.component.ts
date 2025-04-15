@@ -12,15 +12,15 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
   imports: [FormsModule, CommonModule, LoaderComponent,FooterComponent],
   templateUrl: './floral.component.html',
   styleUrl: './floral.component.css',
-  animations: [
-    trigger('fadeInUp', [
-      state('void', style({ opacity: 0, transform: 'translateY(20px)' })),
-      transition(':enter', [
-        animate('400ms {{delay}} ease-out', 
-          style({ opacity: 1, transform: 'translateY(0)' }))
-      ], { params: { delay: '0ms' } })
-    ])
-  ]
+  // animations: [
+  //   trigger('fadeInUp', [
+  //     state('void', style({ opacity: 0, transform: 'translateY(20px)' })),
+  //     transition(':enter', [
+  //       animate('400ms {{delay}} ease-out', 
+  //         style({ opacity: 1, transform: 'translateY(0)' }))
+  //     ], { params: { delay: '0ms' } })
+  //   ])
+  // ]
 })
 export class FloralComponent implements OnInit {
   
@@ -74,10 +74,10 @@ export class FloralComponent implements OnInit {
     }
   
     toggleFavorite(item: any) {
+      item.isFavourite = !item.isFavourite;
       
       this.wallpaperService.addWallpaperToFavourite(item._id).subscribe({
         next: () => {
-          item.isFavourite = !item.isFavourite;
           // Successfully toggled
         },
         error: (error) => {

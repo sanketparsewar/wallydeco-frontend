@@ -1,43 +1,45 @@
-<section class="hero-container position-relative overflow-hidden py-5 py-md-8">
-  <div class="container position-relative z-2 mt-5">
+<section class="hero-container position-relative overflow-hidden py-5 py-md-8 d-flex flex-column justify-content-end" style="min-height: 90vh;">
+  <div class="container position-relative z-2 mb-4">
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 text-center">
-        <h1 class="display-3 display-md-1 fw-bold text-white mb-3 mb-md-4">
+        <h2 class="display-3 display-md-1 fw-bold text-white mb-2 mb-md-3">
           <span class="typewriter">
-            WALLY<span class="text-warning" id="job">DECO</span>_
+            WALLY<span class="text-dark" id="job">DECO</span>_
           </span>
           <span class="cursor">|</span>
-        </h1>
-        <p class="lead text-white mb-4 mb-md-5 text-shadow">
+        </h2>
+        <p class="lead text-white mb-4 mb-md-4 text-shadow">
           Unleash Your Walls with the Most Dazzling Wallpaper Designs
         </p>
         <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
-          <a class="btn btn-dark btn-lg rounded-pill px-4 hover-grow" 
-             href="https://maps.app.goo.gl/gphgPPppa2vM7mY76" 
-             target="_blank">
+          <a class="btn btn-dark btn-md rounded-pill px-3 py-2 w-auto hover-grow" href="https://maps.app.goo.gl/gphgPPppa2vM7mY76" target="_blank">
             <i class="fas fa-store me-2"></i>
             Store Location
           </a>
-          <a class="btn btn-success btn-lg rounded-pill px-4 hover-grow shine-effect" 
-             href="https://mybillbook.in/store/wallydeco" 
-             target="_blank">
+          <a class="btn btn-success btn-md rounded-pill px-3 py-2 w-auto hover-grow shine-effect"
+            href="https://mybillbook.in/store/wallydeco" target="_blank">
             <i class="fas fa-globe me-2"></i>
             Shop Online!
           </a>
         </div>
+        
+        
       </div>
     </div>
   </div>
   <div class="hero-overlay"></div>
 </section>
 
-<section class="loop-scroll bg-light py-2 border-top border-bottom mb-4 overflow-hidden">
-  <div class="container px-3">
-    <div class="scrolling-text text-primary fw-bold">
-      <div class="marquee d-flex align-items-center">
+
+<section class="loop-scroll bg-light py-2 border-top border-bottom overflow-hidden">
+  <div class="container p-0">
+    <div class="scrolling-text text-dark fw-bold">
+      <div class="d-flex align-items-center">
+        <marquee behavior="loop-scroll" direction="left">
         <span class="me-4 fs-6 fs-md-5" *ngFor="let item of marqueeItems">
           ✦ {{ item }} ✦
         </span>
+      </marquee>
       </div>
     </div>
   </div>
@@ -48,9 +50,7 @@
 <app-scroll-carousel></app-scroll-carousel>
 
 <!-- top-picked wallpaper -->
-<div class="container my-5 py-4">
   <app-top-picked-wallpapers></app-top-picked-wallpapers>
-</div>
 
 <!-- store history -->
 <app-story></app-story>

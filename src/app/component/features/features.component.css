@@ -1,7 +1,7 @@
 /* features.component.css */
 .features {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  /* padding-top: 3rem;
+  padding-bottom: 3rem; */
   background-image: url("https://res.cloudinary.com/dgcc3397p/image/upload/v1739708520/NZ-6_tl4cr8.jpg");
   background-size: cover;
   background-position: center;
@@ -42,11 +42,11 @@
 /* Card Styles */
 .feature-card {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 8px;
+  /* border-radius: 8px; */
   transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.05);
+  /* border: 1px solid rgba(0,0,0,0.05); */
   height: 100%;
-  padding: 2rem;
+  /* padding: 2rem; */
   box-shadow: 0 2px 15px rgba(0,0,0,0.05);
 }
 
@@ -63,7 +63,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+  /* background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%); */
+  background: linear-gradient(135deg, #8f7767 0%, #83725f 100%);
   color: white;
   font-size: 1.5rem;
   margin-right: 1.5rem;

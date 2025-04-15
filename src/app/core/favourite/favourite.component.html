@@ -1,69 +1,67 @@
 @if(isLoaded) {
-    <app-loader></app-loader>
-  } @else {
-  <section class="favourites mt-5 py-5">
-    <div class="container">
-      <div class="row justify-content-center mb-5">
-        <div class="col-12 text-center position-relative">
-          <h1 class="display-4 fw-bold text-dark mb-3">
-            Your Favourites
-            <i class="fas fa-heart text-danger ms-2"></i>
-          </h1>
-          <p class="lead text-muted">Your curated collection of loved wallpapers</p>
-          <div class="divider mx-auto bg-primary"></div>
-        </div>
+<app-loader></app-loader>
+} @else {
+<section class="favourites mt-5 py-5">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-12 text-center position-relative">
+        <h1 class="display-4 fw-bold text-dark mb-3">
+          Your Favourites
+          <i class="fas fa-heart text-danger ms-2"></i>
+        </h1>
+        <p class="lead text-muted">Your curated collection of loved wallpapers</p>
+        <div class="divider mx-auto bg-primary"></div>
       </div>
-  
-      @if(wallpaperList.length > 0) {
-      <div class="row g-4" id="favouriteCollection">
-        <div *ngFor="let item of wallpaperList" class="col-6 col-md-4 col-lg-3">
-          <div class="favourite-card h-100 position-relative overflow-hidden">
-            <div class="card-image position-relative">
-              <img [src]="item.images[0]" 
-                   alt="{{item.title}}" 
-                   class="img-fluid w-100"
-                   (click)="openWallpaper(item._id)">
-              <div class="card-overlay d-flex align-items-center justify-content-center">
-                <button class="btn btn-outline-light rounded-pill px-3" (click)="openWallpaper(item._id)">
-                  <i class="fas fa-eye me-2"></i> View Details
-                </button>
-              </div>
+    </div>
+
+    @if(wallpaperList.length > 0) {
+    <div class="row g-4" id="favouriteCollection">
+      <div *ngFor="let item of wallpaperList" class="col-6 col-md-4 col-lg-3">
+        <div class="favourite-card h-100 position-relative overflow-hidden">
+          <div class="card-image position-relative">
+            <img [src]="item.images[0]" alt="{{item.title}}" class="img-fluid w-100" (click)="openWallpaper(item._id)">
+            <div class="card-overlay d-flex align-items-center justify-content-center">
+              <button class="btn btn-outline-light rounded-pill px-3" (click)="openWallpaper(item._id)">
+                <i class="fas fa-eye me-2"></i> View Details
+              </button>
             </div>
-            
-            <div class="card-body p-3">
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <h5 class="card-title mb-1 text-capitalize">{{item.title}}</h5>
-                  <p class="text-muted mb-2">{{item.category | uppercase}}</p>
-                </div>
-                <button class="btn btn-link text-danger p-0" (click)="removeFavourite(item._id); $event.stopPropagation()">
-                  <i class="fas fa-heart fa-lg"></i>
-                </button>
+          </div>
+
+          <div class="card-body p-2">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="card-title text-dark fw-semibold mb-1 text-capitalize">{{ item.title }}</p>
+                <p class="card-text  small fw-medium">{{item.category | uppercase}}</p>
               </div>
-              
-              <div class="d-flex justify-content-between align-items-center mt-2">
-                <h6 class="mb-0 text-primary fw-bold">{{item.price | currency:'INR'}}</h6>
-                <span class="badge bg-success" *ngIf="item.stock > 0">In Stock</span>
-                <span class="badge bg-secondary" *ngIf="item.stock <= 0">Out of Stock</span>
-              </div>
+              <button class="btn btn-link text-danger p-0"
+                (click)="removeFavourite(item._id); $event.stopPropagation()">
+                <i class="fas fa-heart fa-lg"></i>
+              </button>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <h6 class="mb-0 text-primary fw-bold">{{item.price | currency:'INR'}}</h6>
+              <span class="badge bg-success" *ngIf="item.stock > 0">In Stock</span>
+              <span class="badge bg-secondary" *ngIf="item.stock <= 0">Out of Stock</span>
             </div>
           </div>
         </div>
       </div>
-      } @else {
-      <div class="empty-state text-center py-5">
-        <div class="empty-icon mb-4">
-          <i class="far fa-heart fa-4x text-danger"></i>
-        </div>
-        <h3 class="fw-bold mb-3">No Favourites Yet</h3>
-        <p class="text-muted mb-4">Start adding wallpapers to your favourites and they'll appear here</p>
-        <button class="btn btn-primary px-4" routerLink="/collections">
-          <i class="fas fa-paint-roller me-2"></i> Browse Collections
-        </button>
-      </div>
-      }
     </div>
-  </section>
-  
-  <app-footer></app-footer>
-  }
+    } @else {
+    <div class="empty-state text-center py-5">
+      <div class="empty-icon mb-4">
+        <i class="far fa-heart fa-4x text-danger"></i>
+      </div>
+      <h3 class="fw-bold mb-3">No Favourites Yet</h3>
+      <p class="text-muted mb-4">Start adding wallpapers to your favourites and they'll appear here</p>
+      <button class="btn btn-primary px-4" routerLink="/collections">
+        <i class="fas fa-paint-roller me-2"></i> Browse Collections
+      </button>
+    </div>
+    }
+  </div>
+</section>
+
+<app-footer></app-footer>
+}

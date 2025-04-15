@@ -1,7 +1,10 @@
 /* Hero Section */
 .hero-container {
-  background: linear-gradient(135deg, rgba(110, 72, 170, 0.7) 0%, rgba(157, 80, 187, 0.7) 100%);
+  /* background: linear-gradient(200deg, rgb(224,218,207) 0%, rgb(126,106,109) 100%); */
+  background: linear-gradient(to top, rgb(19, 19, 19)50% , rgb(255, 255, 255));
+
   position: relative;
+  height: 35rem;
   z-index: 0;
   padding: 8rem 0;
 }
@@ -16,7 +19,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.15;
+  opacity: 0.8;
   z-index: 1;
 }
 
@@ -38,7 +41,7 @@
 
 /* Text Shadow */
 .text-shadow {
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
 /* Button Effects */
@@ -79,7 +82,7 @@
 .scrolling-text {
   display: inline-block;
   white-space: nowrap;
-  animation: scrollText 20s linear infinite;
+  /* animation: scrollText 20s linear infinite; */
   overflow: hidden;
   width: 100%;
 }

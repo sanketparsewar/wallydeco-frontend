@@ -8,7 +8,8 @@
   height: 4px;
   width: 80px;
   margin: 1rem auto;
-  background: linear-gradient(to right, #6e48aa, #9d50bb);
+  /* background: linear-gradient(to right, #6e48aa, #9d50bb); */
+  background: linear-gradient(to right, #817d67, #9c9272);
   border-radius: 2px;
 }
 

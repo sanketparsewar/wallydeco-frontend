@@ -21,9 +21,10 @@
             (click)="toggleFavorite(item)">
           </i>
             <img [src]="item.images[0]" alt="Try Refreshing this site..." (click)="openFrame(item._id)">
-            <div class="d-flex flex-column justify-content-between" >
-              <p class="text-capitalize m-0">{{item.title}}</p>
-              <p class="">starts at {{item.price | currency:"INR" }}</p>
+            
+            <div class="card-body p-2 bg-white">
+              <p class="card-title text-dark fw-semibold mb-1 text-capitalize">{{ item.title }}</p>
+              <p class="card-text small fw-medium">Starts at <span class="text-success" >{{ item.price | currency: 'INR' }}</span></p>
             </div>
           </div>
       </div>

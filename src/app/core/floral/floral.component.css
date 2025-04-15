@@ -11,13 +11,6 @@
   filter: brightness(1.02);
 }
 
-.heart-beat {
-  transition: all 0.3s ease;
-}
-
-.heart-beat:hover {
-  transform: scale(1.2);
-}
 
 .transition-all {
   transition: all 0.3s ease;

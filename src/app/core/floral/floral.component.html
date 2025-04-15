@@ -9,14 +9,14 @@
         <h1 class="display-5 fw-bold text-dark floral-title">
           <span class="position-relative z-1 px-3 bg-light">Floral Collection</span>
         </h1>
-        <div class="position-absolute top-50 start-0 end-0 border-top border-2 border-success z-0"></div>
+        <div class="position-absolute top-50 start-0 end-0 border-top border-2 border-dark z-0"></div>
       </div>
     </div>
     
     <div class="row g-4" id="floralCollection">
       <div *ngFor="let item of wallpaperList; let i = index" 
            class="col-6 col-md-4 col-lg-3"
-           [@fadeInUp]="{value: '', params: {delay: i * 50 + 'ms'}}">
+           >
         <div class="card h-100 border-0 shadow-sm overflow-hidden transition-all hover-effect">
           <div class="position-relative">
             <i class="position-absolute top-0 end-0 m-3 p-2 rounded-circle bg-white bg-opacity-75 fs-5 z-2 heart-beat"
@@ -28,9 +28,9 @@
                  (click)="openWallpaper(item._id)"
                  style="height: 220px;">
           </div>
-          <div class="card-body p-3 bg-white">
+          <div class="card-body p-2 bg-white">
             <p class="card-title text-dark fw-semibold mb-1 text-capitalize">{{ item.title }}</p>
-            <p class="card-text text-success small fw-medium">Starts at {{ item.price | currency: 'INR' }}</p>
+            <p class="card-text  small fw-medium">Starts at <span class="text-success" >{{ item.price | currency: 'INR' }}</span></p>
           </div>
         </div>
       </div>
