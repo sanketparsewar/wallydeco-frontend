@@ -18,15 +18,15 @@ import { AlertService } from '../../services/alert/alert.service';
 })
 export class CheckoutComponent implements OnInit {
   store = inject(Store);
-  loggedUser!: Iuser;
+  loggedUser: any;
   cartItems: any;
   isLoaded: boolean = false
   constructor(private authService: AuthService, private confirmService: ConfirmService, private alertService: AlertService) { }
   cartItems$: Observable<IcartItem[]> = this.store.select(selectCartItems);
-  discount:number=0
-  cartTotal:number=0
-  finalTotal:number=0
-  deliveryCharges:number=0
+  discount: number = 0
+  cartTotal: number = 0
+  finalTotal: number = 0
+  deliveryCharges: number = 0
   ngOnInit(): void {
     this.getCartData()
     this.getLoggedUser()
@@ -42,10 +42,10 @@ export class CheckoutComponent implements OnInit {
         }
       }
     })
-    this.cartTotal=JSON.parse(localStorage.getItem('cartTotal') || '')
-    this.deliveryCharges=JSON.parse(localStorage.getItem('deliveryCharges') || '')
-    this.discount=JSON.parse(localStorage.getItem('discount') || '')
-    this.finalTotal=JSON.parse(localStorage.getItem('finalTotal') || '')
+    this.cartTotal = JSON.parse(localStorage.getItem('cartTotal') || '')
+    this.deliveryCharges = JSON.parse(localStorage.getItem('deliveryCharges') || '')
+    this.discount = JSON.parse(localStorage.getItem('discount') || '')
+    this.finalTotal = JSON.parse(localStorage.getItem('finalTotal') || '')
   }
 
 
