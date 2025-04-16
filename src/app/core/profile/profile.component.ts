@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { AlertService } from '../../services/alert/alert.service';
@@ -9,7 +9,10 @@ import { LoaderComponent } from '../../component/loader/loader.component';
 import { EditProfilePictureComponent } from '../../shared/modals/edit-profile-picture/edit-profile-picture.component';
 import { FooterComponent } from '../../component/footer/footer.component';
 import { filter, tap } from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import {
+  clearCart,
+} from '../../shared/store/cart.actions';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -25,7 +28,7 @@ import { filter, tap } from 'rxjs';
 export class ProfileComponent implements OnInit {
   loggedUser: any = null;
   isLoaded: boolean = false;
-
+  store=inject(Store)
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -38,17 +41,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getLoggedUser() {
-    // this.isLoaded = true;
-    // this.authService.getLoggedUser().subscribe({
-    //   next: (data: any) => {
-    //     this.loggedUser = data.user;
-    //     this.isLoaded = false;
-    //   },
-    //   error: (error) => {
-    //     this.alertService.showError('Login required');
-    //     this.isLoaded = false;
-    //   }
-    // });
     this.authService.loggedUser$
       .pipe(
         tap((user: any) => {
@@ -70,6 +62,7 @@ export class ProfileComponent implements OnInit {
       if (confirmed) {
         this.authService.logoutUser().subscribe({
           next: () => {
+            this.clearCart()
             this.alertService.showSuccess('Logged out.');
             this.router.navigate(['/auth/login']); // Redirect to login page after logout
           },
@@ -80,4 +73,12 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
+   clearCart() {
+      this.store.dispatch(clearCart());
+      localStorage.removeItem('cartItems');
+      localStorage.removeItem('amountObj');
+    }
+
+
 }
