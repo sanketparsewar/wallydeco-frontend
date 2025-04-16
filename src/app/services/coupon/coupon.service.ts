@@ -26,8 +26,8 @@ export class CouponService {
   }
 
   // Apply a coupon
-  applyCoupon(userId: string, couponCode: string): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/coupon/apply`, { userId, couponCode });
+  applyCoupon(user: string, couponCode: string): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/coupon/apply`, { user, couponCode });
   }
 
   // Remove a coupon
