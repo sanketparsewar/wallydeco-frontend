@@ -2,123 +2,113 @@
 <app-loader></app-loader>
 }@else {
 
-<div class="container pt-4 mt-5 vh-100">
+<div class="container pt-4 mt-5 min-vh-100">
   <h1 class="text-center fw-bold mb-4">Your Bag</h1>
+
   <div class="text-center" *ngIf="!(cartItems$ | async)?.length">
-    <p>Empty!</p>
-    <button class="btn btn-sm my-3" style="background-color: #c9beac;" (click)="back()">Continue Shopping</button>
+    <p>Your bag is empty!</p>
+    <button class="btn btn-outline-dark my-3" (click)="back()">Continue Shopping</button>
   </div>
-  <div class="row" *ngIf="(cartItems$ | async)?.length">
+
+  <div class="row g-3" *ngIf="(cartItems$ | async)?.length">
     <!-- Cart Items -->
-    <div class="col-12 col-md-8">
-      <div class="row position-relative align-items-center bg-white shadow-sm p-2 rounded mb-2 mx-1"
-        *ngFor="let item of (cartItems$|async);let i =index">
-        <div class="position-absolute w-100 d-flex justify-content-end" style="left: 0;top: 5px;">
-          <i class="fas fa-times" (click)="removeItem(item.id)"></i>
-        </div>
+    <div class="col-12 col-lg-8">
+      <div *ngFor="let item of (cartItems$ | async); let i = index" class="card mb-3 shadow-sm">
+        <div class="card-body d-flex flex-row align-items-center gap-3 position-relative">
 
-        <div class="col-2 p-2">
-          <img class="w-100 rounded" (click)="openWallpaper(item.id)" [src]="item.image" alt="art image" />
-        </div>
-        <div class="col-3 p-0">
-          <p class="fw-bold m-0 text-truncate" (click)="openWallpaper(item.id)">
-            {{item.title}}
-          </p>
-          <p class="m-0">{{item.size}}</p>
-        </div>
-
-        <div class="col-3 d-flex flex-column align-items-center justify-content-center p-0">
-          <div class=" d-flex align-items-center justify-content-center p-0">
-            <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity==1" (click)="
-            updateQuantity(item, item.id, item.quantity - 1)
-            ">
-              <i class="fa-solid fa-minus"></i>
-            </button>
-            <p class="px-1">{{item.quantity}}</p>
-
-            <button class="btn border-0 btn-sm" type="button" [disabled]="item.quantity>=item.stock" (click)="
-            updateQuantity(item, item.id, item.quantity + 1)
-            ">
-              <i class="fa-solid fa-plus"></i>
-            </button>
+          <!-- Image on the left side -->
+          <div class="d-flex align-items-center" style="flex: 0 0 80px; max-width: 80px;">
+            <img class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;" [src]="item.image"
+              (click)="openWallpaper(item.id)" alt="art image">
           </div>
-          <small class="text-secondary" *ngIf="item.quantity>=item.stock">
-            <i>Maxed</i>
-          </small>
-        </div>
 
-        <div class="col-4 p-0 text-center">
-          <p class="fw-bold m-0 pe-2 text-end">{{item.price * item.quantity | currency:"INR"}}</p>
+          <!-- Title, size, quantity, and price in row -->
+          <div class="flex-grow-1 d-flex flex-column justify-content-between" style="min-width: 0;">
+            <!-- Changed min-width to 0 to allow proper flex shrinking -->
+            <div class="d-flex justify-content-between align-items-center">
+              <p class="fw-bold mb-1 text-truncate" style="max-width: 200px;" title="{{ item.title }}">{{ item.title }}
+              </p>
+            </div>
+            <p class="mb-1 small">Size: {{ item.size }}</p>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-outline-secondary btn-sm" [disabled]="item.quantity == 1"
+                (click)="updateQuantity(item, item.id, item.quantity - 1)">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <span>{{ item.quantity }}</span>
+              <button class="btn btn-outline-secondary btn-sm" [disabled]="item.quantity >= item.stock"
+                (click)="updateQuantity(item, item.id, item.quantity + 1)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <small *ngIf="item.quantity >= item.stock" class="text-danger fst-italic">Max</small>
+          </div>
+
+          <!-- Price aligned to the right, with wrapping prevention -->
+          <div class="text-end" style="flex: 0 0 auto; padding-left: 10px;">
+            <p class="fw-bold mb-0 text-nowrap">{{ item.price * item.quantity | currency: 'INR' }}</p>
+          </div>
+
+          <!-- Cross icon in the top-right corner -->
+          <i class="fas fa-times text-danger cursor-pointer position-absolute" style="top: 10px; right: 10px;"
+            (click)="removeItem(item.id)"></i>
         </div>
       </div>
-      <div class="justify-content-between d-flex my-2">
+
+      <!-- Continue shopping and clear cart buttons -->
+      <div class="d-flex justify-content-between flex-wrap gap-2">
         <button class="btn btn-outline-success btn-sm" (click)="back()">+ Continue shopping</button>
-        <button class="btn btn-dark btn-sm" (click)="clearCart()">Clear Bag</button>
+        <button class="btn btn-outline-danger btn-sm" (click)="clearCart()">Clear Bag</button>
       </div>
     </div>
 
     <!-- Checkout Section -->
-    <!-- <div class="col-12 col-md-4">
+    <div class="col-12 col-lg-4">
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <h6 class="fw-bold">Have a Coupon Code?</h6>
+          <div class="input-group mb-2">
+            <input [disabled]="appliedCoupon" [(ngModel)]="inputCoupon" name="inputCoupon" type="text"
+              class="form-control" placeholder="Enter coupon">
+            <button *ngIf="!amountObj.couponCode" class="btn btn-outline-success" type="button"
+              (click)="applyCoupon()">Apply</button>  
+            <button *ngIf="amountObj.couponCode" class="btn btn-outline-danger" type="button" (click)="removeCoupon()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
 
-      <div class="bg-white shadow-sm p-4 mb-2 rounded">
-        <h6 class="fw-bold">HAVE A COUPON CODE?</h6>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" name="couponCode" [(ngModel)]="couponCode" type="search"
-            placeholder="Enter a Coupon Code" aria-label="Search">
-          <button class="btn btn-outline-success" type="button">Apply</button>
-        </form>
-        <div class="text-danger">
-          <p class="m-0">Invalid Code!</p>
-        </div>
-      </div> -->
-
-      <div class="bg-white shadow-sm p-4 mb-2 rounded">
-        <h6 class="fw-bold">HAVE A COUPON CODE?</h6>
-        <form class="d-flex" role="search">
-          <input [disabled]="appliedCoupon" class="form-control me-2"  name="couponCode" [(ngModel)]="couponCode" type="search"
-            placeholder="Enter a Coupon Code" aria-label="Search">
-          <button *ngIf="!appliedCoupon" class="btn btn-outline-success" type="button" (click)="applyCoupon()">Apply</button>
-          <button *ngIf="appliedCoupon" class="btn " type="button" (click)="removeCoupon()"><i class="fa-solid fa-xmark"></i></button>
-        </form>
-      
-        <div *ngIf="couponError" class="text-danger">
-          <p class="m-0">{{ couponError }}</p>
-        </div>
-      
-        <div *ngIf="appliedCoupon" class="text-success">
-          <p class="m-0">Coupon "<strong>{{ appliedCoupon.code }}</strong>" applied: ₹{{ appliedCoupon.discount }} off</p>
+          <div *ngIf="couponError" class="text-danger small">{{ couponError }}</div>
+          <div *ngIf="appliedCoupon" class="text-success small">
+            Coupon <strong>{{ appliedCoupon.code }}</strong> applied: ₹{{ appliedCoupon.discount }} off
+          </div>
         </div>
       </div>
-      
 
-
-
-      <!-- total section -->
-      <div class="bg-white shadow-sm p-4 rounded">
-        <div class="d-flex justify-content-between">
-          <h6 class="fw-bold">Subtotal</h6>
-          <p class="fw-bold">{{cartTotal$ | async | currency : "INR" }}</p>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal</span>
+            <strong>{{ amountObj.totalAmount | currency: 'INR' }}</strong>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Delivery Fee</span>
+            <strong>{{ amountObj.deliveryFee | currency: 'INR' }}</strong>
+          </div>
+          <div *ngIf="appliedCoupon" class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Discount</span>
+            <strong class="text-success">-{{ appliedCoupon.discount | currency: 'INR' }}</strong>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <h5 class="fw-bold">Total</h5>
+            <h5 class="fw-bold">{{ amountObj.finalTotal | currency: 'INR' }}</h5>
+          </div>
+          <button class="btn btn-success w-100 mt-3" (click)="checkout()">Checkout</button>
         </div>
-        <div class="d-flex justify-content-between ">
-          <h6 class="fw-bold">Delivery Charges</h6>
-          <p class="fw-bold">{{deliveryCharges | currency:"INR"}}</p>
-        </div>
-        <div *ngIf="appliedCoupon" class="d-flex justify-content-between ">
-          <h6 class="fw-bold text-muted text-decoration-italic">Discount</h6>
-          <p class="fw-bold text-success">-{{appliedCoupon.discount | currency:"INR"}}</p>
-        </div>
-        <hr />
-        <div class="d-flex justify-content-between">
-          <h5 class="fw-bold">Total</h5>
-          <p class="fw-bold fs-5">{{ finalTotal | currency: "INR" }}</p>
-        </div>
-        
-        <a class="btn btn-success w-100 text-uppercase py-2" (click)="checkout()">Checkout</a>
       </div>
     </div>
   </div>
-<!-- </div> -->
-
+</div>
 
 <app-footer></app-footer>
 }

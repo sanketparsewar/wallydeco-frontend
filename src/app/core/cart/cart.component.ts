@@ -29,23 +29,23 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class CartComponent implements OnInit {
   cartItems: IcartItem[] = [];
-  deliveryCharges:number= 200;
   loggedUser: any = null;
-
   couponError: string = '';
   appliedCoupon: any = null;
-  finalTotal: number = 0;
-  discount:number=0
-  cartTotal:number=0
-
-
+  inputCoupon: string = '';
+  amountObj: any = {
+    totalAmount: 0,
+    deliveryFee: 200,
+    discount: 0,
+    finalTotal: 0,
+    couponCode: ''
+  }
 
   store = inject(Store);
   router = inject(Router);
   cartItems$: Observable<IcartItem[]> = this.store.select(selectCartItems);
   cartTotal$: Observable<number> = this.store.select(selectCartTotal);
   isLoaded: boolean = false;
-  couponCode: string = ''
   constructor(
     private confirmService: ConfirmService,
     private alertService: AlertService,
@@ -70,7 +70,7 @@ export class CartComponent implements OnInit {
         }
       }
     });
-  
+
     this.cartItemsLength$.subscribe((length: number) => {
       if (length !== 0) {
         this.cartItems$.subscribe((items: any) => {
@@ -80,22 +80,17 @@ export class CartComponent implements OnInit {
         localStorage.removeItem('cartItems');
       }
     });
-  
+
+    this.getCartTotal()
+  }
+
+
+  getCartTotal() {
     this.cartTotal$.subscribe((total) => {
       this.calculateFinalTotal(total);
     });
   }
 
-  calculateFinalTotal(cartTotal: number) {
-    this.cartTotal=cartTotal
-    this.discount = this.appliedCoupon ? this.appliedCoupon.discount : 0;
-    this.finalTotal = cartTotal + this.deliveryCharges - this.discount;
-    localStorage.setItem('discount',JSON.stringify(this.discount))
-    localStorage.setItem('deliveryCharges',JSON.stringify(this.deliveryCharges))
-    localStorage.setItem('cartTotal',JSON.stringify(this.cartTotal))
-    localStorage.setItem('finalTotal',JSON.stringify(this.finalTotal))
-  }
-  
 
   getLoggedUser() {
     this.authService.loggedUser$
@@ -114,19 +109,20 @@ export class CartComponent implements OnInit {
 
   removeItem(itemId: string) {
     this.store.dispatch(removeItem({ itemId }));
-  }
+    this.getCartTotal()
 
-  updateQuantity(item: any, itemId: string, quantity: number) {
-    this.store.dispatch(updateItemQuantity({ itemId, quantity }));
-    if(this.couponCode) {
+    if (this.amountObj.couponCode) {
       this.applyCoupon()
     }
   }
+
 
   clearCart() {
     this.confirmService.showConfirm('clear your bag').then((confirmed: any) => {
       if (confirmed) {
         this.store.dispatch(clearCart());
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('amountObj');
         this.alertService.showSuccess('Bag Cleared.');
       }
     });
@@ -136,54 +132,78 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/wallpaper', wallpaperId]);
   }
 
-  removeCoupon(){
-    this.couponCode = '';
+
+  updateQuantity(item: any, itemId: string, quantity: number) {
+    this.store.dispatch(updateItemQuantity({ itemId, quantity }));
+    // this.getCartTotal()
+
+    if (this.inputCoupon) {
+      this.applyCoupon()
+    }
+  }
+
+
+  calculateFinalTotal(cartTotal: number) {
+    this.amountObj.totalAmount = cartTotal
+    this.amountObj.discount = this.appliedCoupon ? this.appliedCoupon.discount : 0;
+    this.amountObj.finalTotal = this.amountObj.totalAmount + this.amountObj.deliveryFee - this.amountObj.discount;
+  }
+
+
+  removeCoupon() {
+    this.amountObj.couponCode = '';
+    this.amountObj.discount = 0
+    this.inputCoupon = ''
     this.appliedCoupon = null;
+
+    this.getCartTotal()
+
   }
 
   applyCoupon() {
     this.couponError = '';
     this.appliedCoupon = null;
-  
-    if (!this.couponCode.trim()) {
+
+    this.amountObj.couponCode = this.inputCoupon
+    if (!this.amountObj.couponCode.trim()) {
       this.couponError = 'Please enter a coupon code.';
       return;
     }
-    
-    this.couponService.applyCoupon(this.loggedUser._id,this.couponCode).subscribe({
+
+    this.amountObj.discount = 0
+    this.couponService.applyCoupon(this.loggedUser._id, this.amountObj.couponCode).subscribe({
       next: (res: any) => {
         this.cartTotal$.pipe(take(1)).subscribe((total) => {
-          if (total < 999) {
-            this.couponError = 'Order must be above ₹999 to use this coupon.';
+          if (total < res.coupon.minAmount) {
+            this.couponError = `Order must be above ${res.coupon.minAmount} to use '${this.amountObj.couponCode}' coupon.`;
+            this.amountObj.couponCode = '';
+            // this.amountObj.discount = 0
+            this.calculateFinalTotal(total);
+
             return;
           }
-  
           this.appliedCoupon = res.coupon;
           this.calculateFinalTotal(total);
         });
       },
-      error: () => {
-        this.couponError = 'Invalid Coupon Code!';
+      error: (error: any) => {
+        this.amountObj.couponCode = '';
+        this.couponError = error.error.message;
       }
     });
   }
-  
 
 
   checkout() {
     this.cartItems$.subscribe({
       next: (data: any) => {
-        this.cartItems=data
+        this.cartItems = data
       }
     })
-    console.log(this.cartItems);
-    
-    console.log('cartTotal',this.cartTotal)
-    console.log('deliveryCharges',this.deliveryCharges)
-    console.log('discount',this.discount)
-    console.log('finalTotal',this.finalTotal)
+    localStorage.setItem('amountObj', JSON.stringify(this.amountObj))
     this.router.navigate(['/cart/checkout'])
   }
+
 
   back() {
     history.back();
