@@ -1,7 +1,7 @@
 <div class="container pt-5 mt-5">
     <div class="row">
         <!-- Checkout Form -->
-        <div class="col-lg-8 mb-4">
+        <div class="col-lg-7 mb-4">
             <div class="card border-0 shadow-sm">
                 <div class="card-header text-dark py-2">
                     <h3 class="fw-bold mb-0 fw-normal"><i class="fa-solid fa-circle-left me-1 " (click)="back()"></i>
@@ -111,13 +111,12 @@
                             class="btn btn-sm btn-outline-primary px-3 py-1">
                             <i class="bi bi-pencil-square me-1"></i> Edit
                         </button>
-
                     </div>
                 </div>
             </div>
         </div>
         <!-- Order Summary -->
-        <div class="col-lg-4 ">
+        <div class="col-lg-5 ">
             <div class="card shadow-sm mb-2 ">
                 <div class="card-header bg-success text-white ">
                     <h4 class="mb-0"><i class="bi bi-cart-check me-2"></i>Your Order</h4>
@@ -128,15 +127,17 @@
                     <div class="list-group border mb-3">
                         <div class="list-group-item border-0" *ngFor="let item of cartItems">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div style="width: 80px; height: 80px;" class="me-3">
+                                <div style="width: 80px; height: 80px; flex-shrink: 0;" class="me-3">
                                     <img [src]="item.image" alt="art image" style="width: 80px; height: 80px;"
-                                        class="rounded " />
+                                        class="rounded" />
                                 </div>
-                                <div class="flex-grow-1">
-                                    <h6 class="my-0">{{ item.title }}</h6>
+                                <div class="flex-grow-1 text-truncate pe-2" style="min-width: 0;"> 
+                                    <h6 class="my-0 text-truncate" title="{{ item.title }}">{{ item.title }}</h6>
                                     <small class="text-muted">{{ item.size }} | Qty: {{ item.quantity }}</small>
                                 </div>
-                                <span class="text-muted ms-2">{{ (item.price * item.quantity) | currency:"INR" }}</span>
+                                <span class="text-muted ms-2 text-nowrap" style="flex-shrink: 0;">
+                                    {{ (item.price * item.quantity) | currency:"INR" }}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -144,27 +145,59 @@
 
                     <div class="d-flex justify-content-between mb-1">
                         <span>Subtotal</span>
-                        <span>{{cartTotal | currency:"INR"}}</span>
+                        <span>{{amountObj.totalAmount | currency:"INR"}}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-1">
-                        <span>Delivery Charges</span>
-                        <span>{{deliveryCharges | currency:"INR" }}</span>
+                        <span>Delivery Fee</span>
+                        <span>{{amountObj.deliveryFee | currency:"INR" }}</span>
                     </div>
-                    <div *ngIf="discount" class="d-flex justify-content-between mb-3">
+                    <div *ngIf="amountObj.discount" class="d-flex justify-content-between mb-3">
                         <span>Discount</span>
-                        <span class="text-success">-{{discount | currency:"INR"}}</span>
+                        <span class="text-success">-{{amountObj.discount | currency:"INR"}}</span>
                     </div>
-
                     <hr>
-
                     <div class="d-flex justify-content-between fw-bold fs-5 mb-4">
                         <span>Total</span>
-                        <span>{{finalTotal | currency:"INR"}}</span>
+                        <span>{{amountObj.finalTotal | currency:"INR"}}</span>
                     </div>
 
-                    <button class="btn btn-primary w-100 py-2" (click)="placeOrder()">
-                        <i class="bi bi-lock-fill me-2"></i>Place Order {{finalTotal | currency:"INR" }}
+
+                    <!-- Payment Options -->
+                    <div class="mb-3 border p-2 rounded-2">
+                        <label class="form-label fw-bold"><i class="fa-solid fa-money-check me-1"></i>Choose Payment
+                            Method</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod"
+                                [(ngModel)]="selectedPayment">
+                            <label class="form-check-label" for="cod">
+                                Cash on Delivery (COD)
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="upi" value="upi"
+                                [(ngModel)]="selectedPayment">
+                            <label class="form-check-label" for="upi">
+                                UPI
+                            </label>
+                        </div>
+
+                        <div *ngIf="selectedPayment === 'upi'" class="mt-2">
+                            <input type="text" class="form-control" placeholder="Enter your UPI ID"
+                                [(ngModel)]="upiId" />
+                            <small class="text-muted">e.g. yourname&#64;upi</small>
+                        </div>
+                    </div>
+
+
+
+
+                    <button class="btn btn-primary w-100 py-2" (click)="placeOrder()"
+                        [disabled]="selectedPayment === 'upi' && !isValidUpi(upiId)">
+                        <i class="bi bi-lock-fill me-2"></i>Place Order {{amountObj.finalTotal | currency:"INR" }}
                     </button>
+
 
                     <div class="text-center mt-3">
 
@@ -180,6 +213,10 @@
                 </div>
             </div>
         </div>
+
+
+
+
     </div>
 </div>
 
