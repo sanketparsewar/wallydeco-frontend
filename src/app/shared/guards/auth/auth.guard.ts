@@ -11,6 +11,7 @@ export const authGuard: CanActivateFn = () => {
   if (!token) {
     return true;
   } else {
+    alertService.showInfo(token)
     router.navigate(['/user/profile']);
     return false;
   }
