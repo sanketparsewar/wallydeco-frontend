@@ -15,9 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   registerUser(user: any): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/auth/register`, user, {
-      withCredentials: true,
-    });
+    return this.http.post(`${this.BASE_URL}/auth/register`, user);
   }
 
   loginUser(user: any): Observable<any> {
@@ -32,15 +30,6 @@ export class AuthService {
       );
   }
 
-  getLoggedUser(): Observable<any> {
-    return this.http
-      .get<any>(`${this.BASE_URL}/auth/profile`, { withCredentials: true })
-      .pipe(
-        tap((response) => {
-          this.loggedUserSubject.next(response.user);
-        })
-      );
-  }
 
   logoutUser(): Observable<any> {
     return this.http
@@ -52,7 +41,18 @@ export class AuthService {
       );
   }
 
-  setLoggedUser(data:any){
+  refreshToken() {
+    return this.http.post(
+      `${this.BASE_URL}/auth/refresh-token`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+
+  setLoggedUser(data: any) {
     this.loggedUserSubject.next(data);
   }
 }

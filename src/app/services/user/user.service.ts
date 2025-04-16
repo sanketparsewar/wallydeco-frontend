@@ -14,8 +14,17 @@ export class UserService {
     this.BASE_URL = environment.apiUrl;
   }
 
+
+  getLoggedUser() {
+    return this.http.get(`${this.BASE_URL}/user/logged`, {
+      withCredentials: true,
+    })
+  }
+
   getUser(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`);
+    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`,{
+      withCredentials: true,
+    });
   }
 
   updateUser(userId: string, user: any): Observable<any> {
@@ -29,6 +38,8 @@ export class UserService {
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}/user/${id}`);
+    return this.http.delete<any>(`${this.BASE_URL}/user/${id}`,{
+      withCredentials: true,
+    });
   }
 }

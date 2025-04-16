@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-layout',
@@ -21,13 +22,14 @@ export class LayoutComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService:UserService
   ) {}
   ngOnInit() {
     // this.getLoggedUser()
   }
   getLoggedUser() {
-    this.authService.getLoggedUser().subscribe({
+    this.userService.getLoggedUser().subscribe({
       next: (data: any) => {
         this.loggedUser = data.user;
       },

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
+import { UserService } from './services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,10 @@ import { AuthService } from './services/auth/auth.service';
 })
 export class AppComponent {
   title = 'angular-wallydeco';
-  constructor(private authService: AuthService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.authService.getLoggedUser().subscribe({
+    this.userService.getLoggedUser().subscribe({
       next: () => console.log('Session restored'),
       error: () => console.log('No active session'),
     });
