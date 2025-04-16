@@ -78,24 +78,7 @@
   100% { left: 100%; }
 }
 
-/* Scrolling Text */
-.scrolling-text {
-  display: inline-block;
-  white-space: nowrap;
-  /* animation: scrollText 20s linear infinite; */
-  overflow: hidden;
-  width: 100%;
-}
 
-.scrolling-text span {
-  margin-right: 2rem;
-  display: inline-block;
-}
-
-@keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {

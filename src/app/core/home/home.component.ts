@@ -48,7 +48,8 @@ export class HomeComponent implements OnInit {
     'Premium Quality',
     'Easy Customization',
     'Swift Delivery',
-    'Affordable Price'
+    'Affordable Price',
+    
   ];
 
   constructor() {}
