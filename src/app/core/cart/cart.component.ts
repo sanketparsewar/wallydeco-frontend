@@ -54,7 +54,6 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private userService:UserService
   ) {
-    this.getLoggedUser()
 
   }
 
@@ -82,9 +81,9 @@ export class CartComponent implements OnInit {
         localStorage.removeItem('cartItems');
       }
     });
+    this.getLoggedUser()
 
     this.getCartTotal()
-    this.getLoggedUser()
   }
 
 
