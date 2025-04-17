@@ -27,10 +27,10 @@ export class RegisterComponent {
     },
     gender: '',
   };
-  constructor(private authService: AuthService, private router: Router,private alertService:AlertService) {}
+  constructor(private authService: AuthService, private router: Router, private alertService: AlertService) { }
 
   onRegister() {
-    this.authService.registerUser(this.userData).subscribe({
+    this.authService.register(this.userData).subscribe({
       next: (res) => {
         this.alertService.showSuccess(res.message);
         this.router.navigateByUrl('/auth/login');

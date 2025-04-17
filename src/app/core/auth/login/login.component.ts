@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule,RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -20,11 +20,11 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alertService:AlertService
-  ) {}
+    private alertService: AlertService
+  ) { }
 
   onLogin() {
-    this.authService.loginUser(this.loginData).subscribe({
+    this.authService.login(this.loginData).subscribe({
       next: (res) => {
         this.alertService.showSuccess('Login successful!');
         history.back()
