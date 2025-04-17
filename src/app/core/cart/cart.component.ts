@@ -113,11 +113,14 @@ export class CartComponent implements OnInit {
     //   error:(error:any)=>{
     //       this.router.navigateByUrl('/auth/login');
     //   }});
+    this.isLoaded=true
     this.userService.getLoggedUser().subscribe({
       next: (user: any) => {
         this.loggedUser = user;
+        this.isLoaded=false
       },
       error: (error: any) => {
+        this.isLoaded=false
         this.router.navigateByUrl('/auth/login');
       }
 
