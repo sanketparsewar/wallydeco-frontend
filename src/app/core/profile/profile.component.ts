@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import {
   clearCart,
 } from '../../shared/store/cart.actions';
+import { UserService } from '../../services/user/user.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -28,12 +29,13 @@ import {
 export class ProfileComponent implements OnInit {
   loggedUser: any = null;
   isLoaded: boolean = false;
-  store=inject(Store)
+  store = inject(Store)
   constructor(
     private router: Router,
     private authService: AuthService,
     private alertService: AlertService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private userService:UserService
   ) { }
 
   ngOnInit() {
@@ -41,12 +43,13 @@ export class ProfileComponent implements OnInit {
   }
 
   getLoggedUser() {
+   
+    this.isLoaded = true
     this.authService.loggedUser$
       .pipe(
         tap((user: any) => {
           if (!user) {
             this.isLoaded = false
-            this.router.navigateByUrl('/auth/login');
           }
         }),
         filter(user => !!user)
@@ -55,12 +58,21 @@ export class ProfileComponent implements OnInit {
         this.loggedUser = user;
         this.isLoaded = false;
       });
+    // this.userService.getLoggedUser().subscribe({
+    //   next: (res: any) => {
+    //     this.loggedUser = res;
+    //   },
+    //   error: (error: any) => {
+    //     console.log(error.error.message)
+    //     this.alertService.showError(error.error.message)
+    //   }
+    // })
   }
 
   logout() {
     this.confirmService.showConfirm('Logout').then((confirmed: boolean) => {
       if (confirmed) {
-        this.authService.logoutUser().subscribe({
+        this.authService.logout().subscribe({
           next: () => {
             this.clearCart()
             this.alertService.showSuccess('Logged out.');
@@ -74,11 +86,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-   clearCart() {
-      this.store.dispatch(clearCart());
-      localStorage.removeItem('cartItems');
-      localStorage.removeItem('amountObj');
-    }
+  clearCart() {
+    this.store.dispatch(clearCart());
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('amountObj');
+  }
 
 
 }

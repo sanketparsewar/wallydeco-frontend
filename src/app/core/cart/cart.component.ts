@@ -21,6 +21,7 @@ import { LoaderComponent } from '../../component/loader/loader.component';
 import { ConfirmService } from '../../services/confirm/confirm.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
 @Component({
   selector: 'app-cart',
   imports: [FooterComponent, CommonModule, LoaderComponent, FormsModule],
@@ -51,6 +52,7 @@ export class CartComponent implements OnInit {
     private alertService: AlertService,
     private couponService: CouponService,
     private authService: AuthService,
+    private userService:UserService
   ) {
     this.getLoggedUser()
 
@@ -82,6 +84,7 @@ export class CartComponent implements OnInit {
     });
 
     this.getCartTotal()
+    this.getLoggedUser()
   }
 
 
@@ -93,18 +96,32 @@ export class CartComponent implements OnInit {
 
 
   getLoggedUser() {
-    this.authService.loggedUser$
-      .pipe(
-        tap((user: any) => {
-          // if (!user) {
-          //   this.router.navigateByUrl('/auth/login');
-          // }
-        }),
-        filter(user => !!user)
-      )
-      .subscribe((user: any) => {
+    // this.authService.loggedUser$
+    //   .pipe(
+    //     tap((user: any) => {
+    //       // if (!user) {
+    //       //   this.router.navigateByUrl('/auth/login');
+    //       // }
+    //     }),
+    //     filter(user => !!user)
+    //   )
+    //   .subscribe( {
+    //     next:(user)=>{
+    //       this.alertService.showInfo('user')
+    //       this.loggedUser = user;
+    //     },
+    //   error:(error:any)=>{
+    //       this.router.navigateByUrl('/auth/login');
+    //   }});
+    this.userService.getLoggedUser().subscribe({
+      next: (user: any) => {
         this.loggedUser = user;
-      });
+      },
+      error: (error: any) => {
+        this.router.navigateByUrl('/auth/login');
+      }
+
+    })
   }
 
   removeItem(itemId: string) {

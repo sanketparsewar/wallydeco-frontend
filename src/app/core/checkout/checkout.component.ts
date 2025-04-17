@@ -50,7 +50,6 @@ export class CheckoutComponent implements OnInit {
       }
     })
     this.amountObj=JSON.parse(localStorage.getItem('amountObj') || '')
-    console.log(this.amountObj)
     }
 
 
