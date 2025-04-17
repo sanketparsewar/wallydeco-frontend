@@ -83,9 +83,10 @@
 
 
 
-<app-edit-profile *ngIf="loggedUser"  [user]="loggedUser"> </app-edit-profile>
+<app-edit-profile *ngIf="loggedUser" [user]="loggedUser"> </app-edit-profile>
 
-<app-edit-profile-picture *ngIf="loggedUser" (getUpdatedUserData)="getLoggedUser()" [user]="loggedUser"></app-edit-profile-picture>
+<app-edit-profile-picture *ngIf="loggedUser" (getUpdatedUserData)="getLoggedUser()"
+  [user]="loggedUser"></app-edit-profile-picture>
 
 <app-footer></app-footer>
 

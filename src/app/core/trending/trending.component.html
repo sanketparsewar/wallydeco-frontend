@@ -1,5 +1,5 @@
 @if(isLoaded){
-  <app-loader></app-loader>
+<app-loader></app-loader>
 }@else {
 <section class="trending py-5 mt-5 bg-light">
   <div class="container">
@@ -7,8 +7,8 @@
       <div class="col-12 text-center">
         <h1 class="fw-bold display-5 text-dark position-relative pb-3">
           Trending Collection
-          <span class="position-absolute bottom-0 start-50 translate-middle-x bg-dark bg-gradient px-5" 
-                style="height: 4px; width: 100px;"></span>
+          <span class="position-absolute bottom-0 start-50 translate-middle-x bg-dark bg-gradient px-5"
+            style="height: 4px; width: 100px;"></span>
         </h1>
       </div>
     </div>
@@ -20,15 +20,14 @@
               [ngClass]="item.isFavourite ? 'fas fa-heart text-danger' : 'far fa-heart text-dark'"
               (click)="toggleFavorite(item)">
             </i>
-            <img [src]="item.images[0]" alt="Wallpaper image" 
-                 class="img-fluid object-fit-cover w-100" style="height: 200px;"
-                 (click)="openWallpaper(item._id)"
-                 [@fadeIn]>
+            <img [src]="item.images[0]" alt="Wallpaper image" class="img-fluid object-fit-cover w-100"
+              style="height: 200px;" (click)="openWallpaper(item._id)" [@fadeIn]>
           </div>
-          
+
           <div class="card-body p-2 bg-white">
             <p class="card-title text-dark fw-semibold mb-1 text-capitalize">{{ item.title }}</p>
-            <p class="card-text  small fw-medium">Starts at <span class="text-success" >{{ item.price | currency: 'INR' }}</span></p>
+            <p class="card-text  small fw-medium">Starts at <span class="text-success">{{ item.price | currency: 'INR'
+                }}</span></p>
           </div>
         </div>
       </div>

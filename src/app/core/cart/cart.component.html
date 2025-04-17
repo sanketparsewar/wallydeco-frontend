@@ -71,7 +71,7 @@
             <input [disabled]="appliedCoupon" [(ngModel)]="inputCoupon" name="inputCoupon" type="text"
               class="form-control" placeholder="Enter coupon">
             <button *ngIf="!amountObj.couponCode" class="btn btn-outline-success" type="button"
-              (click)="applyCoupon()">Apply</button>  
+              (click)="applyCoupon()">Apply</button>
             <button *ngIf="amountObj.couponCode" class="btn btn-outline-danger" type="button" (click)="removeCoupon()">
               <i class="fa-solid fa-xmark"></i>
             </button>
