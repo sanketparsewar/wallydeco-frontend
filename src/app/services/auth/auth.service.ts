@@ -14,11 +14,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(user: any): Observable<any> {
+  register(user: any): Observable<any> {
     return this.http.post(`${this.BASE_URL}/auth/register`, user);
   }
 
-  loginUser(user: any): Observable<any> {
+  login(user: any): Observable<any> {
     return this.http
       .post<any>(`${this.BASE_URL}/auth/login`, user, {
         withCredentials: true,
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
 
-  logoutUser(): Observable<any> {
+  logout(): Observable<any> {
     return this.http
       .get<any>(`${this.BASE_URL}/auth/logout`, { withCredentials: true })
       .pipe(

@@ -16,15 +16,24 @@ export class UserService {
 
 
   getLoggedUser() {
+
     return this.http.get(`${this.BASE_URL}/user/logged`, {
       withCredentials: true,
-    })
+    }).pipe(
+      tap((res) => {
+        this.authService.setLoggedUser(res);
+      })
+    )
   }
 
   getUser(userId: string): Observable<any> {
     return this.http.get<any>(`${this.BASE_URL}/user/${userId}`,{
       withCredentials: true,
-    });
+    }).pipe(
+      tap((response) => {
+        this.authService.setLoggedUser(response.user);
+      })
+    );
   }
 
   updateUser(userId: string, user: any): Observable<any> {
@@ -34,7 +43,7 @@ export class UserService {
       tap((response) => {
         this.authService.setLoggedUser(response.user);
       })
-    );;
+    );
   }
 
   deleteUser(id: string): Observable<any> {
@@ -42,4 +51,7 @@ export class UserService {
       withCredentials: true,
     });
   }
+
+
+
 }

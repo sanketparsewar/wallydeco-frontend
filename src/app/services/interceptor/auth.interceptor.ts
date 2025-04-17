@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const router=inject(Router)
+  const router = inject(Router)
   const authService = inject(AuthService);
   const alertService = inject(AlertService);
   return next(req).pipe(
@@ -19,7 +19,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             return next(req);
           }),
           catchError((refreshError) => {
-            authService.logoutUser().subscribe({
+            authService.logout().subscribe({
               next: () => {
                 // toastService.showError('Session expired. Please login to continue');
                 router.navigate(['auth', 'login']);

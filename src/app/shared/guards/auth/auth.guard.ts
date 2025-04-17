@@ -7,11 +7,10 @@ export const authGuard: CanActivateFn = () => {
   const cookieService = inject(CookieService);
   const alertService = inject(AlertService)
   const router = inject(Router);
-  const token = cookieService.get('token');
+  const token = cookieService.get('accessToken');
   if (!token) {
     return true;
   } else {
-    alertService.showInfo(token)
     router.navigate(['/user/profile']);
     return false;
   }
