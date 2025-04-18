@@ -11,7 +11,6 @@ export class AuthService {
   private loggedUserSubject = new BehaviorSubject<any>(undefined);
   public loggedUser$ = this.loggedUserSubject.asObservable();
 
-
   constructor(private http: HttpClient) { }
 
   register(user: any): Observable<any> {
@@ -20,9 +19,7 @@ export class AuthService {
 
   login(user: any): Observable<any> {
     return this.http
-      .post<any>(`${this.BASE_URL}/auth/login`, user, {
-        withCredentials: true,
-      })
+      .post<any>(`${this.BASE_URL}/auth/login`, user)
       .pipe(
         tap((response) => {
           localStorage.setItem('accessToken', `Bearer ${response.accessToken}`);
@@ -30,28 +27,6 @@ export class AuthService {
         })
       );
   }
-
-
-  logout(): Observable<any> {
-    return this.http
-      .get<any>(`${this.BASE_URL}/auth/logout`, { withCredentials: true })
-      .pipe(
-        tap(() => {
-          this.loggedUserSubject.next(null);
-        })
-      );
-  }
-
-  refreshToken() {
-    return this.http.post(
-      `${this.BASE_URL}/auth/refresh-token`,
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-  }
-
 
   setLoggedUser(data: any) {
     this.loggedUserSubject.next(data);

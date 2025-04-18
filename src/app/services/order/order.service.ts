@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.prod';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,23 +21,23 @@ export class OrderService {
     };
   }
 
-  placeOrder(orderData: any) {
-    return this.http.post(`${this.BASE_URL}/order`, orderData,this.getHeader());
+  placeOrder(orderData: any) : Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/order`, orderData,this.getHeader());
   }
 
-  getOrders() {
-    return this.http.get(`${this.BASE_URL}/order`);
+  getOrders() : Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/order`);
   }
 
-  getOrderById(orderId: string) {
-    return this.http.get(`${this.BASE_URL}/order/${orderId}`);
+  getOrderById(orderId: string): Observable<any>  {
+    return this.http.get<any>(`${this.BASE_URL}/order/${orderId}`);
   }
 
-  updateOrder(orderId: string, orderData: any) {
-    return this.http.put(`${this.BASE_URL}/order/${orderId}`, orderData);
+  updateOrder(orderId: string, orderData: any): Observable<any>  {
+    return this.http.put<any>(`${this.BASE_URL}/order/${orderId}`, orderData);
   }
 
-  deleteOrder(orderId: string) {
-    return this.http.delete(`${this.BASE_URL}/order/${orderId}`);
+  deleteOrder(orderId: string): Observable<any>  {
+    return this.http.delete<any>(`${this.BASE_URL}/order/${orderId}`);
   }
 }

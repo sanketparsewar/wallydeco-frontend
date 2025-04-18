@@ -23,9 +23,9 @@ export class UserService {
     };
   }
 
-  getLoggedUser() {
+  getLoggedUser(): Observable<any>  {
     const token = localStorage.getItem('accessToken');
-    return this.http.get(`${this.BASE_URL}/user/logged`, this.getHeader()).pipe(
+    return this.http.get<any>(`${this.BASE_URL}/user/logged`, this.getHeader()).pipe(
       tap((res) => {
         this.authService.setLoggedUser(res);
       })
@@ -33,12 +33,12 @@ export class UserService {
   }
 
 
-  getUser(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`,this.getHeader()).pipe(
-      tap((response) => {
-        this.authService.setLoggedUser(response.user);
-      })
-    );
+  getUserById(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`);
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/user`,)
   }
 
   updateUser(userId: string, user: any): Observable<any> {
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}/user/${id}`,this.getHeader());
+    return this.http.delete<any>(`${this.BASE_URL}/user/${id}`);
   }
 
 

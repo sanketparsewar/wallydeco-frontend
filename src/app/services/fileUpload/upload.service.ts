@@ -17,9 +17,6 @@ export class UploadService {
       formData.append("file", file); // The field name "file" must match upload.single("file")
       formData.append("folder", folder); // Append the folder field
     
-      return this.http.post<any>(`${this.BASE_URL}/upload`, formData, {
-        withCredentials: true,
-      });
+      return this.http.post<any>(`${this.BASE_URL}/upload`, formData);
     }
-    
 }

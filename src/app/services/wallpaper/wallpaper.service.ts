@@ -21,6 +21,10 @@ export class WallpaperService {
     };
   }
 
+  getWallpaperById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/wallpaper/${id}`);
+  }
+
   getWallpapers(filters: any = {}): Observable<any> {
     let params = new HttpParams();
     Object.keys(filters).forEach((key) => {
@@ -30,27 +34,27 @@ export class WallpaperService {
     });
     return this.http.get<any>(`${this.BASE_URL}/wallpaper`, { params });
   }
+ 
 
-  getWallpaperById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/wallpaper/${id}`);
-  }
-  getWallpaperByCategory(category: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.BASE_URL}/wallpaper/category/${category}`
-    );
-  }
   getFavouriteWallpapers(): Observable<any> {
     return this.http.get<any>(
       `${this.BASE_URL}/wallpaper/favourite`,this.getHeader()
     );
   }
+  
+  getWallpaperByCategory(category: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.BASE_URL}/wallpaper/category/${category}`
+    );
+  }
+ 
   addWallpaperToFavourite(id:string): Observable<any> {
     return this.http.get<any>(
       `${this.BASE_URL}/wallpaper/favourite/${id}`,this.getHeader()
     );
   }
 
-  createWallpaper(wallpaper: any): Observable<any> {
+  addWallpaper(wallpaper: any): Observable<any> {
     return this.http.post<any>(`${this.BASE_URL}/wallpaper`, wallpaper, this.getHeader());
   }
 
