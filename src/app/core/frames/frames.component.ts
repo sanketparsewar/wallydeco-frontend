@@ -6,12 +6,38 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { FooterComponent } from '../../component/footer/footer.component';
-
+import { 
+  trigger,
+  transition,
+  style,
+  animate,
+  stagger,
+  query
+} from '@angular/animations';
 @Component({
   selector: 'app-frames',
   imports: [CommonModule,FormsModule,LoaderComponent,FooterComponent],
   templateUrl: './frames.component.html',
-  styleUrl: './frames.component.css'
+  styleUrl: './frames.component.css',
+  animations: [
+      trigger('listAnimation', [  // Changed from 'fadeInStagger' to 'listAnimation'
+        transition('* => *', [
+          query(':enter', [
+            style({ opacity: 0, transform: 'translateY(20px)' }),
+            stagger('100ms', [
+              animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+            ])
+          ], { optional: true })
+        ])
+      ]),
+      trigger('fadeIn', [
+        transition(':enter', [
+          style({ opacity: 0 }),
+          animate('300ms ease-in', style({ opacity: 1 }))
+        ])
+      ])
+    ]
+
 })
 export class FramesComponent implements OnInit {
   framesList: any;
@@ -61,12 +87,13 @@ export class FramesComponent implements OnInit {
 
   toggleFavorite(item: any) {
     item.isFavourite = !item.isFavourite;
-
+    
     this.wallpaperService.addWallpaperToFavourite(item._id).subscribe({
       next: () => {
         // Successfully toggled
       },
       error: (error) => {
+        this.alertService.showWarning('Login required');
         this.router.navigate(['auth','login'])
       },
     });

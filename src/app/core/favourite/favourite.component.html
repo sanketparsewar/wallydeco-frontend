@@ -15,16 +15,11 @@
     </div>
 
     @if(wallpaperList.length > 0) {
-    <div class="row g-4" id="favouriteCollection">
+    <div class="row g-4" id="favouriteCollection" [@listAnimation]="wallpaperList.length">
       <div *ngFor="let item of wallpaperList" class="col-6 col-md-4 col-lg-3">
         <div class="favourite-card h-100 position-relative overflow-hidden">
           <div class="card-image position-relative">
-            <img [src]="item.images[0]" alt="{{item.title}}" class="img-fluid w-100" (click)="openWallpaper(item._id)">
-            <div class="card-overlay d-flex align-items-center justify-content-center">
-              <button class="btn btn-outline-light rounded-pill px-3" (click)="openWallpaper(item._id)">
-                <i class="fas fa-eye me-2"></i> View Details
-              </button>
-            </div>
+            <img [src]="item.images[0]" alt="{{item.title}}" class="img-fluid w-100" (click)="openWallpaper(item._id)" [@fadeIn]>
           </div>
 
           <div class="card-body p-2">
@@ -55,9 +50,9 @@
       </div>
       <h3 class="fw-bold mb-3">No Favourites Yet</h3>
       <p class="text-muted mb-4">Start adding wallpapers to your favourites and they'll appear here</p>
-      <button class="btn btn-primary px-4" routerLink="/collections">
+      <!-- <button class="btn btn-primary px-4" routerLink="/collections">
         <i class="fas fa-paint-roller me-2"></i> Browse Collections
-      </button>
+      </button> -->
     </div>
     }
   </div>

@@ -20,7 +20,7 @@
               [ngClass]="item.isFavourite ? 'fas fa-heart text-danger' : 'far fa-heart text-dark'"
               (click)="toggleFavorite(item)">
             </i>
-            <img [src]="item.images[0]" alt="Wallpaper image" class="img-fluid object-fit-cover w-100"
+            <img [src]="item.images[0]" alt="Wallpaper image" class="img-fluid object-fit-cover w-100 trending-image"
               style="height: 200px;" (click)="openWallpaper(item._id)" [@fadeIn]>
           </div>
 

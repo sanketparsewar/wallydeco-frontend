@@ -28,7 +28,6 @@ export class LoginComponent {
       next: (res) => {
         this.alertService.showSuccess('Login successful!');
         history.back()
-        // this.router.navigateByUrl('/user/profile');
       },
       error: (err) => {
         this.alertService.showError(err.error.message);

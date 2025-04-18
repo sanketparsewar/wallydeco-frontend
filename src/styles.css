@@ -26,8 +26,12 @@ body {
 
 
 .heart-icon {
-  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-  backdrop-filter: blur(10px); /* Glass blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
   transition: color 0.1s ease-in-out;
+}
+
+.heart-beat:hover {
+  cursor: pointer; /* Change to red on hover */
 }

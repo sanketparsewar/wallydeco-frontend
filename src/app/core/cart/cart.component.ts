@@ -95,35 +95,21 @@ export class CartComponent implements OnInit {
 
 
   getLoggedUser() {
-    // this.authService.loggedUser$
-    //   .pipe(
-    //     tap((user: any) => {
-    //       // if (!user) {
-    //       //   this.router.navigateByUrl('/auth/login');
-    //       // }
-    //     }),
-    //     filter(user => !!user)
-    //   )
-    //   .subscribe( {
-    //     next:(user)=>{
-    //       this.alertService.showInfo('user')
-    //       this.loggedUser = user;
-    //     },
-    //   error:(error:any)=>{
-    //       this.router.navigateByUrl('/auth/login');
-    //   }});
-    this.isLoaded=true
-    this.userService.getLoggedUser().subscribe({
-      next: (user: any) => {
+    this.isLoaded = true
+    this.authService.loggedUser$
+      .pipe(
+        tap((user: any) => {
+          if (!user) {
+            this.isLoaded = false
+          }
+        }),
+        filter(user => !!user)
+      )
+      .subscribe((user: any) => {
         this.loggedUser = user;
-        this.isLoaded=false
-      },
-      error: (error: any) => {
-        this.isLoaded=false
-        this.router.navigateByUrl('/auth/login');
-      }
+        this.isLoaded = false;
+      });
 
-    })
   }
 
   removeItem(itemId: string) {
@@ -154,8 +140,6 @@ export class CartComponent implements OnInit {
 
   updateQuantity(item: any, itemId: string, quantity: number) {
     this.store.dispatch(updateItemQuantity({ itemId, quantity }));
-    // this.getCartTotal()
-
     if (this.inputCoupon) {
       this.applyCoupon()
     }

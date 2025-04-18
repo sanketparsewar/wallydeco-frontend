@@ -6,21 +6,30 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../../component/loader/loader.component';
 import { FooterComponent } from '../../component/footer/footer.component';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { trigger, transition, style, animate, state, query, stagger } from '@angular/animations';
 @Component({
   selector: 'app-floral',
   imports: [FormsModule, CommonModule, LoaderComponent,FooterComponent],
   templateUrl: './floral.component.html',
   styleUrl: './floral.component.css',
-  // animations: [
-  //   trigger('fadeInUp', [
-  //     state('void', style({ opacity: 0, transform: 'translateY(20px)' })),
-  //     transition(':enter', [
-  //       animate('400ms {{delay}} ease-out', 
-  //         style({ opacity: 1, transform: 'translateY(0)' }))
-  //     ], { params: { delay: '0ms' } })
-  //   ])
-  // ]
+ animations: [
+     trigger('listAnimation', [  // Changed from 'fadeInStagger' to 'listAnimation'
+       transition('* => *', [
+         query(':enter', [
+           style({ opacity: 0, transform: 'translateY(20px)' }),
+           stagger('100ms', [
+             animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+           ])
+         ], { optional: true })
+       ])
+     ]),
+     trigger('fadeIn', [
+       transition(':enter', [
+         style({ opacity: 0 }),
+         animate('300ms ease-in', style({ opacity: 1 }))
+       ])
+     ])
+   ]  
 })
 export class FloralComponent implements OnInit {
   
@@ -81,7 +90,7 @@ export class FloralComponent implements OnInit {
           // Successfully toggled
         },
         error: (error) => {
-          // this.alertService.showError(error.message);
+          this.alertService.showWarning('Login required');
           this.router.navigate(['auth','login'])
         },
       });

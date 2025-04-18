@@ -20,35 +20,35 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   border: none;
+}
   
-  &:hover {
+  .favourite-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    
-    .card-overlay {
-      opacity: 1;
-    }
   }
-}
+    
+  /* .favourite-card:hover .card-overlay {
+      opacity: 1;
+    }  */
 
 .card-image {
   height: 220px;
   overflow: hidden;
   position: relative;
+}
   
-  img {
+  .card-image  img {
     height: 100%;
     width: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
   }
   
-  &:hover img {
+  .card-image  :hover img {
     transform: scale(1.05);
   }
-}
 
-.card-overlay {
+/* .card-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -57,7 +57,7 @@
   background: rgba(0, 0, 0, 0.3);
   opacity: 0;
   transition: opacity 0.3s ease;
-}
+} */
 
 .empty-state {
   background: white;
@@ -65,12 +65,10 @@
   padding: 3rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   
-  .empty-icon {
-    i {
-      animation: pulse 1.5s infinite;
-    }
-  }
 }
+  .empty-state .empty-icon i{
+      animation: pulse 1.5s infinite;
+  }
 
 @keyframes pulse {
   0% { transform: scale(1); }

@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private confirmService: ConfirmService,
-    private userService:UserService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -43,7 +43,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getLoggedUser() {
-   
     this.isLoaded = true
     this.authService.loggedUser$
       .pipe(
@@ -58,30 +57,15 @@ export class ProfileComponent implements OnInit {
         this.loggedUser = user;
         this.isLoaded = false;
       });
-    // this.userService.getLoggedUser().subscribe({
-    //   next: (res: any) => {
-    //     this.loggedUser = res;
-    //   },
-    //   error: (error: any) => {
-    //     console.log(error.error.message)
-    //     this.alertService.showError(error.error.message)
-    //   }
-    // })
   }
 
   logout() {
     this.confirmService.showConfirm('Logout').then((confirmed: boolean) => {
       if (confirmed) {
-        this.authService.logout().subscribe({
-          next: () => {
-            this.clearCart()
-            this.alertService.showSuccess('Logged out.');
-            this.router.navigate(['/auth/login']); // Redirect to login page after logout
-          },
-          error: (error) => {
-            this.alertService.showError(error.error.message);
-          }
-        });
+        localStorage.removeItem('accessToken');
+        this.router.navigate(['/auth/login']);
+        this.clearCart()
+        this.alertService.showSuccess('Logged out.');
       }
     });
   }
