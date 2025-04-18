@@ -42,7 +42,6 @@ export class EditProfilePictureComponent {
   }
 
   onFileSelected(event: any): void {
-    console.log(this.selectedFile)
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0]; // Select the first file
     }
