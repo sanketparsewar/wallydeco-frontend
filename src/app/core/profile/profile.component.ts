@@ -50,14 +50,16 @@ export class ProfileComponent implements OnInit {
       .pipe(
         tap((user: any) => {
           if (!user) {
-            this.isLoaded = false
+            setTimeout(() => {
+              this.isLoaded = false;
+            }, 1500);
           }
         }),
         filter(user => !!user)
       )
       .subscribe((user: any) => {
         this.loggedUser = user;
-        this.isLoaded = false;
+          this.isLoaded = false;
       });
   }
 
