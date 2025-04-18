@@ -25,6 +25,7 @@ export class AuthService {
       })
       .pipe(
         tap((response) => {
+          localStorage.setItem('accessToken', `Bearer ${response.accessToken}`);
           this.loggedUserSubject.next(response.user); // Store logged-in user
         })
       );

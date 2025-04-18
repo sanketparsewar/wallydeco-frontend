@@ -32,7 +32,7 @@ export class AlertService {
     // this.toastr.error(message);
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 1500,
       timerProgressBar: true,
@@ -50,7 +50,7 @@ export class AlertService {
     // this.toastr.warning(message);
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 1500,
       timerProgressBar: true,
@@ -68,7 +68,7 @@ export class AlertService {
     // this.toastr.info(message);
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 1500,
       timerProgressBar: true,

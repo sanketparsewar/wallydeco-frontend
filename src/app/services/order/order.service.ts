@@ -10,10 +10,18 @@ export class OrderService {
   constructor(private http: HttpClient) {
     this.BASE_URL = environment.apiUrl;
   }
+
+  getHeader(){
+    const token = localStorage.getItem('accessToken');
+    return {
+      headers: {
+        Authorization: token || '', // token already includes 'Bearer '
+      }
+    };
+  }
+
   placeOrder(orderData: any) {
-    return this.http.post(`${this.BASE_URL}/order`, orderData,{
-      withCredentials:true
-    });
+    return this.http.post(`${this.BASE_URL}/order`, orderData,this.getHeader());
   }
 
   getOrders() {

@@ -12,6 +12,15 @@ export class WallpaperService {
     this.BASE_URL = environment.apiUrl;
   }
 
+  getHeader(){
+    const token = localStorage.getItem('accessToken');
+    return {
+      headers: {
+        Authorization: token || '', // token already includes 'Bearer '
+      }
+    };
+  }
+
   getWallpapers(filters: any = {}): Observable<any> {
     let params = new HttpParams();
     Object.keys(filters).forEach((key) => {
@@ -32,32 +41,23 @@ export class WallpaperService {
   }
   getFavouriteWallpapers(): Observable<any> {
     return this.http.get<any>(
-      `${this.BASE_URL}/wallpaper/favourite`,{
-        withCredentials: true, // Allow cookies to be sent and received
-      }
+      `${this.BASE_URL}/wallpaper/favourite`,this.getHeader()
     );
   }
   addWallpaperToFavourite(id:string): Observable<any> {
     return this.http.get<any>(
-      `${this.BASE_URL}/wallpaper/favourite/${id}`,{
-        withCredentials: true, // Allow cookies to be sent and received
-      }
+      `${this.BASE_URL}/wallpaper/favourite/${id}`,this.getHeader()
     );
   }
 
   createWallpaper(wallpaper: any): Observable<any> {
-    return this.http.post<any>(`${this.BASE_URL}/wallpaper`, wallpaper, {
-      withCredentials: true, // Allow cookies to be sent and received
-    });
+    return this.http.post<any>(`${this.BASE_URL}/wallpaper`, wallpaper, this.getHeader());
   }
+
   updateWallpaper(id: string, wallpaper: any): Observable<any> {
-    return this.http.put<any>(`${this.BASE_URL}/wallpaper/${id}`, wallpaper, {
-      withCredentials: true, // Allow cookies to be sent and received
-    });
+    return this.http.put<any>(`${this.BASE_URL}/wallpaper/${id}`, wallpaper,this.getHeader());
   }
   deleteWallpaper(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}/wallpaper/${id}`, {
-      withCredentials: true, // Allow cookies to be sent and received
-    });
+    return this.http.delete<any>(`${this.BASE_URL}/wallpaper/${id}`, this.getHeader());
   }
 }
