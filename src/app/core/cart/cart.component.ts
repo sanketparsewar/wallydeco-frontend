@@ -167,7 +167,7 @@ export class CartComponent implements OnInit {
     this.couponError = '';
     this.appliedCoupon = null;
 
-    this.amountObj.couponCode = this.inputCoupon
+    this.amountObj.couponCode = this.inputCoupon.toUpperCase()
     if (!this.amountObj.couponCode.trim()) {
       this.couponError = 'Please enter a coupon code.';
       return;
