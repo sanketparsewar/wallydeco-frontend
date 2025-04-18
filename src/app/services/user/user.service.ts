@@ -14,22 +14,27 @@ export class UserService {
     this.BASE_URL = environment.apiUrl;
   }
 
+  getHeader(){
+    const token = localStorage.getItem('accessToken');
+    return {
+      headers: {
+        Authorization: token || '', // token already includes 'Bearer '
+      }
+    };
+  }
 
   getLoggedUser() {
-
-    return this.http.get(`${this.BASE_URL}/user/logged`, {
-      withCredentials: true,
-    }).pipe(
+    const token = localStorage.getItem('accessToken');
+    return this.http.get(`${this.BASE_URL}/user/logged`, this.getHeader()).pipe(
       tap((res) => {
         this.authService.setLoggedUser(res);
       })
-    )
+    );
   }
 
+
   getUser(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`,{
-      withCredentials: true,
-    }).pipe(
+    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`,this.getHeader()).pipe(
       tap((response) => {
         this.authService.setLoggedUser(response.user);
       })
@@ -37,9 +42,7 @@ export class UserService {
   }
 
   updateUser(userId: string, user: any): Observable<any> {
-    return this.http.put<any>(`${this.BASE_URL}/user/${userId}`, user, {
-      withCredentials: true,
-    }).pipe(
+    return this.http.put<any>(`${this.BASE_URL}/user/${userId}`, user,this.getHeader()).pipe(
       tap((response) => {
         this.authService.setLoggedUser(response.user);
       })
@@ -47,9 +50,7 @@ export class UserService {
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}/user/${id}`,{
-      withCredentials: true,
-    });
+    return this.http.delete<any>(`${this.BASE_URL}/user/${id}`,this.getHeader());
   }
 
 
