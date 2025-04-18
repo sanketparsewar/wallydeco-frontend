@@ -45,7 +45,6 @@ export class EditProfilePictureComponent {
     console.log(this.selectedFile)
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0]; // Select the first file
-      console.log(this.selectedFile)
     }
   }
   uploadProfileFile() {
@@ -60,7 +59,6 @@ export class EditProfilePictureComponent {
   update() {
     this.isLoaded = true;
     if (!this.selectedFile) {
-      console.error('No file selected');
       return;
     }
     this.uploadService
@@ -71,7 +69,8 @@ export class EditProfilePictureComponent {
           this.onUpdate();
         },
         error: (error: any) => {
-          console.error('File upload failed:', error);
+          this.alertService.showError(error.error.message);
+          this.isLoaded = false;
         },
       });
   }
