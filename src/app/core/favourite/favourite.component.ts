@@ -71,7 +71,7 @@ wallpaperList: any;
         this.getFavouriteWallpapers()
       },
       error: (error) => {
-        this.alertService.showError(error.message); 
+        this.alertService.showError(error.error.message); 
           }
     })
   }

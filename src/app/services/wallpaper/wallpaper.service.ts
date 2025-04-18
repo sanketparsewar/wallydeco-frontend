@@ -38,7 +38,7 @@ export class WallpaperService {
 
   getFavouriteWallpapers(): Observable<any> {
     return this.http.get<any>(
-      `${this.BASE_URL}/wallpaper/favourite`,this.getHeader()
+      `${this.BASE_URL}/wallpaper/favourites`,this.getHeader()
     );
   }
   

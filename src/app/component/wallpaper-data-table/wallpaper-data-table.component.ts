@@ -65,7 +65,7 @@ export class WallpaperDataTableComponent {
         this.isLoaded = false;
       },
       error: (error) => {
-        console.error('Error fetching wallpapers:', error);
+        console.error('Error fetching wallpapers:', error.error.message);
         this.isLoaded = false;
       },
     });
