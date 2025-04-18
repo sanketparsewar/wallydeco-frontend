@@ -24,7 +24,6 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.updatedUser = {
       name: this.user?.name,
-      image: this.user?.image,
       email: this.user?.email,
       phone: this.user?.phone,
       address: {
