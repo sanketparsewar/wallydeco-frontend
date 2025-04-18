@@ -1,16 +1,15 @@
 @if(isLoaded){
 <app-loader></app-loader>
 }@else {
-
-<section class="frames mt-5 pt-4">
+<section class="frames py-5 mt-5 bg-light">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="text-center">
-          <h1 class="fw-bold">
-            Abstract Frame Collection
-          </h1>
-        </div>
+    <div class="row justify-content-center mb-4">
+      <div class="col-12 text-center">
+        <h1 class="fw-bold display-5 text-dark position-relative pb-3">
+          Abstract Frame Collection
+          <span class="position-absolute bottom-0 start-50 translate-middle-x bg-dark bg-gradient px-5"
+            style="height: 4px; width: 100px;"></span>
+        </h1>
       </div>
     </div>
     <div class="row" [@listAnimation]="framesList.length">
