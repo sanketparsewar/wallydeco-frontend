@@ -36,10 +36,12 @@ export class ProfileComponent implements OnInit {
     private alertService: AlertService,
     private confirmService: ConfirmService,
     private userService: UserService
-  ) { }
+  ) {
+    this.getLoggedUser();
+
+   }
 
   ngOnInit() {
-    this.getLoggedUser();
   }
 
   getLoggedUser() {
@@ -63,7 +65,7 @@ export class ProfileComponent implements OnInit {
     this.confirmService.showConfirm('Logout').then((confirmed: boolean) => {
       if (confirmed) {
         localStorage.removeItem('accessToken');
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/home']);
         this.clearCart()
         this.alertService.showSuccess('Logged out.');
       }
