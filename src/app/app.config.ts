@@ -8,7 +8,6 @@ import { provideToastr } from 'ngx-toastr';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { cartReducer } from './shared/store/cart.reducer';
-import { authInterceptor } from './services/interceptor/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

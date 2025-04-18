@@ -40,8 +40,8 @@ export class AddWallpaperComponent {
   constructor(
     private wallpaperService: WallpaperService,
     private uploadService: UploadService,
-    private alertService:AlertService
-  ) {}
+    private alertService: AlertService
+  ) { }
 
   onColorChange(event: any, selectedcolorOptions: string) {
     if (event.target.checked) {
@@ -86,7 +86,7 @@ export class AddWallpaperComponent {
 
   // Add wallpaper after file upload
   onAddWallpaper() {
-    this.wallpaperService.createWallpaper(this.wallpaper).subscribe({
+    this.wallpaperService.addWallpaper(this.wallpaper).subscribe({
       next: (res: any) => {
         this.alertService.showSuccess('Wallpaper added successfully!');
         this.getAllWallpapers.emit();
