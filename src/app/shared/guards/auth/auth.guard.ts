@@ -10,7 +10,6 @@ export const authGuard: CanActivateFn = () => {
   const token = localStorage.getItem('accessToken'); // No need for JSON.parse
 
   if (token) {
-    alertService.showInfo('token')
     router.navigate(['/user/profile']);
     return false;
   }

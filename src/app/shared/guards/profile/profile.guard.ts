@@ -8,7 +8,6 @@ export const profileGuard: CanActivateFn = () => {
   const token = localStorage.getItem('accessToken'); // No need for JSON.parse
 
   if (!token) {
-    alertService.showError('No access token found. Please login.');
     router.navigate(['/auth/login']);
     return false;
   }
