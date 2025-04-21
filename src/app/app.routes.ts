@@ -14,6 +14,7 @@ import { FavouriteComponent } from './core/favourite/favourite.component';
 import { profileGuard } from './shared/guards/profile/profile.guard';
 import { authGuard } from './shared/guards/auth/auth.guard';
 import { CheckoutComponent } from './core/checkout/checkout.component';
+import { OrdersComponent } from './core/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -38,8 +39,13 @@ export const routes: Routes = [
         path: 'user',
         children: [{
           path: 'profile',
-        canActivate: [profileGuard],
+          canActivate: [profileGuard],
           component: ProfileComponent
+        },
+        {
+          path: 'orders',
+          canActivate: [profileGuard],
+          component:OrdersComponent
         },
         {
           path: 'admin-dashboard',
