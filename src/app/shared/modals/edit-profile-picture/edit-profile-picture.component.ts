@@ -24,20 +24,11 @@ export class EditProfilePictureComponent {
     private userService: UserService,
     private alertService: AlertService,
     private confirmService: ConfirmService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.updatedUser = {
-      name: this.user?.name,
       image: this.user?.image,
       email: this.user?.email,
-      phone: this.user?.phone,
-      address: {
-        street: this.user?.address.street,
-        city: this.user?.address.city,
-        state: this.user?.address.state,
-        zip: this.user?.address.zip,
-      },
-      gender: this.user?.gender,
     };
   }
 
