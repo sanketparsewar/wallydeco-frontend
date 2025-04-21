@@ -1,20 +1,7 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './core/layout/layout.component';
-import { HomeComponent } from './core/home/home.component';
-import { FloralComponent } from './core/floral/floral.component';
-import { FramesComponent } from './core/frames/frames.component';
-import { TrendingComponent } from './core/trending/trending.component';
-import { ProfileComponent } from './core/profile/profile.component';
-import { LoginComponent } from './core/auth/login/login.component';
-import { RegisterComponent } from './core/auth/register/register.component';
-import { AdminDashboardComponent } from './core/admin-dashboard/admin-dashboard.component';
-import { WallpaperComponent } from './core/wallpaper/wallpaper.component';
-import { CartComponent } from './core/cart/cart.component';
-import { FavouriteComponent } from './core/favourite/favourite.component';
 import { profileGuard } from './shared/guards/profile/profile.guard';
 import { authGuard } from './shared/guards/auth/auth.guard';
-import { CheckoutComponent } from './core/checkout/checkout.component';
-import { OrdersComponent } from './core/orders/orders.component';
+
 
 export const routes: Routes = [
   {
@@ -24,33 +11,66 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: LayoutComponent,
+    loadComponent: () =>
+      import('./core/layout/layout.component').then((m) => m.LayoutComponent),
     children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'floral', component: FloralComponent },
-      { path: 'frames', component: FramesComponent },
-      { path: 'trending', component: TrendingComponent },
-      { path: 'favourite', component: FavouriteComponent },
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./core/home/home.component').then((m) => m.HomeComponent)
+      },
+      {
+        path: 'floral',
+        loadComponent: () =>
+          import('./core/floral/floral.component').then((m) => m.FloralComponent)
+      },
+      {
+        path: 'frames',
+        loadComponent: () =>
+          import('./core/frames/frames.component').then((m) => m.FramesComponent)
+      },
+      {
+        path: 'trending',
+        loadComponent: () =>
+          import('./core/trending/trending.component').then((m) => m.TrendingComponent)
+      },
+      {
+        path: 'favourite',
+        canActivate: [profileGuard],
+        loadComponent: () =>
+          import('./core/favourite/favourite.component').then((m) => m.FavouriteComponent)
+      },
       {
         path: 'wallpaper/:wallpaperId',
-        component: WallpaperComponent,
+        loadComponent: () =>
+          import('./core/wallpaper/wallpaper.component').then((m) => m.WallpaperComponent),
       },
       {
         path: 'user',
         children: [{
           path: 'profile',
           canActivate: [profileGuard],
-          component: ProfileComponent
+          loadComponent: () =>
+            import('./core/profile/profile.component').then((m) => m.ProfileComponent)
         },
         {
           path: 'orders',
           canActivate: [profileGuard],
-          component:OrdersComponent
+          loadComponent: () =>
+            import('./core/orders/orders.component').then((m) => m.OrdersComponent)
         },
         {
+          path: 'order-details/:id',
+          canActivate: [profileGuard],
+          loadComponent: () =>
+            import('./core/orderDetails/orderDetails.component').then((m) => m.OrderDetailsComponent)
+        },
+
+        {
           path: 'admin-dashboard',
-        // canActivate: [profileGuard],
-          component: AdminDashboardComponent,
+          // canActivate: [profileGuard],
+          loadComponent: () =>
+            import('./core/admin-dashboard/admin-dashboard.component').then((m) => m.AdminDashboardComponent)
         },
         ]
       },
@@ -61,11 +81,13 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: CartComponent
+            loadComponent: () =>
+              import('./core/cart/cart.component').then((m) => m.CartComponent),
           },
           {
             path: 'checkout',
-            component: CheckoutComponent
+            loadComponent: () =>
+              import('./core/checkout/checkout.component').then((m) => m.CheckoutComponent)
           }
         ]
       },
@@ -73,17 +95,20 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    component: LayoutComponent,
+    loadComponent: () =>
+      import('./core/layout/layout.component').then((m) => m.LayoutComponent),
     children: [
       {
         path: 'login',
         canActivate: [authGuard],
-        component: LoginComponent,
+        loadComponent: () =>
+          import('./core/auth/login/login.component').then((m) => m.LoginComponent),
       },
       {
         path: 'register',
         canActivate: [authGuard],
-        component: RegisterComponent,
+        loadComponent: () =>
+          import('./core/auth/register/register.component').then((m) => m.RegisterComponent),
       },
     ],
   },
