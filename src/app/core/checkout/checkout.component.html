@@ -1,4 +1,4 @@
-<div class="container pt-5 mt-5">
+<div class="container pt-5 mt-5" *ngIf="!showSuccessAnimation">
     <div class="row">
         <!-- Checkout Form -->
         <div class="col-lg-7 mb-4">
@@ -72,39 +72,6 @@
                         </div>
                     </div>
 
-                    <!-- Payment Information Section -->
-                    <!-- <div class="p-2 bg-light rounded-2">
-              <h5 class="d-flex align-items-center mb-2 fs-6">
-                <i class="bi bi-credit-card me-2 text-primary"></i>
-                Payment Information
-              </h5>
-              <div class="row g-2">
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center">
-                    <span class="text-muted small me-2" style="min-width: 120px;">Payment Method:</span>
-                    <i class="bi bi-credit-card-2-front fs-5 me-2 text-success"></i>
-                    <span class="fw-semibold">VISA •••• 4242</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex">
-                    <span class="text-muted small me-2" style="min-width: 120px;">Billing Address:</span>
-                    <span class="fw-semibold">Same as shipping</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="alert alert-success py-2 px-3 mt-2 mb-0">
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-check-circle-fill me-2"></i>
-                  <div>
-                    <span class="fw-semibold">Payment Successful</span>
-                    <small class="d-block text-muted">Transaction #1234567890</small>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
                     <!-- Edit Button -->
                     <div class="text-end mt-3">
                         <button data-bs-toggle="modal" data-bs-target="#profileModal"
@@ -131,7 +98,7 @@
                                     <img [src]="item.image" alt="art image" style="width: 80px; height: 80px;"
                                         class="rounded" />
                                 </div>
-                                <div class="flex-grow-1 text-truncate pe-2" style="min-width: 0;"> 
+                                <div class="flex-grow-1 text-truncate pe-2" style="min-width: 0;">
                                     <h6 class="my-0 text-truncate" title="{{ item.title }}">{{ item.title }}</h6>
                                     <small class="text-muted">{{ item.size }} | Qty: {{ item.quantity }}</small>
                                 </div>
@@ -213,11 +180,43 @@
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
 </div>
+
+
+<!-- Success Animation Overlay -->
+<div *ngIf="showSuccessAnimation" @fadeScaleIn
+    class="d-flex flex-column justify-content-center align-items-center vh-100 bg-white position-relative">
+
+    <div class="check-container">
+        <div class="check-background">
+            <svg viewBox="0 0 65 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 25L27.3077 44L58.5 7" stroke="white" stroke-width="13" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </div>
+        <div class="check-shadow"></div>
+    </div>
+
+    <!-- Sparkles -->
+    <div class="sparkle sparkle-1"></div>
+    <div class="sparkle sparkle-2"></div>
+    <div class="sparkle sparkle-3"></div>
+
+    <!-- Main Success Message -->
+    <div class="text-center">
+        <div class="mb-3 scale-bounce">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+        </div>
+        <h4 class="text-success fw-bold">Order Placed Successfully!</h4>
+        <p class="text-muted">Redirecting to your order summary...</p>
+    </div>
+</div>
+
+
+
+
+
+
 
 <app-edit-profile *ngIf="loggedUser" [user]="loggedUser"> </app-edit-profile>

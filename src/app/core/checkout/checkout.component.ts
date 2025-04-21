@@ -14,11 +14,30 @@ import { Router } from '@angular/router';
 import {
   clearCart,
 } from '../../shared/store/cart.actions';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  state
+} from '@angular/animations';
+
 @Component({
   selector: 'app-checkout',
-  imports: [CommonModule, EditProfileComponent, FormsModule],
+  imports: [CommonModule, EditProfileComponent, FormsModule,],
   templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.css'
+  styleUrl: './checkout.component.css',
+  animations: [
+    trigger('fadeScaleIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.5)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'scale(0.5)' }))
+      ])
+    ])
+  ]
 })
 export class CheckoutComponent implements OnInit {
   store = inject(Store);
@@ -27,10 +46,11 @@ export class CheckoutComponent implements OnInit {
   isLoaded: boolean = false
   constructor(private authService: AuthService, private confirmService: ConfirmService, private alertService: AlertService, private orderService: OrderService, private router: Router) { }
   cartItems$: Observable<IcartItem[]> = this.store.select(selectCartItems);
-  
-  amountObj:any;
+
+  amountObj: any;
   selectedPayment: string = 'cod';
   upiId: string = ''
+  showSuccessAnimation = false;
 
 
 
@@ -49,8 +69,8 @@ export class CheckoutComponent implements OnInit {
         }
       }
     })
-    this.amountObj=JSON.parse(localStorage.getItem('amountObj') || '')
-    }
+    this.amountObj = JSON.parse(localStorage.getItem('amountObj') || '')
+  }
 
 
   getLoggedUser() {
@@ -84,23 +104,25 @@ export class CheckoutComponent implements OnInit {
   }
 
 
+
   placeOrder() {
+    this.isLoaded = true;
     // Validate UPI if selected
     if (this.selectedPayment === 'upi' && !this.isValidUpi(this.upiId)) {
       return;
     }
-  
+
     // Validate address
     if (!this.loggedUser.address || !this.loggedUser.address.street) {
       this.alertService.showError('Please provide a complete shipping address');
       return;
     }
-  
-    // Prepare order data matching backend schema
+
+    // Prepare order data
     const orderData = {
       user: this.loggedUser._id,
-      items: this.cartItems.map((item:any) => ({
-        wallpaper: item.id,  // Make sure this matches the wallpaper _id
+      items: this.cartItems.map((item: any) => ({
+        wallpaper: item.id,
         quantity: item.quantity,
         price: item.price
       })),
@@ -108,21 +130,25 @@ export class CheckoutComponent implements OnInit {
       deliveryFee: this.amountObj.deliveryFee,
       discount: this.amountObj.discount,
       finalAmount: this.amountObj.finalTotal,
-      couponCode:this.amountObj.couponCode,
+      couponCode: this.amountObj.couponCode,
       shippingAddress: this.loggedUser.address,
       paymentMethod: this.selectedPayment,
       upiId: this.selectedPayment === 'upi' ? this.upiId : undefined
     };
-  
+
     this.orderService.placeOrder(orderData).subscribe({
       next: (res: any) => {
+        this.isLoaded = false;
         this.clearCart();
-        this.alertService.showSuccess('Order placed successfully!');
-        // this.router.navigate(['/order-confirmation'], { state: { orderId: res._id } });
-        this.router.navigate(['/home']);
+        this.showSuccessAnimation = true;
+        
+        // Redirect after animation
+        setTimeout(() => {
+          this.router.navigate(['/user/order-details', res.savedOrder._id]);
+          this.showSuccessAnimation = false;
+        }, 5000);
       },
       error: (err) => {
-        // Handle stock-related errors specifically
         if (err.error?.error?.includes('Insufficient stock')) {
           this.alertService.showInfo(err.error.error);
         } else {
