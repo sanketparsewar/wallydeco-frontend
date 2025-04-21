@@ -80,5 +80,8 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem('amountObj');
   }
 
+  orders(){
+    this.router.navigate(['user','order',this.loggedUser._id])
+  }
 
 }
