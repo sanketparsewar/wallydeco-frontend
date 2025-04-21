@@ -1,0 +1,102 @@
+@if (isLoaded) {
+<app-loader></app-loader>
+} @else {
+<div class="container my-5 py-5">
+  <div class="row">
+    <!-- Left Column (Order Header + Items List) -->
+    <div class="col-12 col-md-8 mb-3">
+      <!-- Order Header -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title mb-1"><i class="fa-solid fa-angle-left" (click)="back()"></i> Order Details</h5>
+          <p class="mb-0 text-muted">Order ID: <span class="fw-semibold">{{ order?._id }}</span></p>
+          <p class="mb-0 text-muted">Placed on: {{ order?.orderDate | date: 'medium' }}</p>
+          <span class="badge mt-2" [ngClass]="{
+              'bg-warning text-dark': order?.status === 'Pending',
+              'bg-success': order?.status === 'Delivered',
+              'bg-danger': order?.status === 'Cancelled'
+            }">
+            {{ order?.status }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Items List -->
+      <div *ngFor="let item of order?.items; let i = index" class="card border-0 shadow-sm mb-3 rounded-3">
+        <div class="row g-0 align-items-center">
+          <!-- Image -->
+          <div class="col-3 col-md-2">
+            <div class="p-2">
+              <img [src]="item.wallpaper.images[0]" class="img-fluid rounded-3" alt="Wallpaper Image"
+                style="object-fit: cover; width: 5rem; height: 5rem;">
+            </div>
+          </div>
+          <!-- Text Info -->
+          <div class="col-9 col-md-10">
+            <div class="card-body p-2">
+              <h6 class="card-title m-0 fw-semibold text-truncate">{{ i + 1 }}. {{ item.wallpaper.title }} </h6>
+              <p class="text-muted m-0 small text-truncate" style="max-height: 3.5em; overflow: hidden;">
+                {{ item.wallpaper.description | description:100 }}
+              </p>
+              <p class="m-0">Size:<small>&#10647; {{item.wallpaper.size}} &#10648;</small></p>
+              <div class="row small mb-1">
+                <div class="col-4 col-md-3"><strong>Qty:</strong> {{ item.quantity }}</div>
+                <div class="col-8 col-md-4"><strong>Price:</strong> {{ item.price | currency: 'INR' }}</div>
+                <div class="col-12 col-md-5"><strong>Total:</strong> {{ item.quantity * item.price | currency: 'INR' }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column (Summary) -->
+    <div class="col-12 col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title fw-bold mb-2"><i class="fa-solid fa-receipt"></i> Bill Summary</h5>
+
+          <div class="d-flex justify-content-between">
+            <span>Subtotal</span>
+            <span>{{ order?.totalAmount | currency: 'INR' }}</span>
+          </div>
+          <hr class="m-0 p-1">
+          <div class="d-flex justify-content-between">
+            <span>Delivery Fee
+            </span>
+            <span>{{ order?.deliveryFee | currency: 'INR' }}</span>
+          </div>
+          <div *ngIf="order.discount" class="d-flex text-success justify-content-between">
+            <span class="">Discount
+              <br>
+              <small class="text-decoration-underline">CouponCode '{{order.couponCode}}' applied</small></span>
+            <span class="text-success">-{{ order?.discount | currency: 'INR' }}</span>
+          </div>
+          <hr>
+
+          <div class="d-flex justify-content-between fw-bold">
+            <span>Total Bill</span>
+            <span>{{ order?.finalAmount | currency: 'INR' }}</span>
+          </div>
+          <hr>
+          <h5 class="card-title fw-bold mb-2">Payment & Delivery Info</h5>
+          <p class="m-0"><strong>Payment Method:</strong></p>
+          <p class="mb-1 text-muted text-uppercase"> {{ order?.paymentMethod }}</p>
+          <p class="m-0"><strong>Receiver Details:</strong></p>
+          <p class="mb-1 text-muted">{{order.user.name}}, +91-{{order.user.phone}}</p>
+          <p class="m-0"><strong>Delivery Address:</strong></p>
+          <p class="mb-1 text-muted">
+            {{ order?.shippingAddress.street }}, {{ order?.shippingAddress.city }} - {{ order?.shippingAddress.zip
+            }}, {{ order?.shippingAddress.state }}
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+
