@@ -1,43 +1,31 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.prod';
 import { Observable } from 'rxjs';
+import { HttpService } from '../http/http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private BASE_URL: string;
-  constructor(private http: HttpClient) {
-    this.BASE_URL = environment.apiUrl;
+  constructor(private httpService: HttpService) { }
+
+
+  placeOrder(orderData: any): Observable<any> {
+    return this.httpService.securePost('/order', orderData);
   }
 
-  getHeader(){
-    const token = localStorage.getItem('accessToken');
-    return {
-      headers: {
-        Authorization: token || '', // token already includes 'Bearer '
-      }
-    };
+  getOrders(): Observable<any> {
+    return this.httpService.get('/order');
   }
 
-  placeOrder(orderData: any) : Observable<any> {
-    return this.http.post<any>(`${this.BASE_URL}/order`, orderData,this.getHeader());
+  getOrderById(orderId: string): Observable<any> {
+    return this.httpService.get(`/order/${orderId}`);
   }
 
-  getOrders() : Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/order`);
+  updateOrder(orderId: string, orderData: any): Observable<any> {
+    return this.httpService.put(`/order/${orderId}`, orderData);
   }
 
-  getOrderById(orderId: string): Observable<any>  {
-    return this.http.get<any>(`${this.BASE_URL}/order/${orderId}`);
-  }
-
-  updateOrder(orderId: string, orderData: any): Observable<any>  {
-    return this.http.put<any>(`${this.BASE_URL}/order/${orderId}`, orderData);
-  }
-
-  deleteOrder(orderId: string): Observable<any>  {
-    return this.http.delete<any>(`${this.BASE_URL}/order/${orderId}`);
+  deleteOrder(orderId: string): Observable<any> {
+    return this.httpService.delete(`/order/${orderId}`);
   }
 }

@@ -1,58 +1,43 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { environment } from '../../../environments/environment.prod';
 import { AuthService } from '../auth/auth.service';
+import { HttpService } from '../http/http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private BASE_URL: string;
-
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.BASE_URL = environment.apiUrl;
-  }
-
-  getHeader(){
-    const token = localStorage.getItem('accessToken');
-    return {
-      headers: {
-        Authorization: token || '', // token already includes 'Bearer '
-      }
-    };
-  }
-
+  constructor(private authService:AuthService,private httpService: HttpService) { }
+  
   getLoggedUser(): Observable<any>  {
-    const token = localStorage.getItem('accessToken');
-    return this.http.get<any>(`${this.BASE_URL}/user/logged`, this.getHeader()).pipe(
-      tap((res) => {
-        this.authService.setLoggedUser(res);
+    return this.httpService.secureGet('/user/logged').pipe(
+      tap((response:any) => {
+        this.authService.setLoggedUser(response.user);
       })
     );
+
   }
 
 
   getUserById(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/user/${userId}`);
+    return this.httpService.get(`/user/${userId}`);
   }
 
   getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL}/user`,)
+    return this.httpService.get('/user');
   }
 
   updateUser(userId: string, user: any): Observable<any> {
-    return this.http.put<any>(`${this.BASE_URL}/user/${userId}`, user,this.getHeader()).pipe(
-      tap((response) => {
+    return this.httpService.securePut(`/user/${userId}`, user).pipe(
+      tap((response:any) => {
         this.authService.setLoggedUser(response.user);
       })
     );
+   
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.BASE_URL}/user/${id}`);
+    return this.httpService.delete(`/user/${id}`);
   }
-
-
 
 }
