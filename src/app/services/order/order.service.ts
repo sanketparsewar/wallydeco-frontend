@@ -13,6 +13,9 @@ export class OrderService {
     return this.httpService.securePost('/order', orderData);
   }
 
+  getUserOrders(): Observable<any> {
+    return this.httpService.secureGet('/order/user');
+  }
   getOrders(): Observable<any> {
     return this.httpService.get('/order');
   }
