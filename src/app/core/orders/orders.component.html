@@ -1,16 +1,16 @@
 <div class="container-scroller pt-5 mt-5">
     <div class="container-fluid page-body-wrapper">
         @if(isLoaded){
-            <app-loader></app-loader>
-            }
-            @else{
-            
-            <div class=" col-md-12 grid-margin stretch-card">
+        <app-loader></app-loader>
+        }
+        @else{
+        <!-- Table View for md and larger devices -->
+        <div class="d-none d-md-block">
+            <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center mb-4">
                             <h4 class="card-title mb-sm-0">Orders</h4>
-                            <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Products</a>
                         </div>
                         <div class="table-responsive border rounded p-1">
                             <table class="table">
@@ -18,61 +18,105 @@
                                     <tr>
                                         <th class="font-weight-bold">Order ID</th>
                                         <th class="font-weight-bold">Amount</th>
-                                        <th class="font-weight-bold">Delivery at</th>
-                                        <th class="font-weight-bold">Payment Status</th>
-                                        <th class="font-weight-bold">Order Status</th>
+                                        <th class="font-weight-bold">Payment</th>
+                                        <th class="font-weight-bold">Status</th>
+                                        <th class="font-weight-bold">Date</th>
                                         <th class="font-weight-bold">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            Holmes
+                                    <tr *ngFor="let order of tableData">
+                                        <td style="max-width: 200px;">
+                                            <div class="overflow-auto" style="white-space: nowrap;">
+                                                <div *ngFor="let item of order.items" class="d-inline-block p-1">
+                                                    <img [src]="item.wallpaper.images[0]"
+                                                        style="width: 3rem; height: 3rem; object-fit: cover;"
+                                                        class="rounded" alt="Wallpaper Image">
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td>$3621</td>
-                                        <td>alipay</td>
-                                        <td>04 Jun 2019</td>
-                                        <td>18 Jul 2019</td>
+                                        <td>{{ order.finalAmount | currency:"INR" }}</td>
+                                        <td class="text-uppercase text-muted" >{{ order.paymentMethod }}</td>
                                         <td>
-                                            <div class="badge badge-success p-2">Paid</div>
+                                            <span class="badge" [ngClass]="{
+                                            'bg-warning text-dark': order.status === 'Pending',
+                                            'bg-success': order.status === 'Delivered',
+                                            'bg-danger': order.status === 'Cancelled'
+                                          }">
+                                                Order {{ order.status }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ order.orderDate | date: 'medium' }}</small>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" (click)="orderDetails(order._id)">View</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            Copeland
-                                        </td>
-                                        <td>$6245</td>
-                                        <td>Paypal</td>
-                                        <td>25 Sep 2019</td>
-                                        <td>07 Oct 2019</td>
-                                        <td>
-                                            <div class="badge badge-danger p-2">Pending</div>
-                                        </td>
-                                    </tr>
-            
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="d-flex mt-4 flex-wrap align-items-center">
                             <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
                             <nav class="ms-auto">
                                 <ul class="pagination separated pagination-info mb-sm-0">
-                                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                                    <li class="page-item"><a href="#" class="page-link"><i
+                                                class="icon-arrow-left"></i></a></li>
                                     <li class="page-item active"><a href="#" class="page-link">1</a></li>
                                     <li class="page-item"><a href="#" class="page-link">2</a></li>
                                     <li class="page-item"><a href="#" class="page-link">3</a></li>
                                     <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                    <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                                    <li class="page-item"><a href="#" class="page-link"><i
+                                                class="icon-arrow-right"></i></a></li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            }
+        </div>
+
+        <!-- Card View for small devices -->
+        <div class="d-md-none">
+            <div class="row">
+                <div class="d-sm-flex text-center align-items-center mb-2">
+                    <h1 class="card-title mb-sm-0">Orders</h1>
+                </div>
+                <div class="col-12 mb-3" *ngFor="let order of tableData">
+                    <div class="card shadow-sm p-2"  >
+                        <div class="d-flex flex-row overflow-auto mb-1">
+                            <div *ngFor="let item of order.items" class="p-2">
+                                <img [src]="item.wallpaper.images[0]"
+                                    style="width: 3rem; height: 3rem; object-fit: cover;" class="rounded"
+                                    alt="Wallpaper Image">
+                            </div>
+                        </div>
+
+                        <div class="card-body p-2 pt-0" (click)="orderDetails(order._id)" >
+                            <p class="mb-1">
+                                <span class="badge " [ngClass]="{
+                            'bg-warning text-dark': order.status === 'Pending',
+                            'bg-success': order.status === 'Delivered',
+                            'bg-danger': order.status === 'Cancelled'
+                          }">
+                                    Order {{ order.status }}
+                                </span>
+                            </p>
+
+                            <div class="d-flex justify-content-between">
+                                <small class="text-muted">Placed at {{ order.orderDate | date: 'dd MMM y, hh:mm a' }}</small>
+                                <small class="fw-bold">{{ order.finalAmount | currency:"INR" }} <i
+                                        class="fa-solid fa-angle-right"></i></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        }
     </div>
 </div>
-
 
 <app-footer></app-footer>
