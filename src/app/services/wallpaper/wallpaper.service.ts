@@ -1,7 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { HttpService } from '../http/http.service';
 
 
@@ -13,7 +12,6 @@ export class WallpaperService {
 
   getWallpaperById(id: string): Observable<any> {
     return this.httpService.get(`/wallpaper/${id}`);
-    // return this.http.get<any>(`${this.BASE_URL}/wallpaper/${id}`);
   }
 
   getWallpapers(filters: any = {}): Observable<any> {
