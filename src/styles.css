@@ -35,3 +35,61 @@ body {
 .heart-beat:hover {
   cursor: pointer; /* Change to red on hover */
 }
+
+
+
+/* toast */
+.custom-toast-popup-success,
+.custom-toast-popup-error,
+.custom-toast-popup-info,
+.custom-toast-popup-warning {
+  width: fit-content !important;
+  max-width: 250px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 2px;
+  font-size: 0.75rem !important;
+  padding: 0.5rem 1rem !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 6px !important;
+}
+
+.custom-toast-popup-success {
+    background-color: #358637 !important;
+
+}
+.custom-toast-popup-error {
+  background-color: #f44336 !important;
+}
+.custom-toast-popup-info {
+  background-color: #2196F3 !important;
+}
+.custom-toast-popup-warning {
+  background-color: #ff9800 !important;
+}
+
+
+
+
+
+/* confirm box */
+.custom-swal-popup {
+  width: 300px !important;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+.custom-swal-confirm-btn{
+  background-color: #4CAF50 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.custom-swal-confirm-btn,
+.custom-swal-cancel-btn {
+  margin: 0px 15px;
+  padding: 4px 15px !important;
+  font-size: 0.75rem !important;
+  border-radius: 4px !important;
+}

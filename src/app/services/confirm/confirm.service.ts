@@ -10,13 +10,18 @@ export class ConfirmService {
   showConfirm(message: string): Promise<boolean> {
     return Swal.fire({
       text: `Are you sure you want to ${message}?`,
-      // text: "You won't be able to revert this!",
-      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
+      customClass: {
+        popup: 'custom-swal-popup',
+        confirmButton: 'custom-swal-confirm-btn',
+        cancelButton: 'custom-swal-cancel-btn'
+      }
     }).then((result: any) => result.isConfirmed);
   }
+  
+  
 }

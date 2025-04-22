@@ -10,22 +10,25 @@ export class AlertService {
 
   showSuccess(message: string) {
     // this.toastr.success(message);
-   
     const Toast = Swal.mixin({
       toast: true,
       position: "bottom-end",
       showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
+      timer: 3000,
+      customClass: {
+        popup: 'custom-toast-popup-success'
+      },
       didOpen: (toast) => {
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
       }
     });
+    
     Toast.fire({
       icon: "success",
       title: message
     });
+    
   }
 
   showError(message: string) {
@@ -34,13 +37,16 @@ export class AlertService {
       toast: true,
       position: "bottom-end",
       showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
+      timer: 3000,
+      customClass: {
+        popup: 'custom-toast-popup-error'
+      },
       didOpen: (toast) => {
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
       }
     });
+    
     Toast.fire({
       icon: "error",
       title: message
@@ -52,13 +58,16 @@ export class AlertService {
       toast: true,
       position: "bottom-end",
       showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
+      timer: 3000,
+      customClass: {
+        popup: 'custom-toast-popup-warning'
+      },
       didOpen: (toast) => {
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
       }
     });
+    
     Toast.fire({
       icon: "warning",
       title: message
@@ -70,13 +79,16 @@ export class AlertService {
       toast: true,
       position: "bottom-end",
       showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
+      timer: 3000,
+      customClass: {
+        popup: 'custom-toast-popup-info'
+      },
       didOpen: (toast) => {
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
       }
     });
+    
     Toast.fire({
       icon: "info",
       title: message
