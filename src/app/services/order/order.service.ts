@@ -24,6 +24,15 @@ export class OrderService {
     return this.httpService.get(`/order/${orderId}`);
   }
 
+  cancelOrder(orderId: string): Observable<any> {
+    return this.httpService.put(`/order/${orderId}/cancel`, {});
+  }
+
+  markAsDelivered(orderId: string): Observable<any> {
+    return this.httpService.put(`/order/${orderId}/delivered`, {});
+  }
+
+
   updateOrder(orderId: string, orderData: any): Observable<any> {
     return this.httpService.put(`/order/${orderId}`, orderData);
   }
