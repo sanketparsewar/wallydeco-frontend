@@ -3,6 +3,7 @@ export interface IcartItem {
     title: string;
     image: string;
     category: string;
+    wallpaperId: string;
     stock: number;
     size: string;
     color?: string;
