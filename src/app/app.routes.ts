@@ -41,7 +41,7 @@ export const routes: Routes = [
           import('./core/favourite/favourite.component').then((m) => m.FavouriteComponent)
       },
       {
-        path: 'wallpaper/:wallpaperId',
+        path: 'wallpaper/:id',
         loadComponent: () =>
           import('./core/wallpaper/wallpaper.component').then((m) => m.WallpaperComponent),
       },
