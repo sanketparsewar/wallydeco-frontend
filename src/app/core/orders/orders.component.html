@@ -1,10 +1,17 @@
-<div class="container-scroller pt-5 mt-5">
+<div class="container-scroller pt-5 mt-5 vh-100">
     <div class="container-fluid page-body-wrapper">
         @if(isLoaded){
         <app-loader></app-loader>
         }
+        @else if(tableData.length === 0){
+        <div class="d-flex justify-content-center align-items-center ">
+            <div class="text-center">
+                <h4 class="">No Orders Found</h4>
+                <p class="lead">It seems you haven't placed any orders yet.</p>
+                <a (click)="back()" class="btn btn-dark">Back</a>
+            </div>
+        </div>}
         @else{
-        <!-- Table View for md and larger devices -->
         <div class="d-none d-md-block">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
@@ -20,7 +27,7 @@
                                         <th class="font-weight-bold">Amount</th>
                                         <th class="font-weight-bold">Payment</th>
                                         <th class="font-weight-bold">Status</th>
-                                        <th class="font-weight-bold">Date</th>
+                                        <th class="font-weight-bold">Placed at</th>
                                         <th class="font-weight-bold">Action</th>
                                     </tr>
                                 </thead>
@@ -36,7 +43,7 @@
                                             </div>
                                         </td>
                                         <td>{{ order.finalAmount | currency:"INR" }}</td>
-                                        <td class="text-uppercase text-muted" >{{ order.paymentMethod }}</td>
+                                        <td class="text-uppercase text-muted">{{ order.paymentMethod }}</td>
                                         <td>
                                             <span class="badge" [ngClass]="{
                                             'bg-warning text-dark': order.status === 'Pending',
@@ -47,7 +54,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <small class="text-muted">{{ order.orderDate | date: 'medium' }}</small>
+                                            <small class="text-muted">{{ order.orderDate | date: 'dd MMM y, hh:mm a' }}</small>
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-primary" (click)="orderDetails(order._id)">View</a>
@@ -84,7 +91,7 @@
                     <h1 class="card-title mb-sm-0">Orders</h1>
                 </div>
                 <div class="col-12 mb-3" *ngFor="let order of tableData">
-                    <div class="card shadow-sm p-2"  >
+                    <div class="card shadow-sm p-2">
                         <div class="d-flex flex-row overflow-auto mb-1">
                             <div *ngFor="let item of order.items" class="p-2">
                                 <img [src]="item.wallpaper.images[0]"
@@ -93,7 +100,7 @@
                             </div>
                         </div>
 
-                        <div class="card-body p-2 pt-0" (click)="orderDetails(order._id)" >
+                        <div class="card-body p-2 pt-0" (click)="orderDetails(order._id)">
                             <p class="mb-1">
                                 <span class="badge " [ngClass]="{
                             'bg-warning text-dark': order.status === 'Pending',
@@ -105,7 +112,8 @@
                             </p>
 
                             <div class="d-flex justify-content-between">
-                                <small class="text-muted">Placed at {{ order.orderDate | date: 'dd MMM y, hh:mm a' }}</small>
+                                <small class="text-muted">Placed at {{ order.orderDate | date: 'dd MMM y, hh:mm a'
+                                    }}</small>
                                 <small class="fw-bold">{{ order.finalAmount | currency:"INR" }} <i
                                         class="fa-solid fa-angle-right"></i></small>
                             </div>

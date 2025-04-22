@@ -3,14 +3,14 @@
 } @else {
 <div class="container my-5 py-5">
   <div class="row">
-    <!-- Left Column (Order Header + Items List) -->
     <div class="col-12 col-md-8 mb-3">
       <!-- Order Header -->
       <div class="card shadow-sm mb-4">
         <div class="card-body">
-          <h5 class="card-title mb-1"><i class="fa-solid fa-angle-left" (click)="back()"></i> Order Details</h5>
+          <h5 class="card-title mb-1"><i class="fa-solid fa-angle-left" (click)="back()" style="cursor:pointer ;"></i>
+            Order Details</h5>
           <p class="mb-0 text-muted">Order ID: <span class="fw-semibold">{{ order?._id }}</span></p>
-          <p class="mb-0 text-muted">Placed on: {{ order?.orderDate | date: 'medium' }}</p>
+          <p class="mb-0 text-muted">Placed on: {{ order?.orderDate | date: 'dd MMM y, hh:mm a' }}</p>
           <span class="badge mt-2" [ngClass]="{
               'bg-warning text-dark': order?.status === 'Pending',
               'bg-success': order?.status === 'Delivered',
@@ -94,9 +94,10 @@
 
         </div>
       </div>
+      <div class="text-end py-3" *ngIf="order.status === 'Pending'">
+        <button class="btn btn-outline-danger btn-sm" (click)="cancelOrder()">Cancel Order</button>
+      </div>
     </div>
   </div>
 </div>
 }
-
-
