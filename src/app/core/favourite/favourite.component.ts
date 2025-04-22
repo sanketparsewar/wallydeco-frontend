@@ -65,10 +65,12 @@ wallpaperList: any;
       },
     });
   }
+
   removeFavourite(id:string){
     this.wallpaperService.addWallpaperToFavourite(id).subscribe({
       next: () => {
         this.getFavouriteWallpapers()
+        
       },
       error: (error) => {
         this.alertService.showError(error.error.message); 

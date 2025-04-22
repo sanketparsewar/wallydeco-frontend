@@ -20,7 +20,7 @@ category:string='Scrollable'
    ) {}
  
    ngOnInit() {
-     this.generateFloralCollection();
+    //  this.generateFloralCollection();
    }
  
    generateFloralCollection() {

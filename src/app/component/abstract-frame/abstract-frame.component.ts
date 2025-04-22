@@ -21,7 +21,7 @@ export class AbstractFrameComponent {
     private router: Router,
     private alertService:AlertService
   ) {
-    this.generateAbstractFrameCollection();
+    // this.generateAbstractFrameCollection();
 
   }
 

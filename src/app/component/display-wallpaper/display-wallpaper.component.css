@@ -1,0 +1,19 @@
+
+.floral-image {
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .hover-effect:hover .floral-image {
+    transform: scale(1.03);
+    filter: brightness(1.02);
+  }
+  
+  
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+  
+  .hover-effect:hover {
+    box-shadow: 0 10px 20px rgba(0, 100, 0, 0.1) !important;
+    transform: translateY(-5px);
+  }

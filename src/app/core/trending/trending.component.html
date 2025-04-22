@@ -1,6 +1,4 @@
-@if(isLoaded){
-<app-loader></app-loader>
-}@else {
+
 <section class="trending py-5 my-5 bg-light">
   <div class="container">
     <div class="row justify-content-center mb-4">
@@ -12,29 +10,10 @@
         </h1>
       </div>
     </div>
-    <div class="row g-4" id="trendingCollection" [@listAnimation]="wallpaperList.length">
-      <div *ngFor="let item of wallpaperList" class="col-6 col-md-4 col-lg-3">
-        <div class="card h-100 border-0  overflow-hidden transition-all hover-effect">
-          <div class="position-relative">
-            <i class="position-absolute top-0 end-0 m-3 p-2 rounded-circle bg-white bg-opacity-75 fs-5 z-2 heart-beat"
-              [ngClass]="item.isFavourite ? 'fas fa-heart text-danger' : 'far fa-heart text-dark'"
-              (click)="toggleFavorite(item)">
-            </i>
-            <img [src]="item.images[0]" alt="Wallpaper image" class="img-fluid object-fit-cover w-100 trending-image"
-              style="height: 200px;" (click)="openWallpaper(item._id)" [@fadeIn]>
-          </div>
+    
+    <app-display-wallpaper [category]="category" ></app-display-wallpaper>
 
-          <div class="card-body p-2 ">
-            <p class="m-0 card-title text-dark text-capitalize">{{ item.title }}</p>
-            <p class="card-text lead m-0 ">{{item.wallpaperId}}</p>
-            <p class="card-text  lead"><span class="" style="color: rgb(83, 64, 35);">{{ item.price | currency: 'INR' }}
-              </span> <span class="text-muted" > /roll </span> </p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
 <app-footer></app-footer>
-}
