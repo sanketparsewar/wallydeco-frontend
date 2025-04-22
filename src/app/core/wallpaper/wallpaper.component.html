@@ -2,144 +2,125 @@
 <app-loader></app-loader>
 }@else {
 
-<div class="container my-5 py-5 bg-light p-3">
+<div class="container-fluid py-5 my-5  bg-white">
 
-  <div class="row">
-    <!-- Thumbnail Images -->
-    <div class="col-md-1 d-none d-md-block">
-      <div class="d-flex flex-column gap-2 ">
-        <img *ngFor="let image of wallpaperData?.images" [src]="image" alt="shoe image"
-          (click)="onChangeMainImage(image)" class="thumbnail img-fluid" />
+  <!-- Product Display Section -->
+  <div class="row g-4 align-items-start">
+    <!-- Main Image & Thumbnails -->
+    <div class="col-12 col-md-6">
+      <div class="position-relative">
+        <img [src]="mainImage || wallpaperData?.images[0]" class="img-fluid rounded shadow-sm w-100 object-fit-cover"
+          alt="Wallpaper" style="max-height: 500px; object-fit: cover;">
+      </div>
+      <div class="d-flex mt-3 overflow-auto gap-2">
+        <img *ngFor="let image of wallpaperData?.images" [src]="image" alt="thumb" (click)="onChangeMainImage(image)"
+          class="img-thumbnail border-0" style="width: 70px; height: 70px; object-fit: cover; cursor: pointer;">
       </div>
     </div>
 
-    <!-- Main Image -->
-    <div class="col-md-5 ">
-      <img *ngIf="mainImage" [src]="mainImage" alt="shoe image" class="main-image img-fluid" />
-      <div class="position-relative d-inline-block">
-        <img *ngIf="!mainImage" [src]="wallpaperData?.images[0]" alt="wallpaper image" class="main-image img-fluid" />
-        <p (click)="back()" class="position-absolute top-0 start-0 m-2">
-          <i class="fa-solid p-2 rounded-circle fs-3 fa-circle-left"
-            style="background-color: rgba(218, 207, 188, 0.7); backdrop-filter: blur(10px);"></i>
-        </p>
-      </div>
-    </div>
+    <!-- Product Info -->
+    <div class="col-12 col-md-6">
+      <span class="badge text-bg-success py-2 px-3 mb-2">#1 Best Seller</span>
+      <h2 class="fw-bold text-capitalize">{{ wallpaperData?.title }}</h2>
+      <p class="card-text lead ">{{wallpaperData?.wallpaperId}}</p>
 
-    <!-- Product Details -->
-    <div class="col-md-6">
-      <span class="badge badge-custom mt-1 text-capitcalize">#1 Best Seller</span>
-      <h2 class="mt-2 text-capitalize">{{ wallpaperData?.title }}</h2>
-      <p class="text-muted">{{ wallpaperData?.description }}</p>
+      <p class="text-muted ">{{ wallpaperData?.description }}</p>
 
-      <div class="btn-group my-3">
-        <button class="btn btn-dark btn-sm">CATEGORY</button>
-        <button class="btn btn-outline-secondary btn-sm  text-capitalize">
-          {{ wallpaperData?.category }}
-        </button>
+      <div class="d-flex gap-2 align-items-center  mb-3">
+        <span class="text-uppercase">Category - </span>
+        <span class="text-dark text-capitalize">{{ wallpaperData?.category }}</span>
       </div>
 
-      <h5 class="fw-bold">
-        MRP: {{ wallpaperData?.price | currency : "INR" }}
-      </h5>
-      <p class="text-muted">Inclusive of all taxes</p>
+      <h4 class="fw-bold text-dark">MRP {{ wallpaperData?.price | currency : 'INR' }} <span class="lead"> <small
+            class="text-muted">Per Roll (Inclusive of all taxes)</small></span> </h4>
 
-      <div *ngIf="wallpaperData?.colorOptions.length !== 0">
-        <label class="fw-bold mt-2">COLOR OPTIONS</label>
-        <select class="form-select" (click)="selectColor($event)">
-          <option value="" selected>Select Color</option>
-          <option *ngFor="let color of wallpaperData?.colorOptions" [value]="color">
-            {{ color }}
-          </option>
-        </select>
+
+      <!-- Size -->
+      <div class="mt-3">
+        <label class="form-label fw-semibold">Size covered in 1 Roll</label>
+        <p class="border rounded-3 w-auto p-2">{{wallpaperData?.size}}</p>
       </div>
 
-      <label class="fw-bold mt-2">SIZE</label>
-      <input type="text" class="form-control bg-light" [value]="wallpaperData?.size" disabled />
+      <a href="" class="text-danger d-block mt-2">How To Measure?</a>
+      <!-- Color Options -->
+      <div *ngIf="wallpaperData?.colorOptions.length !== 0" class="d-flex gap-4 align-items-center mt-3">
+        <div>
+          <label class="form-label fw-semibold">Color Options</label>
+          <select class="form-select " (click)="selectColor($event)">
+            <option value="" selected>Select Color</option>
+            <option *ngFor="let color of wallpaperData?.colorOptions" [value]="color">{{ color }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label fw-semibold">Selected Color</label>
+          <div class="rounded-circle" [ngStyle]="{ 'background-color': selectedColor }"
+            style="width: 30px; height: 30px;"></div>
+        </div>
+      </div>
 
-      <p class="text-danger mt-2">How To Measure?</p>
 
-      <label class="fw-bold">IN STOCK (Available {{ wallpaperData?.stock }} )</label>
 
-      <div class="d-flex gap-3 justify-content-center" *ngIf="wallpaperData?.stock != 0">
-        <button
-          class="btn btn-sm btn-outline-success w-100 mt-3 fw-bold text-success d-flex align-items-center justify-content-center"
-          (click)="sendWhatsAppMessage()">
-          <a class=" text-decoration-none text-dark">
-            <span>Order On </span>
-            <span><i class="fa-brands fa-whatsapp text-success fs-4"></i></span>
+      <!-- Stock & Actions -->
+      <div class="mt-3">
+        <p class="fw-bold">In Stock: {{ wallpaperData?.stock }}</p>
+
+        <div *ngIf="wallpaperData?.stock != 0" class="d-flex align-items-center justify-content-center gap-2">
+          <button class="btn btn-outline-success px-4 btn-sm  d-flex align-items-center"
+            (click)="sendWhatsAppMessage()">
+            <span>Order on</span>
+            <i class="fa-brands fa-whatsapp ms-2" style="font-size: 1.5rem;cursor: pointer;"></i>
+          </button>
+          <button style="background-color: #c5bdad;" class="btn btn-sm px-4 text-dark d-flex align-items-center"
+            (click)="addToCart(wallpaperData)">
+            <i class="material-icons me-2" style="font-size: 1.5rem;cursor: pointer;">shopping_bag</i>
+            <span>Add to Bag</span>
+          </button>
+        </div>
+
+        <div *ngIf="wallpaperData?.stock == 0">
+          <button class="btn btn-danger btn-lg w-100" disabled>Out of Stock</button>
+          <a class="mt-2 text-success text-decoration-none btn-sm  d-flex align-items-center"
+            (click)="sendWhatsAppMessage()">
+            <span>Enquire on</span>
+            <span> <i class="fa-brands fa-whatsapp ms-2" style="font-size: 1.5rem;cursor: pointer;"></i></span>
+            <span class="text-decoration-underline" (click)="sendWhatsAppMessage()">WhatsApp</span>
           </a>
-        </button>
-        <button class="btn btn-sm w-100 mt-3 text-dark fw-bold d-flex align-items-center justify-content-center"
-          (click)="addToCart(wallpaperData)" style="background-color: #c9beac">
-          <span>Add to Bag</span> <span class="material-icons">shopping_bag</span>
-        </button>
+        </div>
       </div>
-      <button class="btn btn-sm btn-danger w-100 mt-3 fw-bold" disabled *ngIf="wallpaperData?.stock == 0">
-        Out of Stock
-      </button>
-
     </div>
   </div>
 
-  <div class="row"></div>
+  <!-- Features Section -->
+  <div class="row mt-3 g-4">
+    <p class="lead fs-5 text-start mt-3">Features we Offer </p>
 
-  <div class="row my-5 text-center d-flex justify-content-center">
-    <!-- Feature 1 -->
-    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-      <img width="70" height="70" src="https://img.icons8.com/color/48/rgb-circle-1--v1.png" alt="Shiny Colors" />
-      <p class="fw-bold mt-2">Shiny Colors</p>
-    </div>
-
-    <!-- Feature 2 -->
-    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-      <img width="70" height="70" src="https://img.icons8.com/dotty/80/gloss-paper.png" alt="Best Quality Material" />
-      <p class="fw-bold mt-2">Top Quality Material</p>
-    </div>
-
-    <!-- Feature 3 -->
-    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-      <img width="70" height="70"
-        src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/external-man-male-profession-vitaliy-gorbachev-lineal-vitaly-gorbachev-44.png"
-        alt="Professional Installers" />
-      <p class="fw-bold mt-2">Professional Installation Services</p>
-    </div>
-
-    <!-- Feature 4 -->
-    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-      <img width="70" height="70" src="https://img.icons8.com/ios/50/cleaning-a-surface.png" alt="Easy to Clean" />
-      <p class="fw-bold mt-2">Easy to Clean</p>
-    </div>
-
-    <!-- Feature 5 -->
-    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-      <img width="70" height="70" src="https://img.icons8.com/dotty/80/consultation.png" alt="consultation" />
-      <p class="fw-bold mt-2">Consultation with Experts</p>
-    </div>
-    <div class="col-12 col-sm-6 col-md-2 d-flex flex-column align-items-center">
-      <img width="70" height="70" src="https://img.icons8.com/pastel-glyph/64/security-checked--v2.png"
-        alt="security-checked--v2" />
-      <p class="fw-bold mt-2">Damage Protection Warranty</p>
+    <div class="col-6 col-md-4 col-lg-2 text-center" *ngFor="let feature of features">
+      <img [src]="feature.img" alt="feature" width="50" height="50">
+      <p class="mt-2">{{ feature.text }}</p>
     </div>
   </div>
+
+  <div>
+    <p class="lead fs-5 text-start mt-3">More from the <span class="text-capitalize">{{category}}</span> Collection</p>
+    <div style="max-width: 100%;">
+      <div class="overflow-auto" style="white-space: nowrap;">
+        <div *ngFor="let item of wallpaperList" class="d-inline-block p-1">
+          <img [src]="item.images[0]" style="width: 10rem; height:12rem; object-fit: cover;" class="rounded-0 me-2"
+            alt="Wallpaper img" (click)="openWallpaper(item._id)">
+          <p class="m-0 card-title text-dark text-capitalize">{{ item.title }}</p>
+          <p class="card-text lead m-0 ">{{item.wallpaperId}}</p>
+          <p class="card-text  lead"><span class="" style="color: rgb(83, 64, 35);">{{ item.price | currency: 'INR' }}
+            </span> <span class="text-muted"> /roll </span> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <app-faq></app-faq>
 </div>
 
-<!-- Floating WhatsApp & Call Buttons -->
-<!-- <div class="floating-icons" *ngIf="(cartItems$ | async)?.length">
-  <button type="button" (click)="openCart()" style="background-color: #c2a671;"
-    class=" border-0 btn rounded-circle btn-lg btn-primary position-relative">
-    <i class="fa-solid text-dark fa-bag-shopping"></i>
-    <span class="position-absolute top-1 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-      <span class="visually-hidden">New item</span>
-    </span>
-  </button>
-</div> -->
 
-<!-- <div class="floating-icons">
-    <a href="tel:+919876543210" class="call"><i class="bi bi-telephone"></i></a>
-    <a href="https://wa.me/919876543210" class="whatsapp"><i class="fa-solid fa-bag-shopping"></i></a>
-</div> -->
 
 <app-footer></app-footer>
-
-
 }
