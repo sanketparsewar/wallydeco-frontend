@@ -35,10 +35,11 @@
           <div class="col-9 col-md-10">
             <div class="card-body p-2">
               <h6 class="card-title m-0 fw-semibold text-truncate">{{ i + 1 }}. {{ item.wallpaper.title }} </h6>
+            <p class="card-text lead m-0 fs-6">{{item.wallpaper.wallpaperId}}</p>
               <p class="text-muted m-0 small text-truncate" style="max-height: 3.5em; overflow: hidden;">
                 {{ item.wallpaper.description | description:100 }}
               </p>
-              <p class="m-0">Size:<small>&#10647; {{item.wallpaper.size}} &#10648;</small></p>
+              <p class="m-0"><small>&#10647; {{item.wallpaper.size}} &#10648;</small></p>
               <div class="row small mb-1">
                 <div class="col-4 col-md-3"><strong>Qty:</strong> {{ item.quantity }}</div>
                 <div class="col-8 col-md-4"><strong>Price:</strong> {{ item.price | currency: 'INR' }}</div>

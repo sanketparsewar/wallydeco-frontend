@@ -10,7 +10,7 @@ import { AlertService } from '../../services/alert/alert.service';
   styleUrl: './scroll-carousel.component.css'
 })
 export class ScrollCarouselComponent implements OnInit {
-category:string='scrollable'
+category:string='Scrollable'
  wallpaperList: any;
    isLoaded: boolean = false;
    constructor(
@@ -37,7 +37,7 @@ category:string='scrollable'
      });
    }
  
-   openWallpaper(wallpaperId: string) {
-     this.router.navigate(['/wallpaper', wallpaperId]);
+   openWallpaper(id: string) {
+     this.router.navigate(['/wallpaper', id]);
    }
 }

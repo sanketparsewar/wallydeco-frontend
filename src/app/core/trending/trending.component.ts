@@ -41,7 +41,7 @@ import {
 export class TrendingComponent implements OnInit {
   wallpaperList: any[] = [];
   isLoaded: boolean = false;
-  category: string = 'trending';
+  category: string = 'Trending';
   favouriteIds: string[] = [];
 
   constructor(
@@ -62,6 +62,7 @@ export class TrendingComponent implements OnInit {
     this.wallpaperService.getWallpaperByCategory(this.category).subscribe({
       next: (data: any) => {
         this.wallpaperList = data;
+        console.log(this.wallpaperList);
 
         // Now get user's favourites
         this.wallpaperService.getFavouriteWallpapers().subscribe({
@@ -101,8 +102,8 @@ export class TrendingComponent implements OnInit {
     });
   }
 
-  openWallpaper(wallpaperId: string) {
-    this.router.navigate(['/wallpaper', wallpaperId]);
+  openWallpaper(id: string) {
+    this.router.navigate(['/wallpaper', id]);
   }
 
 

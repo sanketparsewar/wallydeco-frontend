@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class AbstractFrameComponent {
   framesList: any;
   isLoaded: boolean = false;
-  category: string = 'abstract-frames';
+  category: string = 'Abstract-frames';
 
   constructor(
     private wallpaperService: WallpaperService,
@@ -42,7 +42,7 @@ export class AbstractFrameComponent {
       },
     });
   }
-  openFrame(wallpaperId: string) {
-    this.router.navigate(['/wallpaper', wallpaperId]);
+  openFrame(id: string) {
+    this.router.navigate(['/wallpaper', id]);
   }
 }

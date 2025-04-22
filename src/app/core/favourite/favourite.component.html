@@ -19,26 +19,38 @@
       <div *ngFor="let item of wallpaperList" class="col-6 col-md-4 col-lg-3">
         <div class="favourite-card h-100 position-relative overflow-hidden">
           <div class="card-image position-relative">
-            <img [src]="item.images[0]" alt="{{item.title}}" class="img-fluid w-100" (click)="openWallpaper(item._id)" [@fadeIn]>
+            <img [src]="item.images[0]" alt="{{item.title}}" class="img-fluid w-100" (click)="openWallpaper(item._id)"
+              [@fadeIn]>
           </div>
 
           <div class="card-body p-2">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
+            <div class="">
+              <!-- <div>
                 <p class="card-title text-dark fw-semibold mb-1 text-capitalize">{{ item.title }}</p>
-                <p class="card-text  small fw-medium">{{item.category | uppercase}}</p>
+              </div> -->
+              <div class="card-body d-flex justify-content-between align-items-start">
+                <p class="m-0 card-title text-dark text-capitalize">{{ item.title }}</p>
+                <button class="btn btn-link text-danger p-0"
+                  (click)="removeFavourite(item._id); $event.stopPropagation()">
+                  <i class="fas fa-heart fa-lg"></i>
+                </button>
               </div>
-              <button class="btn btn-link text-danger p-0"
-                (click)="removeFavourite(item._id); $event.stopPropagation()">
-                <i class="fas fa-heart fa-lg"></i>
-              </button>
+              <p class="card-text lead m-0 ">{{item.wallpaperId}}</p>
+              <p class="card-text  lead"><span class="" style="color: rgb(83, 64, 35);">{{ item.price | currency: 'INR'
+                  }}
+                </span> <span class="text-muted"> /roll </span> </p>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center mt-2">
+            <!-- <div class="d-flex justify-content-between align-items-center mt-2">
               <h6 class="mb-0 text-primary fw-bold">{{item.price | currency:'INR'}}</h6>
               <span class="badge bg-success" *ngIf="item.stock > 0">In Stock</span>
               <span class="badge bg-secondary" *ngIf="item.stock <= 0">Out of Stock</span>
-            </div>
+            </div> -->
+            <!-- <div class="card-body p-2 ">
+              <p class="m-0 card-title text-dark text-capitalize">{{ item.title }}</p>
+              <p class="card-text  lead"><span class="" style="color: rgb(83, 64, 35);">{{ item.price | currency: 'INR' }}
+                </span> <span class="text-muted" > /roll </span> </p>
+            </div> -->
           </div>
         </div>
       </div>

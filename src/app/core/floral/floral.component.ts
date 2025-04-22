@@ -35,7 +35,7 @@ export class FloralComponent implements OnInit {
   
   wallpaperList: any[] = [];
     isLoaded: boolean = false;
-    category: string = 'floral';
+    category: string = 'Floral';
     favouriteIds: string[] = [];
   
     constructor(
@@ -96,8 +96,8 @@ export class FloralComponent implements OnInit {
       });
     }
   
-    openWallpaper(wallpaperId: string) {
-      this.router.navigate(['/wallpaper', wallpaperId]);
+    openWallpaper(id: string) {
+      this.router.navigate(['/wallpaper', id]);
     }
 }
 

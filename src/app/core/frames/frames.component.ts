@@ -42,7 +42,7 @@ import {
 export class FramesComponent implements OnInit {
   framesList: any;
   isLoaded: boolean = false;
-  category: string = 'frames';
+  category: string = 'Frames';
   favouriteIds: string[] = [];
 
   constructor(private wallpaperService: WallpaperService,private router:Router,private alertService:AlertService) {
@@ -99,8 +99,8 @@ export class FramesComponent implements OnInit {
     });
   }
 
-  openFrame(wallpaperId: string) {
-    this.router.navigate(['/wallpaper', wallpaperId]);
+  openFrame(id: string) {
+    this.router.navigate(['/wallpaper', id]);
   }
 
 }

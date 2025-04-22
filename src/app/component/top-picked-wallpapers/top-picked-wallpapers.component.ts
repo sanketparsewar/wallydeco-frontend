@@ -14,7 +14,7 @@ import { LoaderComponent } from '../loader/loader.component';
 })
 export class TopPickedWallpapersComponent {
   wallpaperList: any;
-  category: string = 'top-picked';
+  category: string = 'Top-picked';
   isLoaded: boolean = false;
   constructor(
     private wallpaperService: WallpaperService,
@@ -40,7 +40,7 @@ export class TopPickedWallpapersComponent {
     });
   }
 
-  openWallpaper(wallpaperId: string) {
-    this.router.navigate(['/wallpaper', wallpaperId]);
+  openWallpaper(id: string) {
+    this.router.navigate(['/wallpaper', id]);
   }
 }

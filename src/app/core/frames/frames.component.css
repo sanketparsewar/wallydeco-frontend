@@ -1,6 +1,5 @@
 .frames {
   padding-bottom: 3rem;
-  background-color: #ffffff;
 }
 
 .frames img {
@@ -8,9 +7,7 @@
   height: 100%;
   object-fit: fill;
 }
-img{
-  border-radius: 1rem;
-}
+
 
 .frames-image {
   transition: transform 0.3s ease, filter 0.3s ease;
