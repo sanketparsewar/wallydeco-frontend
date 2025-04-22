@@ -133,8 +133,8 @@ export class CartComponent implements OnInit {
     });
   }
 
-  openWallpaper(wallpaperId: string) {
-    this.router.navigate(['/wallpaper', wallpaperId]);
+  openWallpaper(id: string) {
+    this.router.navigate(['/wallpaper', id]);
   }
 
 

@@ -20,7 +20,7 @@
                     <select id="inputCategory" name="category" [(ngModel)]="queryParameter.category"
                         (ngModelChange)="onFilterChange()" class="form-select">
                         <option value="">All</option>
-                        <option *ngFor="let item of category" [value]="item">{{ item }}</option>
+                        <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-lg-2 col-4">

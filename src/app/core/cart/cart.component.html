@@ -26,17 +26,19 @@
           <div class="flex-grow-1 d-flex flex-column justify-content-between" style="min-width: 0;">
             <!-- Changed min-width to 0 to allow proper flex shrinking -->
             <div class="d-flex justify-content-between align-items-center">
-              <p class="fw-bold mb-1 text-truncate" style="max-width: 200px;" title="{{ item.title }}">{{ item.title }}
+              <p class="m-0 fw-bold text-truncate" style="max-width: 200px;" title="{{ item.title }}">{{ item.title }}
               </p>
             </div>
-            <p class="mb-1 small">Size: {{ item.size }}</p>
+            <!-- <p class="mb-1 small">Size: {{ item.size }}</p> -->
+            <p class="card-text lead m-0 ">{{item.wallpaperId}}</p>
+
             <div class="d-flex align-items-center gap-2">
-              <button class="btn btn-outline-secondary btn-sm" [disabled]="item.quantity == 1"
+              <button class="btn border-0  btn-outline-secondary btn-sm" [disabled]="item.quantity == 1"
                 (click)="updateQuantity(item, item.id, item.quantity - 1)">
                 <i class="fa-solid fa-minus"></i>
               </button>
               <span>{{ item.quantity }}</span>
-              <button class="btn btn-outline-secondary btn-sm" [disabled]="item.quantity >= item.stock"
+              <button class="btn  border-0 btn-outline-secondary btn-sm" [disabled]="item.quantity >= item.stock"
                 (click)="updateQuantity(item, item.id, item.quantity + 1)">
                 <i class="fa-solid fa-plus"></i>
               </button>

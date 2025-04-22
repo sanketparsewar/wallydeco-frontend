@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AddWallpaperComponent } from '../../shared/modals/add-wallpaper/add-wallpaper.component';
 import { LoaderComponent } from '../loader/loader.component';
 import { debounceTime, Subject } from 'rxjs';
+import { CategoryService } from '../../services/category/category.service';
 @Component({
   selector: 'app-wallpaper-data-table',
   imports: [
@@ -23,14 +24,8 @@ export class WallpaperDataTableComponent {
   isLoaded: boolean = false;
   tableData: any;
   totalPages: number[] = [];
-  category: string[] = [
-    'floral',
-    'trending',
-    'top-picked',
-    'frames',
-    'abstract-frames',
-    'scrollable',
-  ];
+  categories = [];
+
   queryParameter: any = {
     search: '',
     category: '',
@@ -43,12 +38,16 @@ export class WallpaperDataTableComponent {
   constructor(
     private wallpaperService: WallpaperService,
     private alertService: AlertService,
-    private confirmService: ConfirmService
-  ) {}
+    private confirmService: ConfirmService,
+    private categoryService: CategoryService
+  ) {
+    this.categoryService.categories$.subscribe((data: any) => {
+      this.categories = data.map((cat: any) => cat.name);
+    });
+  }
 
   ngOnInit() {
     this.getAllWallpapers();
-
     this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
       this.getAllWallpapers();
     });
