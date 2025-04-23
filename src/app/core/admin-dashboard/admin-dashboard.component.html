@@ -9,7 +9,7 @@
                         <div class="card bg-gradient-danger ">
                             <div class="card-body text-center">
                                 <p class="mb-2">Total Orders</p>
-                                <h6 class="fw-bold">$150,000</h6>
+                                <h6 class="fw-bold">{{dashboardData.totalOrders}}</h6>
                             </div>
                         </div>
                     </div>
@@ -17,18 +17,11 @@
                         <div class="card bg-gradient-primary ">
                             <div class="card-body text-center">
                                 <p class="mb-2">Total Sales</p>
-                                <h6 class="fw-bold">$150,000</h6>
+                                <h6 class="fw-bold">{{dashboardData.totalSales | currency:"INR"}}</h6>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-4 stretch-card">
-                        <div class="card bg-gradient-success ">
-                            <div class="card-body text-center">
-                                <p class="mb-2">Weekly Sales</p>
-                                <h6 class="fw-bold">$150,000</h6>
-                            </div>
-                        </div>
-                    </div> -->
+
                 </div>
 
 
