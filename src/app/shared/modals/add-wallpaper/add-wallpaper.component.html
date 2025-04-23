@@ -40,7 +40,7 @@
                             <label class="form-label">Category</label>
                             <select class="form-select" name="category" [(ngModel)]="wallpaper.category">
                                 <option value="">Choose...</option>
-                                <option *ngFor="let item of category" [value]="item">{{ item }}</option>
+                                <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
                             </select>
                         </div>
 

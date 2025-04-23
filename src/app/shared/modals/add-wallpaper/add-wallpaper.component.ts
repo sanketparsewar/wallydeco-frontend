@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadService } from '../../../services/fileUpload/upload.service';
+import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
   selector: 'app-add-wallpaper',
@@ -14,14 +15,7 @@ import { UploadService } from '../../../services/fileUpload/upload.service';
 export class AddWallpaperComponent {
   @Output() getAllWallpapers = new EventEmitter();
   availableColors: string[] = ['Red', 'Blue', 'Green', 'Black', 'White'];
-  category: string[] = [
-    'floral',
-    'trending',
-    'top-picked',
-    'frames',
-    'abstract-frames',
-    'scrollable'
-  ];
+  categories = [];
   imagePreview: string = '';
   selectedFile: File | null = null;
   imageUrl: string = '';
@@ -40,8 +34,13 @@ export class AddWallpaperComponent {
   constructor(
     private wallpaperService: WallpaperService,
     private uploadService: UploadService,
-    private alertService: AlertService
-  ) { }
+    private alertService: AlertService,
+    private categoryService:CategoryService
+  ) { 
+    this.categoryService.categories$.subscribe((data: any) => {
+      this.categories = data.map((cat: any) => cat.name);
+    });
+  }
 
   onColorChange(event: any, selectedcolorOptions: string) {
     if (event.target.checked) {
