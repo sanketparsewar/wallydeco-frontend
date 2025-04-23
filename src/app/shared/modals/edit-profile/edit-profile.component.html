@@ -45,7 +45,7 @@
 
                     <div class="col-md-5 col-4">
                         <label for="inputCity" class="form-label">City</label>
-                        <select name="city" id="city" (click)="onCityChange($event)" class="form-control form-control-sm"
+                        <select name="city" id="city" (change)="onCityChange($event)" class="form-control form-control-sm"
                              required>
                             <option [value]="updatedUser.address.city" selected>{{updatedUser.address.city}}</option>
                             <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
