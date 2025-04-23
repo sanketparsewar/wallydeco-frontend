@@ -5,6 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../../../services/fileUpload/upload.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { CityService } from '../../../services/city/city.service';
 @Component({
   selector: 'app-edit-profile',
   imports: [CommonModule, FormsModule],
@@ -15,11 +16,12 @@ export class EditProfileComponent implements OnInit {
   @Input() user: any = {};
   @Output() getUpdatedUserData = new EventEmitter();
   updatedUser: any;
-
+  cities: any = [];
   constructor(
     private userService: UserService,
     private alertService: AlertService,
-    private authService:AuthService
+    private authService:AuthService,
+    private cityService: CityService,
   ) {}
   ngOnInit(): void {
     this.updatedUser = {
@@ -34,6 +36,7 @@ export class EditProfileComponent implements OnInit {
       },
       gender: this.user?.gender,
     };
+  this.getCities()
   }
 
   onUpdate() {
@@ -45,6 +48,23 @@ export class EditProfileComponent implements OnInit {
         this.alertService.showError(error.error.message);
       },
     });
+  }
+
+  getCities() {
+    this.cityService.cities$.subscribe({
+      next: (data) => {
+        this.cities=data
+      },
+      error: (error) => {
+        console.error(error.error.message);
+      },
+    })
+  }
+
+  onCityChange(event: any) {
+    this.updatedUser.address.city = event.target.value;
+    const selectedState = this.cities.find((city: any) => city.name === event.target.value);
+    this.updatedUser.address.state= selectedState.state;
   }
 
  

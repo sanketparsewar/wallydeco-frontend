@@ -43,17 +43,23 @@
                             [(ngModel)]="updatedUser.address.street" placeholder="1234 Main St" />
                     </div>
 
-                    <div class="col-md-4 col-4">
-                        <label for="inputState" class="form-label">State</label>
-                        <input type="text" class="form-control form-control-sm" name="state"
-                            [(ngModel)]="updatedUser.address.state" id="inputCity" placeholder="Maharashtra" />
-                    </div>
                     <div class="col-md-5 col-4">
                         <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control form-control-sm" name="city"
-                            [(ngModel)]="updatedUser.address.city" id="inputCity" placeholder="Nanded" />
+                        <select name="city" id="city" (click)="onCityChange($event)" class="form-control form-control-sm"
+                             required>
+                            <option [value]="updatedUser.address.city" selected>{{updatedUser.address.city}}</option>
+                            <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+                        </select>
+                        
                     </div>
-                    <div class="col-md-3 col-4">
+
+                    <div class="col-md-3 col-3">
+                        <label for="inputState" class="form-label">State</label>
+                        <input type="text" disabled class="form-control form-control-sm" name="state"
+                            [(ngModel)]="updatedUser.address.state" id="inputCity" placeholder="Maharashtra" />
+                    </div>
+                    
+                    <div class="col-md-4 col-5">
                         <label for="inputZip" class="form-label">Zip</label>
                         <input type="text" class="form-control form-control-sm" name="zip"
                             [(ngModel)]="updatedUser.address.zip" id="inputZip" placeholder="431601" />
