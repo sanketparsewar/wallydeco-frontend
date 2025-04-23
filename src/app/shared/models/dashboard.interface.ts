@@ -10,6 +10,8 @@ export interface IDashboard {
     totalSold:number;
     totalStock:number;
     totalUsedCoupons:number;
+    totalActiveCoupons:number;
+    totalInactiveCoupons:number;
     totalUsers:number;
     totalWallpapers:number;
     totalCategories:number;
