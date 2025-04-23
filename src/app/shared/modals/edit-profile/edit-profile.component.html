@@ -33,9 +33,9 @@
                             [(ngModel)]="updatedUser.phone" placeholder="Enter phone number" />
                     </div>
                     <div class="col-6">
-                        <label for="inputEmail4" class="form-label">Email</label>
+                        <label for="inputEmail" class="form-label">Email</label>
                         <input type="email" class="form-control form-control-sm" placeholder="Enter email" name="email"
-                            [(ngModel)]="updatedUser.email" id="inputEmail4" />
+                            [(ngModel)]="updatedUser.email" id="inputEmail" />
                     </div>
                     <div class="col-12">
                         <label for="inputAddress" class="form-label">Address</label>
@@ -45,7 +45,7 @@
 
                     <div class="col-md-5 col-4">
                         <label for="inputCity" class="form-label">City</label>
-                        <select name="city" id="city" (change)="onCityChange($event)" class="form-control form-control-sm"
+                        <select name="city" id="inputCity" (change)="onCityChange($event)" class="form-control form-control-sm"
                              required>
                             <option [value]="updatedUser.address.city" selected>{{updatedUser.address.city}}</option>
                             <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
@@ -56,7 +56,7 @@
                     <div class="col-md-3 col-3">
                         <label for="inputState" class="form-label">State</label>
                         <input type="text" disabled class="form-control form-control-sm" name="state"
-                            [(ngModel)]="updatedUser.address.state" id="inputCity" placeholder="Maharashtra" />
+                            [(ngModel)]="updatedUser.address.state" id="inputState" placeholder="Maharashtra" />
                     </div>
                     
                     <div class="col-md-4 col-5">
