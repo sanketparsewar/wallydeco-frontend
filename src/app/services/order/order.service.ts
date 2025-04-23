@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,16 @@ export class OrderService {
   getUserOrders(): Observable<any> {
     return this.httpService.secureGet('/order/user');
   }
-  getOrders(): Observable<any> {
-    return this.httpService.get('/order');
+
+  getAllOrders(filters: any = {}): Observable<any> {
+     let params = new HttpParams();
+        Object.keys(filters).forEach((key) => {
+          if (filters[key]) {
+            params = params.set(key, filters[key]);
+          }
+        });
+        return this.httpService.getWithHeader('/order', params);
+    // return this.httpService.secureGet('/order');
   }
 
   getOrderById(orderId: string): Observable<any> {
@@ -28,13 +37,13 @@ export class OrderService {
     return this.httpService.put(`/order/${orderId}/cancel`, {});
   }
 
-  markAsDelivered(orderId: string): Observable<any> {
-    return this.httpService.put(`/order/${orderId}/delivered`, {});
-  }
+  // getDashboardData(): Observable<any> {
+  //   return this.httpService.secureGet(`/order/ordersandsales`);
+  // }
 
 
-  updateOrder(orderId: string, orderData: any): Observable<any> {
-    return this.httpService.put(`/order/${orderId}`, orderData);
+  updateOrderStatus(orderId: string): Observable<any> {
+    return this.httpService.put(`/order/${orderId}/update`, {});
   }
 
   deleteOrder(orderId: string): Observable<any> {
