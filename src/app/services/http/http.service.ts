@@ -63,6 +63,18 @@ export class HttpService {
     return this.http.delete(`${this.BASE_URL}${apiEndPoint}`, { params });
   }
 
+  getWithHeader(apiEndPoint: string, params: any) {
+    return this.http.get(`${this.BASE_URL}${apiEndPoint}`, { ...this.getHeader(), params });
+  }
+  postWithHeader(apiEndPoint: string, body: any) {
+    return this.http.post(`${this.BASE_URL}${apiEndPoint}`, body, this.getHeader());
+  }
+  putWithHeader(apiEndPoint: string, body: any) {
+    return this.http.put(`${this.BASE_URL}${apiEndPoint}`, body, this.getHeader());
+  }
+  deleteWithHeader(apiEndPoint: string) {
+    return this.http.delete(`${this.BASE_URL}${apiEndPoint}`, this.getHeader());
+  }
 
 
 }
