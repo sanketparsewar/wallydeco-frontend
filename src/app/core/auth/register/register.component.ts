@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Iuser } from '../../../shared/models/user.interface';
+import { CityService } from '../../../services/city/city.service';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,11 @@ export class RegisterComponent {
     },
     gender: '',
   };
-  constructor(private authService: AuthService, private router: Router, private alertService: AlertService) { }
+  cities: any = [];
+
+  constructor(private cityService:CityService, private authService: AuthService, private router: Router, private alertService: AlertService) { 
+    this.getCities()
+  }
 
   onRegister() {
     this.authService.register(this.userData).subscribe({
@@ -40,4 +45,29 @@ export class RegisterComponent {
       },
     });
   }
+
+  getCities() {
+    this.cityService.cities$.subscribe({
+      next: (data) => {
+        this.cities=data
+      },
+      error: (error) => {
+        console.error(error.error.message);
+      },
+    })
+  }
+
+  onCityChange(event: any) {
+    if(event.target.value === '') {
+      this.userData.address.state = '';
+      this.userData.address.city = '';
+      return;
+    }
+    this.userData.address.city = event.target.value;
+    const selectedState = this.cities.find((city: any) => city.name === event.target.value);
+    this.userData.address.state= selectedState.state;
+  }
+
+
+
 }

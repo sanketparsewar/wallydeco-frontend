@@ -52,7 +52,7 @@
                         </select>
                     </div>
                 </div>
-                
+
 
                 <!-- Phone -->
                 <div class="mb-3">
@@ -79,13 +79,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="city" class="form-label">City</label>
-                    <input type="text" class="form-control" id="city" name="city" [(ngModel)]="userData.address.city"
-                        placeholder="Enter your city" required />
+                    
+                    <select name="city" id="city" (change)="onCityChange($event)" class="form-control form-control-sm"
+                        required>
+                        <option value="" selected>Select City</option>
+                        <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="state" class="form-label">State</label>
-                    <input type="text" class="form-control" id="state" name="state" [(ngModel)]="userData.address.state"
-                        placeholder="Enter your state" required />
+                    <input type="text" disabled class="form-control" id="state" name="state"
+                        [(ngModel)]="userData.address.state" placeholder="State" required />
                 </div>
                 <div class="mb-3">
                     <label for="zip" class="form-label">ZIP Code</label>
@@ -109,6 +113,3 @@
         </div>
     </div>
 </div>
-
-
-
