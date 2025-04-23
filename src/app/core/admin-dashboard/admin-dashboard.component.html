@@ -1,57 +1,140 @@
-<div class="container-scroller pt-5 mt-5">
-    <div class="container-fluid page-body-wrapper">
-        <!-- partial -->
+@if(isLoaded){
+<app-loader></app-loader>
+}
+@else{
+
+<div class="container-fluid py-5 mt-5">
+    <div class="row g-2 justify-content-center">
+        <div class="col-auto flex-grow-1 ">
+            <div class="alert alert-secondary">
+                <p class="statistics-title mb-1">Total Orders</p>
+                <h3 class="m-0 text-break">{{ dashboardData.totalOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-secondary">
+                <p class="statistics-title mb-1">Total Sales</p>
+                <h3 class="m-0 text-break">{{ dashboardData.totalSales | currency: 'INR' }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-warning">
+                <p class="statistics-title mb-1">Pending Order</p>
+                <h3 class="text-warning m-0 text-break">{{ dashboardData.totalPendingOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-info">
+                <p class="statistics-title mb-1">Shipped Order</p>
+                <h3 class="text-info m-0 text-break">{{ dashboardData.totalShippedOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-success">
+                <p class="statistics-title mb-1">Delivered Order</p>
+                <h3 class="text-success m-0 text-break">{{ dashboardData.totalDeliveredOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-danger">
+                <p class="statistics-title mb-1">Cancelled Order</p>
+                <h3 class="text-danger m-0 text-break">{{ dashboardData.totalCancelledOrders }}</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
         <div class="main-panel">
             <div class="content-wrapper">
-                <!-- Quick Action Toolbar Starts-->
-                <div class="row g-3">
-                    <div class="col-md-6 col-6 stretch-card">
-                        <div class="card bg-gradient-danger ">
-                            <div class="card-body text-center">
-                                <p class="mb-2">Total Orders</p>
-                                <h6 class="fw-bold">{{dashboardData.totalOrders}}</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-6 stretch-card">
-                        <div class="card bg-gradient-primary ">
-                            <div class="card-body text-center">
-                                <p class="mb-2">Total Sales</p>
-                                <h6 class="fw-bold">{{dashboardData.totalSales | currency:"INR"}}</h6>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="btn-group-custom">
+                    <button class="btn border-0 " [ngClass]="{'text-decoration-underline':option=='orders'}"
+                        type="button" (click)="onOption('orders')">Orders</button>
+                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='wallpapers'}"
+                        type="button" (click)="onOption('wallpapers')">Wallpaper</button>
+                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='coupon'}"
+                        type="button" (click)="onOption('coupon')">Coupon</button>
+                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='city'}" type="button"
+                        (click)="onOption('city')">City</button>
+                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='category'}"
+                        type="button" (click)="onOption('category')">Category</button>
+                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='user'}" type="button"
+                        (click)="onOption('user')">Users</button>
+                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='setting'}"
+                        type="button" (click)="onOption('setting')">Setting</button>
                 </div>
 
-
-                <div class="row quick-action-toolbar">
-                    <div class="col-md-12 grid-margin">
-                        <div class="card">
-                            <div class="card-header d-block d-md-flex">
-                                <h5 class="mb-0">Quick Actions</h5>
-
-                            </div>
-                            <div class="btn-group-custom m-3">
-                                <button class="btn" type="button" (click)="onOption('orders')">Orders</button>
-                                <button class="btn" type="button" (click)="onOption('wallpapers')">Wallpaper</button>
-                                <button class="btn" type="button" (click)="onOption('transaction')">Transaction</button>
-                                <button class="btn" type="button" onchange="onOption()">Sales</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Quick Action Orders-->
                 <div class="row" *ngIf="option=='orders'">
                     <app-order-data-table></app-order-data-table>
                 </div>
 
 
-                <!-- Quick Action wallapaper-->
                 <div class="row" *ngIf="option==='wallpapers'">
+                    <div class="row g-2 justify-content-center">
+                        <div class="col-auto flex-grow-1 text-center">
+                            <div class="alert alert-secondary">
+                                <p class="statistics-title mb-1">Total Wallpapers</p>
+                                <h3 class="m-0 text-break">{{ dashboardData.totalWallpapers }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-auto flex-grow-1 text-center">
+                            <div class="alert alert-secondary">
+                                <p class="statistics-title mb-1">Total Stock</p>
+                                <h3 class="m-0 text-break">{{ dashboardData.totalStock}}</h3>
+                            </div>
+                        </div>
+
+
+                        <div class="col-auto flex-grow-1 text-center">
+                            <div class="alert alert-secondary ">
+                                <p class="statistics-title mb-1">Total Sold</p>
+                                <h3 class="m-0 text-break">{{ dashboardData.totalSold }}</h3>
+                            </div>
+                        </div>
+
+                    </div>
                     <app-wallpaper-data-table></app-wallpaper-data-table>
+                </div>
+
+                <div class="row" *ngIf="option==='coupon'">
+                    <div class="row g-2 justify-content-center">
+                        <div class="col-auto flex-grow-1 text-center">
+                            <div class="alert alert-secondary">
+                                <p class="statistics-title mb-1">Total Coupons</p>
+                                <h3 class="m-0 text-break">{{ dashboardData.totalCoupons }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-auto flex-grow-1 text-center">
+                            <div class="alert alert-secondary">
+                                <p class="statistics-title mb-1">Total Used</p>
+                                <h3 class="m-0 text-break">{{ dashboardData.totalUsedCoupons}}</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-auto flex-grow-1 text-center">
+                            <div class="alert alert-secondary ">
+                                <p class="statistics-title mb-1">Active Coupons</p>
+                                <h3 class="m-0 text-break">{{ dashboardData.totalActiveCoupons }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-auto flex-grow-1 text-center">
+                            <div class="alert alert-secondary ">
+                                <p class="statistics-title mb-1">InActive Coupons</p>
+                                <h3 class="m-0 text-break">{{ dashboardData.totalInactiveCoupons }}</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                    <app-coupon></app-coupon>
+                </div>
+
+                <div class="row" *ngIf="option=='city'">
+                    <app-city></app-city>
+                </div>
+
+
+                <div class="row" *ngIf="option=='category'">
+                    <app-category></app-category>
                 </div>
 
             </div>
@@ -61,3 +144,48 @@
 
 
 <app-footer></app-footer>
+}
+
+
+
+<div class="container-fluid my-5 py-5">
+    <div class="row g-2 justify-content-center">
+        <div class="col-auto flex-grow-1 ">
+            <div class="alert alert-dark">
+                <p class="statistics-title mb-1">Total Orders</p>
+                <h3 class="m-0 text-break">{{ dashboardData.totalOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-secondary">
+                <p class="statistics-title mb-1">Total Sales</p>
+                <h3 class="m-0 text-break">{{ dashboardData.totalSales | currency: 'INR' }}</h3>
+            </div>
+        </div>
+
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-success">
+                <p class="statistics-title mb-1">Delivered</p>
+                <h3 class="text-success m-0 text-break">{{ dashboardData.totalDeliveredOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-warning">
+                <p class="statistics-title mb-1">Pending</p>
+                <h3 class="text-warning m-0 text-break">{{ dashboardData.totalPendingOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-info">
+                <p class="statistics-title mb-1">Shipped</p>
+                <h3 class="text-info m-0 text-break">{{ dashboardData.totalShippedOrders }}</h3>
+            </div>
+        </div>
+        <div class="col-auto flex-grow-1">
+            <div class="alert alert-danger">
+                <p class="statistics-title mb-1">Cancelled</p>
+                <h3 class="text-danger m-0 text-break">{{ dashboardData.totalCancelledOrders }}</h3>
+            </div>
+        </div>
+    </div>
+</div>

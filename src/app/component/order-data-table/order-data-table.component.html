@@ -1,41 +1,34 @@
-
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <div class="d-sm-flex align-items-center mb-3">
                 <h4 class="card-title mb-sm-0">Orders</h4>
-                <!-- <button class="btn" data-bs-toggle="modal" data-bs-target="#addWallpaperModal">
-                    <i class="fa-solid fa-circle-plus"></i>Add new
-                </button> -->
-
             </div>
             <div class="row g-2">
                 <div class="col-6 col-md-3">
-                    <label for="inputCity" class="form-label">Search</label>
-                    <input class="form-control" type="search" (input)="search()"
+                    <label for="inputSearch" class="form-label">Search</label>
+                    <input id="inputSearch" class="form-control" type="search" (input)="search()"
                         [(ngModel)]="queryParameter.search" name="search by title"
                         placeholder="Search by OrderId or Name" aria-label="Search">
                 </div>
-                
+
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputPage" class="form-label">page</label>
-                    <select id="inputPage" name="page" [(ngModel)]="queryParameter.page" (change)="onFilterChange($event)"
-                     class="form-select">
+                    <select id="inputPage" name="page" [(ngModel)]="queryParameter.page"
+                        (change)="onFilterChange($event)" class="form-select">
                         <option *ngFor="let item of totalPages">{{item+1}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputCity" class="form-label">City</label>
-                    <select id="inputCity" name="city"
-                    (change)="onFilterChange($event)" class="form-select">
+                    <select id="inputCity" name="city" (change)="onFilterChange($event)" class="form-select">
                         <option value="">All</option>
                         <option *ngFor="let item of cities">{{item}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputLimit" class="form-label">Limit</label>
-                    <select id="inputLimit" name="limit" 
-                         (click)="onFilterChange($event)"  class="form-select">
+                    <select id="inputLimit" name="limit" (click)="onFilterChange($event)" class="form-select">
                         <option value="10">10</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
@@ -51,7 +44,7 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                           
+
                             <th class="font-weight-bold">Sr no.</th>
                             <th class="font-weight-bold">Order ID</th>
                             <th class="font-weight-bold">Amount</th>
@@ -71,7 +64,7 @@
                             <td class="text-nowrap lead fs-6 text-decoration-underline ">{{item._id}}</td>
                             <td class="text-nowrap fw-bold">{{item.finalAmount | currency:"INR" }}</td>
                             <td class="text-uppercase">
-                                <span [ngClass]="{'text-success':item.paymentMethod==='upi'}" >
+                                <span [ngClass]="{'text-success':item.paymentMethod==='upi'}">
                                     {{item.paymentMethod}}
                                 </span>
                             </td>
@@ -89,7 +82,7 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-evenly">
-                                    <select name="updateStatus" id="updateStatus">
+                                    <select name="updateStatus">
                                         <option value="Pending">Pending</option>
                                         <option value="Delivered">Delivered</option>
                                         <option value="Cancelled">Cancelled</option>
@@ -147,4 +140,3 @@
         </div>
     </div>
 </div>
-

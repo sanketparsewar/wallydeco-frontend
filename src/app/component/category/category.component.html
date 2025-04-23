@@ -1,0 +1,41 @@
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-sm-flex align-items-center mb-3">
+                <h4 class="card-title mb-sm-0">Coupons</h4>
+            </div>
+            @if(isLoaded){
+            <app-loader></app-loader>
+            }@else
+            {
+
+            <div class="table-responsive rounded p-1">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="font-weight-bold">Sr no.</th>
+                            <th class="font-weight-bold">Category</th>
+                            <th class="font-weight-bold">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" *ngIf="tableData.length==0">
+                            <td colspan="8">No Coupons!</td>
+                        </tr>
+                        <tr *ngFor="let item of tableData,let i = index">
+                            <td class="text-nowrap">{{i +1}}.</td>
+                            <td class="text-nowrap ">{{item.name}}</td>
+                            <td class="d-flex justify-content-evenly" >
+                                <button class="btn btn-sm border-0 text-primary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm border-0 text-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            }
+
+
+        </div>
+    </div>
+</div>

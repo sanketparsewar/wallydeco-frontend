@@ -10,8 +10,8 @@
             </div>
             <div class="row g-2">
                 <div class="col-6 col-md-3">
-                    <label for="inputCity" class="form-label">Title</label>
-                    <input class="form-control" type="search" (ngModelChange)="onFilterChange()"
+                    <label for="inputTitle" class="form-label">Title</label>
+                    <input id="inputTitle" class="form-control" type="search" (ngModelChange)="onFilterChange()"
                         [(ngModel)]="queryParameter.search" name="search by title" placeholder="Search by title"
                         aria-label="Search">
                 </div>
@@ -24,16 +24,16 @@
                     </select>
                 </div>
                 <div class="col-md-2 col-lg-2 col-4">
-                    <label for="inputZip" class="form-label">Price</label>
+                    <label for="inputPrice" class="form-label">Price</label>
                     <input type="number" min="0" class="form-control" placeholder="Max price"
                         (ngModelChange)="onFilterChange()" [(ngModel)]="queryParameter.price" name="price"
-                        id="inputZip">
+                        id="inputPrice">
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
-                    <label for="inputZip" class="form-label">Stock</label>
+                    <label for="inputStock" class="form-label">Stock</label>
                     <input type="number" min="0" placeholder="Ex: 1" class="form-control"
                         (ngModelChange)="onFilterChange()" [(ngModel)]="queryParameter.stock" name="stock"
-                        id="inputZip">
+                        id="inputStock">
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputLimit" class="form-label">Limit</label>
@@ -59,6 +59,7 @@
                             <th class="font-weight-bold">Size</th>
                             <th class="font-weight-bold">Price</th>
                             <th class="font-weight-bold">Stock</th>
+                            <th class="font-weight-bold">Sold</th>
                             <th class="font-weight-bold">Colors</th>
                             <th class="font-weight-bold">Category</th>
                             <th class="font-weight-bold">Action</th>
@@ -74,27 +75,30 @@
                                     <img [src]="item.images[0]" style="width: 2rem; height: 2rem;" alt="">
                                 </div>
                             </td>
-                            <td class="text-nowrap" >{{item.title}}</td>
+                            <td class="text-nowrap">{{item.title}}</td>
                             <td>{{item.size}}</td>
                             <td>{{item.price | currency:"INR"}}</td>
-                            <td>{{item.stock}}</td>
+                            <!-- <td>
+                                <input type="number" [ngClass]="{'text-danger':item.stock<=5 ,'text-warning':item.stock<=10}" [value]="item.stock"
+                                    class="border px-1 text-success " min="0" style="width: 4rem; display: inline-block;" />
+                            </td> -->
+                            <td [ngClass]="{'text-danger':item.stock<=5 ,'text-warning':item.stock<=10}" class="text-success" >{{item.stock}}</td>
+                            <td>{{item.sold}}</td>
                             <td>
                                 {{item.colorOptions}}
                             </td>
                             <td>{{item.category}}</td>
-                            <td>
-                                <div class="d-flex justify-content-evenly">
-                                    <button class="btn btn-sm btn-primary">edit</button>
-                                    <button class="btn btn-sm btn-primary" (click)="onDelete(item._id)">delete</button>
-                                </div>
+                            <td class="d-flex justify-content-between">
+                                <button class="btn  border-0 text-primary"><i class="fas fa-edit"></i></button>
+                                <button class="btn  border-0 text-danger"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
-            
-            
+
+
             <div class="d-flex mt-4 flex-wrap align-items-center">
                 <p class="text-muted mb-sm-0">Showing 1 to {{queryParameter.limit}} of {{tableData.length}} entries</p>
                 <!-- <nav class="ms-auto">
@@ -145,6 +149,3 @@
 
 
 <app-add-wallpaper (getAllWallpapers)="getAllWallpapers()"></app-add-wallpaper>
-
-
-

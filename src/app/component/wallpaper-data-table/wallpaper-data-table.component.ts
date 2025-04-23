@@ -22,6 +22,7 @@ import { CategoryService } from '../../services/category/category.service';
 })
 export class WallpaperDataTableComponent {
   isLoaded: boolean = false;
+  isEdit: boolean = false;
   tableData: any;
   totalPages: number[] = [];
   categories = [];
@@ -52,6 +53,7 @@ export class WallpaperDataTableComponent {
       this.getAllWallpapers();
     });
   }
+  
 
   getAllWallpapers() {
     this.isLoaded = true;
