@@ -26,7 +26,6 @@ export class OrderService {
           }
         });
         return this.httpService.getWithHeader('/order', params);
-    // return this.httpService.secureGet('/order');
   }
 
   getOrderById(orderId: string): Observable<any> {
@@ -37,9 +36,6 @@ export class OrderService {
     return this.httpService.put(`/order/${orderId}/cancel`, {});
   }
 
-  // getDashboardData(): Observable<any> {
-  //   return this.httpService.secureGet(`/order/ordersandsales`);
-  // }
 
 
   updateOrderStatus(orderId: string): Observable<any> {
