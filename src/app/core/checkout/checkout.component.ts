@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 import {
   clearCart,
 } from '../../shared/store/cart.actions';
+// import { io } from 'socket.io-client';
+
 import {
   trigger,
   transition,
@@ -21,6 +23,7 @@ import {
   animate,
   state
 } from '@angular/animations';
+// import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-checkout',
@@ -44,14 +47,20 @@ export class CheckoutComponent implements OnInit {
   loggedUser: any;
   cartItems: any;
   isLoaded: boolean = false
-  constructor(private authService: AuthService, private confirmService: ConfirmService, private alertService: AlertService, private orderService: OrderService, private router: Router) { }
   cartItems$: Observable<IcartItem[]> = this.store.select(selectCartItems);
+  // private socket: any;
 
   amountObj: any;
   selectedPayment: string = 'cod';
   upiId: string = ''
   showSuccessAnimation = false;
 
+  constructor(private authService: AuthService, private confirmService: ConfirmService, private alertService: AlertService, private orderService: OrderService, private router: Router) {
+    // this.socket = io(environment.SOCKET_URL,{
+    //   transports: ['websocket', 'polling'],
+    //   withCredentials: true
+    // });
+  }
 
 
   ngOnInit(): void {
@@ -90,6 +99,7 @@ export class CheckoutComponent implements OnInit {
       });
   }
 
+
   back() {
     this.confirmService.showConfirm('exit to cart page').then((confirmed: boolean) => {
       if (confirmed) {
@@ -97,6 +107,8 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
+
+
   isValidUpi(upiId: string): boolean {
     // Basic UPI ID pattern check: something@bank
     const upiPattern = /^[\w.\-]{2,}@[a-zA-Z]{2,}$/;
@@ -111,13 +123,11 @@ export class CheckoutComponent implements OnInit {
     if (this.selectedPayment === 'upi' && !this.isValidUpi(this.upiId)) {
       return;
     }
-
     // Validate address
     if (!this.loggedUser.address || !this.loggedUser.address.street) {
       this.alertService.showError('Please provide a complete shipping address');
       return;
     }
-
     // Prepare order data
     const orderData = {
       user: this.loggedUser._id,
@@ -141,7 +151,9 @@ export class CheckoutComponent implements OnInit {
         this.isLoaded = false;
         this.clearCart();
         this.showSuccessAnimation = true;
-        
+
+        // this.socket.emit('placeOrder');
+
         // Redirect after animation
         setTimeout(() => {
           this.router.navigate(['/user/order-details', res.savedOrder._id]);
