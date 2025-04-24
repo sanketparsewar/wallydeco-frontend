@@ -9,6 +9,8 @@ import { debounceTime, Subject } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../services/order/order.service';
 import { CityService } from '../../services/city/city.service';
+// import { io } from 'socket.io-client';
+// import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-order-data-table',
@@ -31,6 +33,7 @@ export class OrderDataTableComponent {
     page: 1, // Default page 1
     limit: 10, // Default 10 items per page
   };
+  // private socket: any;
   private searchSubject = new Subject<void>(); // Debounce trigger
   constructor(
     private wallpaperService: WallpaperService,
@@ -65,7 +68,6 @@ export class OrderDataTableComponent {
         this.totalOrders = await data.totalOrders;
         this.page = data.page;
         this.queryParameter.page = data.page; // Reset to page 1 on new search
-        console.log(data);
         for (let i = 0; i < data.totalPages; i++) {
           this.totalPages.push(i); // Store total pages for pagination UI
         }

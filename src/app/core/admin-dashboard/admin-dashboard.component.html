@@ -4,41 +4,77 @@
 @else{
 
 <div class="container-fluid py-5 mt-5">
-    <div class="row g-2 justify-content-center">
-        <div class="col-auto flex-grow-1 ">
-            <div class="alert alert-secondary">
-                <p class="statistics-title mb-1">Total Orders</p>
-                <h3 class="m-0 text-break">{{ dashboardData.totalOrders }}</h3>
+    <div class="row g-3">
+        
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 shadow-none h-100">
+                <div class="card-body text-center p-3">
+                    <div class="mb-2 text-muted">
+                        <i class="bi bi-cart fs-4"></i>
+                    </div>
+                    <h6 class="text-uppercase text-muted small mb-1">Orders</h6>
+                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalOrders }}</h4>
+                </div>
             </div>
         </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-secondary">
-                <p class="statistics-title mb-1">Total Sales</p>
-                <h3 class="m-0 text-break">{{ dashboardData.totalSales | currency: 'INR' }}</h3>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 shadow-none h-100">
+                <div class="card-body text-center p-3">
+                    <div class="mb-2 text-muted">
+                        <i class="bi bi-currency-rupee fs-4"></i>
+                    </div>
+                    <h6 class="text-uppercase text-muted small mb-1">Sales</h6>
+                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalSales | currency: 'INR' }}</h4>
+                </div>
             </div>
         </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-warning">
-                <p class="statistics-title mb-1">Pending Order</p>
-                <h3 class="text-warning m-0 text-break">{{ dashboardData.totalPendingOrders }}</h3>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 shadow-none h-100">
+                <div class="card-body text-center p-3">
+                    <div class="mb-2 text-warning">
+                        <i class="bi bi-hourglass fs-4"></i>
+                    </div>
+                    <h6 class="text-uppercase text-muted small mb-1">Pending</h6>
+                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalPendingOrders }}</h4>
+                </div>
             </div>
         </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-info">
-                <p class="statistics-title mb-1">Shipped Order</p>
-                <h3 class="text-info m-0 text-break">{{ dashboardData.totalShippedOrders }}</h3>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 shadow-none h-100">
+                <div class="card-body text-center p-3">
+                    <div class="mb-2 text-info">
+                        <i class="bi bi-truck fs-4"></i>
+                    </div>
+                    <h6 class="text-uppercase text-muted small mb-1">Shipped</h6>
+                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalShippedOrders }}</h4>
+                </div>
             </div>
         </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-success">
-                <p class="statistics-title mb-1">Delivered Order</p>
-                <h3 class="text-success m-0 text-break">{{ dashboardData.totalDeliveredOrders }}</h3>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 shadow-none h-100">
+                <div class="card-body text-center p-3">
+                    <div class="mb-2 text-success">
+                        <i class="bi bi-check-circle fs-4"></i>
+                    </div>
+                    <h6 class="text-uppercase text-muted small mb-1">Delivered</h6>
+                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalDeliveredOrders }}</h4>
+                </div>
             </div>
         </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-danger">
-                <p class="statistics-title mb-1">Cancelled Order</p>
-                <h3 class="text-danger m-0 text-break">{{ dashboardData.totalCancelledOrders }}</h3>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 shadow-none h-100">
+                <div class="card-body text-center p-3">
+                    <div class="mb-2 text-danger">
+                        <i class="bi bi-x-circle fs-4"></i>
+                    </div>
+                    <h6 class="text-uppercase text-muted small mb-1">Cancelled</h6>
+                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalCancelledOrders }}</h4>
+                </div>
             </div>
         </div>
     </div>
@@ -46,22 +82,42 @@
 
     <div class="container-fluid">
         <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="btn-group-custom">
-                    <button class="btn border-0 " [ngClass]="{'text-decoration-underline':option=='orders'}"
-                        type="button" (click)="onOption('orders')">Orders</button>
-                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='wallpapers'}"
-                        type="button" (click)="onOption('wallpapers')">Wallpaper</button>
-                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='coupon'}"
-                        type="button" (click)="onOption('coupon')">Coupon</button>
-                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='city'}" type="button"
-                        (click)="onOption('city')">City</button>
-                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='category'}"
-                        type="button" (click)="onOption('category')">Category</button>
-                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='user'}" type="button"
-                        (click)="onOption('user')">Users</button>
-                    <button class="btn border-0" [ngClass]="{'text-decoration-underline':option=='setting'}"
-                        type="button" (click)="onOption('setting')">Setting</button>
+            <div class="content-wrapper ">
+                <div class="d-flex flex-wrap gap-2 my-3">
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1"
+                        [ngClass]="{'btn-dark text-white': option === 'orders'}" (click)="onOption('orders')">
+                        <i class="bi bi-cart3 me-1"></i> Orders
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1"
+                        [ngClass]="{'btn-dark text-white': option === 'wallpapers'}" (click)="onOption('wallpapers')">
+                        <i class="bi bi-image me-1"></i> Wallpapers
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1"
+                        [ngClass]="{'btn-dark text-white': option === 'coupon'}" (click)="onOption('coupon')">
+                        <i class="bi bi-tag me-1"></i> Coupons
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1"
+                        [ngClass]="{'btn-dark text-white': option === 'city'}" (click)="onOption('city')">
+                        <i class="bi bi-geo-alt me-1"></i> Cities
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1"
+                        [ngClass]="{'btn-dark text-white': option === 'category'}" (click)="onOption('category')">
+                        <i class="bi bi-collection me-1"></i> Categories
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1"
+                        [ngClass]="{'btn-dark text-white': option === 'user'}" (click)="onOption('user')">
+                        <i class="bi bi-people me-1"></i> Users
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1"
+                        [ngClass]="{'btn-dark text-white': option === 'setting'}" (click)="onOption('setting')">
+                        <i class="bi bi-gear me-1"></i> Settings
+                    </button>
                 </div>
 
                 <div class="row" *ngIf="option=='orders'">
@@ -74,13 +130,13 @@
                         <div class="col-auto flex-grow-1 text-center">
                             <div class="alert alert-secondary">
                                 <p class="statistics-title mb-1">Total Wallpapers</p>
-                                <h3 class="m-0 text-break">{{ dashboardData.totalWallpapers }}</h3>
+                                <h3 class="m-0 text-break">{{ dashboardData?.totalWallpapers }}</h3>
                             </div>
                         </div>
                         <div class="col-auto flex-grow-1 text-center">
                             <div class="alert alert-secondary">
                                 <p class="statistics-title mb-1">Total Stock</p>
-                                <h3 class="m-0 text-break">{{ dashboardData.totalStock}}</h3>
+                                <h3 class="m-0 text-break">{{ dashboardData?.totalStock}}</h3>
                             </div>
                         </div>
 
@@ -88,7 +144,7 @@
                         <div class="col-auto flex-grow-1 text-center">
                             <div class="alert alert-secondary ">
                                 <p class="statistics-title mb-1">Total Sold</p>
-                                <h3 class="m-0 text-break">{{ dashboardData.totalSold }}</h3>
+                                <h3 class="m-0 text-break">{{ dashboardData?.totalSold }}</h3>
                             </div>
                         </div>
 
@@ -101,26 +157,26 @@
                         <div class="col-auto flex-grow-1 text-center">
                             <div class="alert alert-secondary">
                                 <p class="statistics-title mb-1">Total Coupons</p>
-                                <h3 class="m-0 text-break">{{ dashboardData.totalCoupons }}</h3>
+                                <h3 class="m-0 text-break">{{ dashboardData?.totalCoupons }}</h3>
                             </div>
                         </div>
                         <div class="col-auto flex-grow-1 text-center">
                             <div class="alert alert-secondary">
                                 <p class="statistics-title mb-1">Total Used</p>
-                                <h3 class="m-0 text-break">{{ dashboardData.totalUsedCoupons}}</h3>
+                                <h3 class="m-0 text-break">{{ dashboardData?.totalUsedCoupons}}</h3>
                             </div>
                         </div>
 
                         <div class="col-auto flex-grow-1 text-center">
                             <div class="alert alert-secondary ">
                                 <p class="statistics-title mb-1">Active Coupons</p>
-                                <h3 class="m-0 text-break">{{ dashboardData.totalActiveCoupons }}</h3>
+                                <h3 class="m-0 text-break">{{ dashboardData?.totalActiveCoupons }}</h3>
                             </div>
                         </div>
                         <div class="col-auto flex-grow-1 text-center">
                             <div class="alert alert-secondary ">
                                 <p class="statistics-title mb-1">InActive Coupons</p>
-                                <h3 class="m-0 text-break">{{ dashboardData.totalInactiveCoupons }}</h3>
+                                <h3 class="m-0 text-break">{{ dashboardData?.totalInactiveCoupons }}</h3>
                             </div>
                         </div>
 
@@ -137,6 +193,10 @@
                     <app-category></app-category>
                 </div>
 
+                <div class="row" *ngIf="option=='user'">
+                    <app-user></app-user>
+                </div>
+
             </div>
         </div>
     </div>
@@ -145,47 +205,3 @@
 
 <app-footer></app-footer>
 }
-
-
-
-<div class="container-fluid my-5 py-5">
-    <div class="row g-2 justify-content-center">
-        <div class="col-auto flex-grow-1 ">
-            <div class="alert alert-dark">
-                <p class="statistics-title mb-1">Total Orders</p>
-                <h3 class="m-0 text-break">{{ dashboardData.totalOrders }}</h3>
-            </div>
-        </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-secondary">
-                <p class="statistics-title mb-1">Total Sales</p>
-                <h3 class="m-0 text-break">{{ dashboardData.totalSales | currency: 'INR' }}</h3>
-            </div>
-        </div>
-
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-success">
-                <p class="statistics-title mb-1">Delivered</p>
-                <h3 class="text-success m-0 text-break">{{ dashboardData.totalDeliveredOrders }}</h3>
-            </div>
-        </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-warning">
-                <p class="statistics-title mb-1">Pending</p>
-                <h3 class="text-warning m-0 text-break">{{ dashboardData.totalPendingOrders }}</h3>
-            </div>
-        </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-info">
-                <p class="statistics-title mb-1">Shipped</p>
-                <h3 class="text-info m-0 text-break">{{ dashboardData.totalShippedOrders }}</h3>
-            </div>
-        </div>
-        <div class="col-auto flex-grow-1">
-            <div class="alert alert-danger">
-                <p class="statistics-title mb-1">Cancelled</p>
-                <h3 class="text-danger m-0 text-break">{{ dashboardData.totalCancelledOrders }}</h3>
-            </div>
-        </div>
-    </div>
-</div>

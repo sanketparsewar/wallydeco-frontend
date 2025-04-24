@@ -21,7 +21,6 @@
           <div class="card-image position-relative">
             <img [src]="item.images[0]" alt="{{item.title}}" class="img-fluid w-100" (click)="openWallpaper(item._id)"
               [@fadeIn]>
-            <!-- Out of Stock Badge -->
             <span *ngIf="item.stock === 0"
               class="position-absolute bottom-0 start-0 m-2 px-2 py-1 bg-danger text-white fw-semibold rounded z-2"
               style="font-size: 0.8rem;">

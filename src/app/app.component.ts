@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
 import { CategoryService } from './services/category/category.service';
 import { CityService } from './services/city/city.service';
