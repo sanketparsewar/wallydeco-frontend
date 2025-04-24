@@ -2,17 +2,21 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { HttpService } from '../http/http.service';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private authService:AuthService,private httpService: HttpService) { }
+  constructor(private authService:AuthService,private httpService: HttpService,private dashboardService:DashboardService) { }
   
   getLoggedUser(): Observable<any>  {
     return this.httpService.secureGet('/user/logged').pipe(
       tap((response:any) => {
         this.authService.setLoggedUser(response.user);
+        if(response.user.role === 'admin') {
+          this.dashboardService.getDashboardData().subscribe()
+        }
       })
     );
 

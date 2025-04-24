@@ -12,9 +12,10 @@ export class CategoryService {
 
   constructor(private httpService: HttpService) { }
 
-  createCategory(categoryData: any): Observable<any> {
+  addCategory(categoryData: any): Observable<any> {
     return this.httpService.post('/category', categoryData)
   }
+  
   getAllCategories(): Observable<any> {
     return this.httpService.get('/category').pipe(
       tap((response: any) => {

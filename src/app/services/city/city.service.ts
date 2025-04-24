@@ -32,8 +32,8 @@ export class CityService {
   deleteCity(id: string) {
     return this.httpService.secureDelete(`/city/${id}`);
   }
-  getCityByName(name: string) {
-    return this.httpService.get(`/city/name/${name}`);
+  getCityByName(cityName: string) {
+    return this.httpService.get(`/city/name/${cityName}`);
   }
   getCityByState(state: string) {
     return this.httpService.get(`/city/state/${state}`);
