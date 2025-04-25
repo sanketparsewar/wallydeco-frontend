@@ -164,43 +164,6 @@
 
             <div class="d-flex mt-4 flex-wrap align-items-center">
                 <p class="text-muted mb-sm-0">Showing 1 to {{queryParameter.limit}} of {{tableData.length}} entries</p>
-                <!-- <nav class="ms-auto">
-                    <ul class="pagination responsive-pagination">
-                        <li class="page-item" [class.disabled]="queryParameter.page === 1">
-                            <button class="page-link" (click)="changePage(queryParameter.page - 1)">
-                                <i class="fa-solid fa-angles-left"></i>
-                            </button>
-                        </li>
-                        <li *ngFor="let page of [1, 2]" class="page-item" [class.active]="queryParameter.page === page">
-                            <button class="page-link" (click)="changePage(page)">{{ page }}</button>
-                        </li>
-
-                        <li *ngIf="queryParameter.page > 3" class="page-item disabled ellipsis">
-                            <span class="page-link">...</span>
-                        </li>
-
-                        <li *ngIf="queryParameter.page > 2 && queryParameter.page < totalPages - 1"
-                            class="page-item active">
-                            <button class="page-link">{{ queryParameter.page }}</button>
-                        </li>
-
-                        <li *ngIf="queryParameter.page < totalPages - 2" class="page-item disabled ellipsis">
-                            <span class="page-link">...</span>
-                        </li>
-
-                        <li *ngFor="let page of [totalPages - 1, totalPages]" class="page-item"
-                            [class.active]="queryParameter.page === page">
-                            <button class="page-link" (click)="changePage(page)">{{ page }}</button>
-                        </li>
-
-                        <li class="page-item" [class.disabled]="queryParameter.page === totalPages">
-                            <button class="page-link" (click)="changePage(queryParameter.page + 1)">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </button>
-                        </li>
-                    </ul>
-                </nav> -->
-
             </div>
             }
         </div>
