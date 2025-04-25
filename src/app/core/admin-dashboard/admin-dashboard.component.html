@@ -5,75 +5,108 @@
 
 <div class="container-fluid py-5 mt-5">
     <div class="row g-3">
-        
+
         <div class="col-6 col-md-4 col-lg-2">
-            <div class="card border-0 shadow-none h-100">
-                <div class="card-body text-center p-3">
-                    <div class="mb-2 text-muted">
-                        <i class="bi bi-cart fs-4"></i>
-                    </div>
-                    <h6 class="text-uppercase text-muted small mb-1">Orders</h6>
-                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalOrders }}</h4>
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+
+                    <h6 class="text-uppercase text-muted small ">Orders</h6>
+                    <h4 class=" m-0">{{ dashboardData?.totalOrders }}</h4>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+
+                    <h6 class="text-uppercase text-muted small ">Pending</h6>
+                    <h4 class="m-0">{{ dashboardData?.totalPendingOrders }}</h4>
                 </div>
             </div>
         </div>
 
         <div class="col-6 col-md-4 col-lg-2">
-            <div class="card border-0 shadow-none h-100">
-                <div class="card-body text-center p-3">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+
+                    <h6 class="text-uppercase text-muted small ">Shipped</h6>
+                    <h4 class="m-0">{{ dashboardData?.totalShippedOrders }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+
+                    <h6 class="text-uppercase text-muted small ">Delivered</h6>
+                    <h4 class="m-0 text-success">{{ dashboardData?.totalDeliveredOrders }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+
+                    <h6 class="text-uppercase text-muted small ">Cancelled</h6>
+                    <h4 class="m-0 text-danger">{{ dashboardData?.totalCancelledOrders }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+
+                    <h6 class="text-uppercase text-muted small ">Paid orders</h6>
+                    <h4 class="m-0">{{ dashboardData?.totalPaidOrders }}</h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
                     <div class="mb-2 text-muted">
                         <i class="bi bi-currency-rupee fs-4"></i>
                     </div>
-                    <h6 class="text-uppercase text-muted small mb-1">Sales</h6>
-                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalSales | currency: 'INR' }}</h4>
+                    <h6 class="text-uppercase text-muted small ">Upi Orders</h6>
+                    <h4 class="m-0">{{ dashboardData?.totalUpiOrders}}</h4>
                 </div>
             </div>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <div class="card border-0 shadow-none h-100">
-                <div class="card-body text-center p-3">
-                    <div class="mb-2 text-warning">
-                        <i class="bi bi-hourglass fs-4"></i>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+                    <div class="mb-2 text-muted">
+                        <i class="bi bi-currency-rupee fs-4"></i>
                     </div>
-                    <h6 class="text-uppercase text-muted small mb-1">Pending</h6>
-                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalPendingOrders }}</h4>
+                    <h6 class="text-uppercase text-muted small ">Cod Orders</h6>
+                    <h4 class="m-0">{{ dashboardData?.totalCodOrders }}</h4>
                 </div>
             </div>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <div class="card border-0 shadow-none h-100">
-                <div class="card-body text-center p-3">
-                    <div class="mb-2 text-info">
-                        <i class="bi bi-truck fs-4"></i>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
+                    <div class="mb-2 text-muted">
+                        <i class="bi bi-currency-rupee fs-4"></i>
                     </div>
-                    <h6 class="text-uppercase text-muted small mb-1">Shipped</h6>
-                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalShippedOrders }}</h4>
+                    <h6 class="text-uppercase text-muted small ">Unpaid Amount</h6>
+                    <h4 class="m-0">{{ dashboardData?.totalUnpaidAmount | currency: 'INR' }}</h4>
                 </div>
             </div>
         </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card border-0 rounded-2 shadow-none h-100">
+                <div class="card-body text-center p-2">
 
-        <div class="col-6 col-md-4 col-lg-2">
-            <div class="card border-0 shadow-none h-100">
-                <div class="card-body text-center p-3">
-                    <div class="mb-2 text-success">
-                        <i class="bi bi-check-circle fs-4"></i>
-                    </div>
-                    <h6 class="text-uppercase text-muted small mb-1">Delivered</h6>
-                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalDeliveredOrders }}</h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-2">
-            <div class="card border-0 shadow-none h-100">
-                <div class="card-body text-center p-3">
-                    <div class="mb-2 text-danger">
-                        <i class="bi bi-x-circle fs-4"></i>
-                    </div>
-                    <h6 class="text-uppercase text-muted small mb-1">Cancelled</h6>
-                    <h4 class="fw-bold mb-0">{{ dashboardData?.totalCancelledOrders }}</h4>
+                    <h6 class="text-uppercase text-muted small ">Sales</h6>
+                    <h4 class="m-0 text-primary">{{ dashboardData?.totalSales | currency: 'INR' }}</h4>
                 </div>
             </div>
         </div>

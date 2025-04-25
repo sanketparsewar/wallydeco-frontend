@@ -1,5 +1,5 @@
 import { WallpaperService } from './../../services/wallpaper/wallpaper.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AddWallpaperComponent } from '../../shared/modals/add-wallpaper/add-wallpaper.component';
@@ -31,7 +31,7 @@ import { filter, tap } from 'rxjs';
     CouponComponent,
     CityComponent,
     CategoryComponent,
-    UserComponent
+    UserComponent,CurrencyPipe
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
@@ -58,6 +58,11 @@ export class AdminDashboardComponent implements OnInit {
     totalCategories: 0,
     totalCities: 0,
     totalUsers: 0,
+    totalUnpaidAmount:0,
+    totalUpiOrders:0,
+    totalCodOrders:0,
+    totalPaidOrders:0
+
   };
 
   constructor(private dashboardService: DashboardService, private route: ActivatedRoute,
