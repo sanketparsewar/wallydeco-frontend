@@ -45,8 +45,9 @@
                                         <td>{{ order.finalAmount | currency:"INR" }}</td>
                                         <td class="text-uppercase text-muted">{{ order.paymentMethod }}</td>
                                         <td>
-                                            <span class="badge" [ngClass]="{
-                                            'bg-warning text-dark': order.status === 'Pending',
+                                            <span class="badge text-dark" [ngClass]="{
+                                            'bg-warning ': order.status === 'Pending',
+                                            'bg-info ': order.status === 'Shipped',
                                             'bg-success': order.status === 'Delivered',
                                             'bg-danger': order.status === 'Cancelled'
                                           }">

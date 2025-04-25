@@ -11,8 +11,9 @@
             Order Details</h5>
           <p class="mb-0 text-muted">Order ID: <span class="fw-semibold">{{ order?._id }}</span></p>
           <p class="mb-0 text-muted">Placed on: {{ order?.orderDate | date: 'dd MMM y, hh:mm a' }}</p>
-          <span class="badge mt-2" [ngClass]="{
-              'bg-warning text-dark': order?.status === 'Pending',
+          <span class="badge text-dark mt-2" [ngClass]="{
+              'bg-warning ': order?.status === 'Pending',
+              'bg-info ': order.status === 'Shipped',
               'bg-success': order?.status === 'Delivered',
               'bg-danger': order?.status === 'Cancelled'
             }">
