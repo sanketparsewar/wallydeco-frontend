@@ -3,7 +3,8 @@
         <div class="card-body">
             <div class=" border-bottom-0 d-flex justify-content-between align-items-center py-3">
                 <h4 class="card-title mb-sm-0">Wallpapers</h4>
-                <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addWallpaperModal" (click)="wallpaperData=null" >
+                <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addWallpaperModal"
+                    (click)="wallpaperData=null">
                     <i class="fas fa-plus me-1"></i> Add New Wallpaper
                 </button>
             </div>
@@ -17,34 +18,32 @@
                 <div class="col-md-2 col-6">
                     <label for="inputCategory" class="form-label">Category</label>
                     <select id="inputCategory" name="category" [(ngModel)]="queryParameter.category"
-                    (change)="onFilterChange($event)" class="form-select">
+                        (change)="onFilterChange($event)" class="form-select">
                         <option value="">All</option>
                         <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-lg-2 col-6">
                     <label for="inputPrice" class="form-label">Price</label>
-                    <input type="number" min="0" class="form-control" placeholder="Max price"
-                    (input)="search()" [(ngModel)]="queryParameter.price" name="price"
-                        id="inputPrice">
+                    <input type="number" min="0" class="form-control" placeholder="Max price" (input)="search()"
+                        [(ngModel)]="queryParameter.price" name="price" id="inputPrice">
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputStock" class="form-label">Stock</label>
-                    <input type="number" min="0" placeholder="Ex: 1" class="form-control"
-                    (input)="search()" [(ngModel)]="queryParameter.stock" name="stock"
-                        id="inputStock">
+                    <input type="number" min="0" placeholder="Ex: 1" class="form-control" (input)="search()"
+                        [(ngModel)]="queryParameter.stock" name="stock" id="inputStock">
                 </div>
                 <div class="col-md-2 col-lg-1  col-4">
                     <label for="inputPage" class="form-label">page</label>
                     <select id="inputPage" name="page" [(ngModel)]="queryParameter.page"
                         (change)="onFilterChange($event)" class="form-select">
-                        <option *ngFor="let item of totalPages" [value]="item+1" >{{item+1}}</option>
+                        <option *ngFor="let item of totalPages" [value]="item+1">{{item+1}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputLimit" class="form-label">Limit</label>
                     <select id="inputLimit" name="limit" [(ngModel)]="queryParameter.limit"
-                    (change)="onFilterChange($event)" class="form-select">
+                        (change)="onFilterChange($event)" class="form-select">
                         <option value="10">10</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
@@ -57,20 +56,20 @@
             }@else{
 
             <div class="table-responsive rounded p-1">
-                <table class="table table-hover table-bordered">
+                <table class="table table-hover table-bordered align-middle">
                     <thead>
                         <tr>
-                            <th class="font-weight-bold">#</th>
-                            <th class="font-weight-bold">Img</th>
-                            <th class="font-weight-bold">Id</th>
-                            <th class="font-weight-bold">Title</th>
-                            <th class="font-weight-bold">Size</th>
-                            <th class="font-weight-bold">Price</th>
-                            <th class="font-weight-bold">Stock</th>
-                            <th class="font-weight-bold">Sold</th>
-                            <th class="font-weight-bold">Colors</th>
-                            <th class="font-weight-bold">Category</th>
-                            <th class="font-weight-bold">Action</th>
+                            <th scope="col" class="text-nowrap">#</th>
+                            <th scope="col" class="text-nowrap">Img</th>
+                            <th scope="col">Id</th>
+                            <th scope="col" class="text-nowrap text-start">Title</th>
+                            <th scope="col" class="text-nowrap text-center">Size</th>
+                            <th scope="col" class="text-nowrap text-end">Price</th>
+                            <th scope="col" class="text-nowrap text-start">Stock</th>
+                            <th scope="col" class="text-nowrap text-start">Sold</th>
+                            <th scope="col" class="text-nowrap text-start">Colors</th>
+                            <th scope="col" class="text-nowrap text-start">Category</th>
+                            <th scope="col" class="text-nowrap text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,28 +86,76 @@
                         <tr class="text-center" *ngIf="tableData.length==0">
                             <td colspan="8">No Wallpaper!</td>
                         </tr>
-                        <tr *ngFor="let item of tableData,let i=index">
-                            <td>{{ ((queryParameter.page-1) * queryParameter.limit)+ i+1}}</td>
+                        <tr *ngFor="let item of tableData; let i = index">
+                            <td class="text-muted">{{ ((queryParameter.page - 1) * queryParameter.limit) + i + 1 }}</td>
+
                             <td>
                                 <div>
-                                    <img [src]="item.images[0]" style="width: 2rem; height: 2rem;" alt="">
+                                    <img [src]="item.images[0]" class="rounded" style="width: 2rem; height: 2rem;"
+                                        alt="Wallpaper">
                                 </div>
                             </td>
-                            <td class="text-nowrap">{{item.wallpaperId}}</td>
-                            <td class="text-nowrap">{{item.title}}</td>
-                            <td>{{item.size}}</td>
-                            <td>{{item.price | currency:"INR"}}</td>
-                            <td [ngClass]="{'text-danger':item.stock<=5 ,'text-warning':item.stock<=10}" class="text-success" >{{item.stock}}</td>
-                            <td>{{item.sold}}</td>
+
                             <td>
-                                {{item.colorOptions}}
+                                <span class="badge bg-light text-dark border fw-normal fs-6">{{ item.wallpaperId
+                                    }}</span>
                             </td>
-                            <td>{{item.category}}</td>
-                            <td class="d-flex justify-content-between">
-                                <button class="btn  border-0 text-primary" (click)="editWallpaper(item)"><i class="fas fa-edit"></i></button>
-                                <button class="btn  border-0 text-danger" (click)="deleteWallpaper(item._id)"><i class="fa-solid fa-trash"></i></button>
+
+                            <td class="text">
+                                <span class="fw-medium">{{ item.title }}</span>
+                            </td>
+
+                            <td class="text-nowrap">
+                                <span class="badge bg-secondary-subtle text-dark border fw-normal">{{ item.size
+                                    }}</span>
+                            </td>
+
+                            <td class="text-dark fw-bold text-end">
+                                {{ item.price | currency: "INR" }}
+                            </td>
+
+                            <td class="text-center">
+                                <span class="fw-medium" [ngClass]="{
+                                  'text-danger': item.stock <= 5,
+                                  'text-warning': item.stock > 5 && item.stock <= 10,
+                                  'text-success': item.stock > 10
+                                }">
+                                    {{ item.stock }}
+                                </span>
+                            </td>
+
+                            <td class="text-center">
+                                {{ item.sold }}
+                            </td>
+
+                            <td>
+                                <ng-container *ngIf="item.colorOptions?.length > 0; else noColors">
+                                    <span *ngFor="let color of item.colorOptions"
+                                        class="badge bg-light border text-dark me-1">
+                                        {{ color }}
+                                    </span>
+                                </ng-container>
+                                <ng-template #noColors>
+                                    <span class="text-muted small">N/A</span>
+                                </ng-template>
+                            </td>
+
+                            <td class="text-nowrap">
+                                {{ item.category }}
+                            </td>
+
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button class="btn btn-outline-primary" (click)="editWallpaper(item)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" (click)="deleteWallpaper(item._id)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
+
 
                     </tbody>
                 </table>
@@ -124,7 +171,6 @@
                                 <i class="fa-solid fa-angles-left"></i>
                             </button>
                         </li>
-
                         <li *ngFor="let page of [1, 2]" class="page-item" [class.active]="queryParameter.page === page">
                             <button class="page-link" (click)="changePage(page)">{{ page }}</button>
                         </li>

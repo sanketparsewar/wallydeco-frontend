@@ -52,59 +52,113 @@
                             <th class="font-weight-bold">Customer</th>
                             <th class="font-weight-bold">Delivery at</th>
                             <th class="font-weight-bold">Order Date</th>
+                            <th class="font-weight-bold">Delivered</th>
                             <th class="font-weight-bold">Order</th>
                             <th class="font-weight-bold">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" *ngIf="tableData.length==0">
-                            <td colspan="8">No Orders!</td>
-                        </tr>
-                        <tr *ngFor="let item of tableData,let i = index">
-                            <td class="text-nowrap">{{((queryParameter.page-1)*queryParameter.limit)+i +1}}.</td>
-                            <td class="text-nowrap lead fs-6 text-decoration-underline ">
-                                <div class="d-flex justify-content-between gap-3" >
-                                    <a class="openOrder" style="cursor: pointer;">{{item._id}}</a> <span class="copy" style="cursor: pointer;" (click)="copy(item._id)" ><i class="fa-solid fa-copy"></i></span>
-                                </div>
+                        <tr class="text-center" *ngIf="tableData.length === 0">
+                            <td colspan="9" class="text-muted fw-medium">No Orders!</td>
+                          </tr>
+                          
+                          <tr *ngFor="let item of tableData; let i = index">
+                            <td class="text-muted text-nowrap">{{ ((queryParameter.page - 1) * queryParameter.limit) + i + 1 }}.</td>
+                          
+                            <td class="text-nowrap">
+                              <div class="d-flex justify-content-between align-items-center gap-2">
+                                <a class="text-decoration-underline text-dark fw-semibold openOrder" style="cursor: pointer;">
+                                  {{ item._id }}
+                                </a>
+                                <span class="copy text-primary" style="cursor: pointer;" (click)="copy(item._id)">
+                                  <i class="fa-solid fa-copy"></i>
+                                </span>
+                              </div>
                             </td>
-                            <td class="text-nowrap fw-bold">{{item.finalAmount | currency:"INR" }}</td>
+                          
+                            <td class="fw-bold text-success text-end">{{ item.finalAmount | currency: "INR" }}</td>
+                          
                             <td class="text-center">
-                                <span class="text-uppercase" [ngClass]="{'text-success':item.paymentMethod==='upi'}">
-                                    {{item.paymentMethod}}
-                                </span>
-                                <br>
-                                <span class="text-capitalize" [ngClass]="{'text-success':item.paymentStatus==='paid','text-danger':item.paymentStatus==='unpaid'}">&#10647;{{item.paymentStatus}}&#10648;</span>
+                              <span class="badge bg-light border text-uppercase text-dark">
+                                {{ item.paymentMethod }}
+                              </span>
+                              <br />
+                              <span
+                                class="badge mt-1"
+                                [ngClass]="{
+                                  'bg-success-subtle text-success': item.paymentStatus === 'paid',
+                                  'bg-danger-subtle text-danger': item.paymentStatus === 'unpaid',
+                                  'bg-dark text-white': item.paymentStatus === 'refund'
+                                }"
+                              >
+                                {{ item.paymentStatus }}
+                              </span>
                             </td>
-                            <td>{{item.user.name}}</td>
-                            <td>{{item.shippingAddress.street}}, {{item.shippingAddress.city}} -
-                                {{item.shippingAddress.zip}}, {{item.shippingAddress.state}}</td>
-                            <td>{{item.orderDate | date:"dd MMM y,hh:mm a" }}</td>
-                            <td class="text-center" >
-                                <span class="badge text-dark" [ngClass]="{
-                                    'bg-warning ': item.status === 'Pending',
-                                    'bg-info ': item.status === 'Shipped',
-                                    'bg-success': item.status === 'Delivered',
-                                    'bg-danger': item.status === 'Cancelled'
-                                  }">
-                                    {{ item.status }}
-                                </span>
+                          
+                            <td class="">{{ item.user.name }}</td>
+                          
+                            <td class="small text-muted">
+                              {{ item.shippingAddress.street }}, {{ item.shippingAddress.city }} - {{ item.shippingAddress.zip }},
+                              {{ item.shippingAddress.state }}
                             </td>
-
-                            <td class="text-center" >
-                                <div class="d-flex justify-content-evenly" *ngIf="item.status!=='Delivered' && item.status!=='Cancelled'" >
-                                    <select name="updateStatus" class="form-select form-select-sm"
-                                        (change)="onStatusChange($event, item._id)">
-                                        <option value="">Update</option>
-                                        <option *ngIf="item.status!=='Shipped' && item.status!=='Delivered' && item.status!=='Cancelled'"  value="Shipped">Shipped</option>
-                                        <option *ngIf="item.status!=='Delivered' && item.status!=='Cancelled'" value="Delivered">Delivered</option>
-                                        <option *ngIf="item.status!=='Shipped' && item.status!=='Delivered' && item.status!=='Cancelled'" value="Cancelled">Cancel</option>
-                                    </select>
+                          
+                            <td class=" small">{{ item.orderDate | date: 'dd MMM y, hh:mm a' }}</td>
+                            <td class="">
+                                <div *ngIf="item.deliveryDate" class=" small">
+                                    {{ item.deliveryDate | date: 'dd MMM y, hh:mm a' }}
                                 </div>
-                                <div *ngIf="item.status=='Delivered' || item.status=='Cancelled'">
-                                    <p class="fw-bold" >#</p>
-                                </div>
+                                <div class="text-center" *ngIf="!item.deliveryDate">
+                                    <span class="text-muted">—</span>
+                                  </div>
                             </td>
-                        </tr>
+                          
+                            <td class="text-center">
+                              <span
+                                class="badge rounded-pill text-dark"
+                                [ngClass]="{
+                                  'bg-warning': item.status === 'Pending',
+                                  'bg-info': item.status === 'Shipped',
+                                  'bg-success': item.status === 'Delivered',
+                                  'bg-danger': item.status === 'Cancelled'
+                                }"
+                              >
+                                {{ item.status }}
+                              </span>
+                            </td>
+                          
+                            <td class="text-center">
+                              <div
+                                class="d-flex justify-content-evenly"
+                                *ngIf="item.status !== 'Delivered' && item.status !== 'Cancelled'"
+                              >
+                                <select class="form-select form-select-sm w-auto" (change)="onStatusChange($event, item._id)">
+                                  <option value="">Update</option>
+                                  <option
+                                    *ngIf="item.status !== 'Shipped' && item.status !== 'Delivered' && item.status !== 'Cancelled'"
+                                    value="Shipped"
+                                  >
+                                    Shipped
+                                  </option>
+                                  <option
+                                    *ngIf="item.status !== 'Delivered' && item.status !== 'Cancelled'"
+                                    value="Delivered"
+                                  >
+                                    Delivered
+                                  </option>
+                                  <option
+                                    *ngIf="item.status !== 'Shipped' && item.status !== 'Delivered' && item.status !== 'Cancelled'"
+                                    value="Cancelled"
+                                  >
+                                    Cancel
+                                  </option>
+                                </select>
+                              </div>
+                              <div *ngIf="item.status === 'Delivered' || item.status === 'Cancelled'">
+                                <span class="text-muted">—</span>
+                              </div>
+                            </td>
+                          </tr>
+                          
                     </tbody>
                 </table>
             </div>
