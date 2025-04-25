@@ -36,10 +36,14 @@ export class OrderService {
     return this.httpService.put(`/order/${orderId}/cancel`, {});
   }
 
-
-
+  markAsShipped(orderId: string): Observable<any> {
+    return this.httpService.securePut(`/order/${orderId}/ship`, {});
+  }
+  markAsDelivered(orderId: string): Observable<any> {
+    return this.httpService.securePut(`/order/${orderId}/deliver`, {});
+  }
   updateOrderStatus(orderId: string): Observable<any> {
-    return this.httpService.put(`/order/${orderId}/update`, {});
+    return this.httpService.securePut(`/order/${orderId}/update`, {});
   }
 
   deleteOrder(orderId: string): Observable<any> {

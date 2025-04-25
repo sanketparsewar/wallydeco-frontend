@@ -47,6 +47,7 @@ export class WallpaperService {
   updateWallpaper(id: string, wallpaper: any): Observable<any> {
     return this.httpService.securePut(`/wallpaper/${id}`, wallpaper);
   }
+  
   deleteWallpaper(id: string): Observable<any> {
     return this.httpService.secureDelete(`/wallpaper/${id}`);
   }
