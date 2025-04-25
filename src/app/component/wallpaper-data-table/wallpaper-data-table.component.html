@@ -1,44 +1,50 @@
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <div class="d-sm-flex align-items-center mb-3">
+            <div class=" border-bottom-0 d-flex justify-content-between align-items-center py-3">
                 <h4 class="card-title mb-sm-0">Wallpapers</h4>
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#addWallpaperModal">
-                    <i class="fa-solid fa-circle-plus"></i>Add new
+                <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addWallpaperModal" (click)="wallpaperData=null" >
+                    <i class="fas fa-plus me-1"></i> Add New Wallpaper
                 </button>
-
             </div>
             <div class="row g-2">
-                <div class="col-6 col-md-3">
+                <div class="col-12 col-md-3">
                     <label for="inputTitle" class="form-label">Title</label>
-                    <input id="inputTitle" class="form-control" type="search" (ngModelChange)="onFilterChange()"
+                    <input id="inputTitle" class="form-control" type="search" (input)="search()"
                         [(ngModel)]="queryParameter.search" name="search by title" placeholder="Search by title"
                         aria-label="Search">
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-2 col-6">
                     <label for="inputCategory" class="form-label">Category</label>
                     <select id="inputCategory" name="category" [(ngModel)]="queryParameter.category"
-                        (ngModelChange)="onFilterChange()" class="form-select">
+                    (change)="onFilterChange($event)" class="form-select">
                         <option value="">All</option>
                         <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
                     </select>
                 </div>
-                <div class="col-md-2 col-lg-2 col-4">
+                <div class="col-md-2 col-lg-2 col-6">
                     <label for="inputPrice" class="form-label">Price</label>
                     <input type="number" min="0" class="form-control" placeholder="Max price"
-                        (ngModelChange)="onFilterChange()" [(ngModel)]="queryParameter.price" name="price"
+                    (input)="search()" [(ngModel)]="queryParameter.price" name="price"
                         id="inputPrice">
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputStock" class="form-label">Stock</label>
                     <input type="number" min="0" placeholder="Ex: 1" class="form-control"
-                        (ngModelChange)="onFilterChange()" [(ngModel)]="queryParameter.stock" name="stock"
+                    (input)="search()" [(ngModel)]="queryParameter.stock" name="stock"
                         id="inputStock">
+                </div>
+                <div class="col-md-2 col-lg-1  col-4">
+                    <label for="inputPage" class="form-label">page</label>
+                    <select id="inputPage" name="page" [(ngModel)]="queryParameter.page"
+                        (change)="onFilterChange($event)" class="form-select">
+                        <option *ngFor="let item of totalPages" [value]="item+1" >{{item+1}}</option>
+                    </select>
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputLimit" class="form-label">Limit</label>
                     <select id="inputLimit" name="limit" [(ngModel)]="queryParameter.limit"
-                        (ngModelChange)="onFilterChange()" class="form-select">
+                    (change)="onFilterChange($event)" class="form-select">
                         <option value="10">10</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
@@ -51,10 +57,12 @@
             }@else{
 
             <div class="table-responsive rounded p-1">
-                <table class="table table-striped table-bordered">
+                <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
+                            <th class="font-weight-bold">#</th>
                             <th class="font-weight-bold">Img</th>
+                            <th class="font-weight-bold">Id</th>
                             <th class="font-weight-bold">Title</th>
                             <th class="font-weight-bold">Size</th>
                             <th class="font-weight-bold">Price</th>
@@ -66,22 +74,30 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr *ngIf="tableData.length === 0">
+                            <td colspan="10" class="text-center py-4 text-muted">
+                                <i class="fas fa-tag fa-2x mb-2"></i>
+                                <p class="mb-0">No coupons found</p>
+                                <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#addWallpaperModal">
+                                    Add your first Wallpaper
+                                </button>
+                            </td>
+                        </tr>
                         <tr class="text-center" *ngIf="tableData.length==0">
                             <td colspan="8">No Wallpaper!</td>
                         </tr>
-                        <tr *ngFor="let item of tableData">
+                        <tr *ngFor="let item of tableData,let i=index">
+                            <td>{{ ((queryParameter.page-1) * queryParameter.limit)+ i+1}}</td>
                             <td>
                                 <div>
                                     <img [src]="item.images[0]" style="width: 2rem; height: 2rem;" alt="">
                                 </div>
                             </td>
+                            <td class="text-nowrap">{{item.wallpaperId}}</td>
                             <td class="text-nowrap">{{item.title}}</td>
                             <td>{{item.size}}</td>
                             <td>{{item.price | currency:"INR"}}</td>
-                            <!-- <td>
-                                <input type="number" [ngClass]="{'text-danger':item.stock<=5 ,'text-warning':item.stock<=10}" [value]="item.stock"
-                                    class="border px-1 text-success " min="0" style="width: 4rem; display: inline-block;" />
-                            </td> -->
                             <td [ngClass]="{'text-danger':item.stock<=5 ,'text-warning':item.stock<=10}" class="text-success" >{{item.stock}}</td>
                             <td>{{item.sold}}</td>
                             <td>
@@ -89,8 +105,8 @@
                             </td>
                             <td>{{item.category}}</td>
                             <td class="d-flex justify-content-between">
-                                <button class="btn  border-0 text-primary"><i class="fas fa-edit"></i></button>
-                                <button class="btn  border-0 text-danger"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn  border-0 text-primary" (click)="editWallpaper(item)"><i class="fas fa-edit"></i></button>
+                                <button class="btn  border-0 text-danger" (click)="deleteWallpaper(item._id)"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
 
@@ -148,4 +164,4 @@
 
 
 
-<app-add-wallpaper (getAllWallpapers)="getAllWallpapers()"></app-add-wallpaper>
+<app-add-wallpaper [wallpaperData]="wallpaperData" (getAllWallpapers)="getAllWallpapers()"></app-add-wallpaper>

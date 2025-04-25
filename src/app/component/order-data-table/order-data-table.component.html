@@ -16,7 +16,7 @@
                     <label for="inputPage" class="form-label">page</label>
                     <select id="inputPage" name="page" [(ngModel)]="queryParameter.page"
                         (change)="onFilterChange($event)" class="form-select">
-                        <option *ngFor="let item of totalPages">{{item+1}}</option>
+                        <option *ngFor="let item of totalPages" [value]="item+1" >{{item+1}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-md-2 col-lg-2  col-4">
                     <label for="inputLimit" class="form-label">Limit</label>
-                    <select id="inputLimit" name="limit" (click)="onFilterChange($event)" class="form-select">
+                    <select id="inputLimit" name="limit" (change)="onFilterChange($event)" class="form-select">
                         <option value="10">10</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
@@ -41,18 +41,18 @@
             }@else{
 
             <div class="table-responsive rounded p-1">
-                <table class="table table-striped table-bordered">
+                <table class="table table-hover table-bordered align-middle mb-0">
                     <thead>
                         <tr>
 
-                            <th class="font-weight-bold">Sr no.</th>
+                            <th class="font-weight-bold">#</th>
                             <th class="font-weight-bold">Order ID</th>
                             <th class="font-weight-bold">Amount</th>
-                            <th class="font-weight-bold">Payment Status</th>
-                            <th class="font-weight-bold">Customer Name</th>
+                            <th class="font-weight-bold">Payment</th>
+                            <th class="font-weight-bold">Customer</th>
                             <th class="font-weight-bold">Delivery at</th>
                             <th class="font-weight-bold">Order Date</th>
-                            <th class="font-weight-bold">Order Status</th>
+                            <th class="font-weight-bold">Order</th>
                             <th class="font-weight-bold">Action</th>
                         </tr>
                     </thead>
@@ -62,20 +62,27 @@
                         </tr>
                         <tr *ngFor="let item of tableData,let i = index">
                             <td class="text-nowrap">{{((queryParameter.page-1)*queryParameter.limit)+i +1}}.</td>
-                            <td class="text-nowrap lead fs-6 text-decoration-underline ">{{item._id}}</td>
+                            <td class="text-nowrap lead fs-6 text-decoration-underline ">
+                                <div class="d-flex justify-content-between gap-3" >
+                                    <a class="openOrder" style="cursor: pointer;">{{item._id}}</a> <span class="copy" style="cursor: pointer;" (click)="copy(item._id)" ><i class="fa-solid fa-copy"></i></span>
+                                </div>
+                            </td>
                             <td class="text-nowrap fw-bold">{{item.finalAmount | currency:"INR" }}</td>
-                            <td class="text-uppercase">
-                                <span [ngClass]="{'text-success':item.paymentMethod==='upi'}">
+                            <td class="text-center">
+                                <span class="text-uppercase" [ngClass]="{'text-success':item.paymentMethod==='upi'}">
                                     {{item.paymentMethod}}
                                 </span>
+                                <br>
+                                <span class="text-capitalize" [ngClass]="{'text-success':item.paymentStatus==='paid','text-danger':item.paymentStatus==='unpaid'}">&#10647;{{item.paymentStatus}}&#10648;</span>
                             </td>
                             <td>{{item.user.name}}</td>
                             <td>{{item.shippingAddress.street}}, {{item.shippingAddress.city}} -
                                 {{item.shippingAddress.zip}}, {{item.shippingAddress.state}}</td>
                             <td>{{item.orderDate | date:"dd MMM y,hh:mm a" }}</td>
-                            <td>
-                                <span class="badge" [ngClass]="{
-                                    'bg-warning text-dark': item.status === 'Pending',
+                            <td class="text-center" >
+                                <span class="badge text-dark" [ngClass]="{
+                                    'bg-warning ': item.status === 'Pending',
+                                    'bg-info ': item.status === 'Shipped',
                                     'bg-success': item.status === 'Delivered',
                                     'bg-danger': item.status === 'Cancelled'
                                   }">
@@ -83,13 +90,18 @@
                                 </span>
                             </td>
 
-                            <td>
-                                <div class="d-flex justify-content-evenly">
-                                    <select name="updateStatus">
-                                        <option value="Pending">Pending</option>
-                                        <option value="Delivered">Delivered</option>
-                                        <option value="Cancelled">Cancelled</option>
+                            <td class="text-center" >
+                                <div class="d-flex justify-content-evenly" *ngIf="item.status!=='Delivered' && item.status!=='Cancelled'" >
+                                    <select name="updateStatus" class="form-select form-select-sm"
+                                        (change)="onStatusChange($event, item._id)">
+                                        <option value="">Update</option>
+                                        <option *ngIf="item.status!=='Shipped' && item.status!=='Delivered' && item.status!=='Cancelled'"  value="Shipped">Shipped</option>
+                                        <option *ngIf="item.status!=='Delivered' && item.status!=='Cancelled'" value="Delivered">Delivered</option>
+                                        <option *ngIf="item.status!=='Shipped' && item.status!=='Delivered' && item.status!=='Cancelled'" value="Cancelled">Cancel</option>
                                     </select>
+                                </div>
+                                <div *ngIf="item.status=='Delivered' || item.status=='Cancelled'">
+                                    <p class="fw-bold" >#</p>
                                 </div>
                             </td>
                         </tr>

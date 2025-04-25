@@ -50,6 +50,12 @@ export class CouponComponent {
     this.openModal();
   }
 
+  openModal() {
+    const modalElement = document.getElementById('addCouponModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+
   deleteCoupon(id: string) {
     this.confirmService.showConfirm('delete this coupon').then((confirmed: boolean) => {
       if (confirmed) {
@@ -68,13 +74,5 @@ export class CouponComponent {
       }
     })
   }
-
-
-  openModal() {
-    const modalElement = document.getElementById('addCouponModal');
-    const modal = new bootstrap.Modal(modalElement);
-    modal.show();
-  }
-
 
 }

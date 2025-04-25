@@ -46,6 +46,14 @@ label{
     opacity: 0.5;
 }
 
+.openOrder:hover{
+    color: blue;
+}
+
+.copy:hover{
+    color: blue
+}
+
 
 /* Responsive Styles */
 @media (max-width: 600px) {

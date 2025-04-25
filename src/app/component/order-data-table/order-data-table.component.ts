@@ -9,6 +9,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../services/order/order.service';
 import { CityService } from '../../services/city/city.service';
+import { DashboardService } from '../../services/dashboard/dashboard.service';
 // import { io } from 'socket.io-client';
 // import { environment } from '../../../environments/environment';
 
@@ -21,12 +22,10 @@ import { CityService } from '../../services/city/city.service';
 export class OrderDataTableComponent {
   isLoaded: boolean = false;
   tableData: any;
-  totalOrders: number = 0;
   totalSales: number = 0;
   totalPages: number[] = [];
   categories = [];
   cities: any;
-  page: number = 0;
   queryParameter: any = {
     search: '',
     city: '',
@@ -41,7 +40,8 @@ export class OrderDataTableComponent {
     private confirmService: ConfirmService,
     private categoryService: CategoryService,
     private orderService: OrderService,
-    private cityService: CityService
+    private cityService: CityService,
+    private dashboardService: DashboardService
   ) {
     this.categoryService.categories$.subscribe((data: any) => {
       this.categories = data.map((cat: any) => cat.name);
@@ -65,8 +65,6 @@ export class OrderDataTableComponent {
     this.orderService.getAllOrders(this.queryParameter).subscribe({
       next: async (data: any) => {
         this.tableData = await data.orders;
-        this.totalOrders = await data.totalOrders;
-        this.page = data.page;
         this.queryParameter.page = data.page; // Reset to page 1 on new search
         for (let i = 0; i < data.totalPages; i++) {
           this.totalPages.push(i); // Store total pages for pagination UI
@@ -116,7 +114,7 @@ export class OrderDataTableComponent {
   getCities() {
     this.cityService.cities$.subscribe({
       next: (data) => {
-        this.cities = Array.isArray(data) ? data.map((city: any) => city.name) : [];
+        this.cities = Array.isArray(data) ? data.map((city: any) => city.cityName) : [];
       },
       error: (error) => {
         console.error(error.error.message);
@@ -124,10 +122,26 @@ export class OrderDataTableComponent {
     })
   }
 
-  updateOrderStatus(id: string) {
-    this.orderService.updateOrderStatus(id).subscribe({
+  onStatusChange(event: any, id: string) {
+    const status = event.target.value;
+    if (status === 'Shipped') {
+      this.markAsShipped(id);
+    } else if (status === 'Delivered') {
+      this.markAsDelivered(id);
+    } else if (status === 'Cancelled') {
+      this.cancelOrder(id);
+    }
+  }
+
+
+
+
+  markAsShipped(id: string) {
+    this.orderService.markAsShipped(id).subscribe({
       next: (res) => {
         this.alertService.showSuccess(res.message);
+        this.dashboardService.getDashboardData().subscribe()
+
         this.getAllOrders();
       },
       error: (error) => {
@@ -135,5 +149,43 @@ export class OrderDataTableComponent {
       },
     });
   }
+
+  markAsDelivered(id: string) {
+    this.orderService.markAsDelivered(id).subscribe({
+      next: (res) => {
+        this.alertService.showSuccess(res.message);
+        this.dashboardService.getDashboardData().subscribe()
+
+        this.getAllOrders();
+      },
+      error: (error) => {
+        this.alertService.showError(error.error.message);
+      },
+    });
+  }
+
+  cancelOrder(id: string) {
+    this.orderService.cancelOrder(id).subscribe({
+      next: (res) => {
+        this.alertService.showSuccess(res.message);
+        this.dashboardService.getDashboardData().subscribe()
+        this.getAllOrders();
+      },
+      error: (error) => {
+        this.alertService.showError(error.error.message);
+      },
+    });
+  }
+
+
+  copy(id: string) {
+    navigator.clipboard.writeText(id).then(() => {
+      this.alertService.showSuccess('Copied to clipboard!');
+    }).catch(err => {
+      this.alertService.showError('Failed to copy!');
+    });
+  }
+  
+
 
 }
