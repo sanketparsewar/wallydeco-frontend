@@ -1,10 +1,12 @@
 import { AlertService } from './../../../services/alert/alert.service';
 import { WallpaperService } from './../../../services/wallpaper/wallpaper.service';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadService } from '../../../services/fileUpload/upload.service';
 import { CategoryService } from '../../../services/category/category.service';
+import { DashboardService } from '../../../services/dashboard/dashboard.service';
+declare var bootstrap: any; // for Bootstrap 5 modal
 
 @Component({
   selector: 'app-add-wallpaper',
@@ -14,13 +16,17 @@ import { CategoryService } from '../../../services/category/category.service';
 })
 export class AddWallpaperComponent {
   @Output() getAllWallpapers = new EventEmitter();
+  @Input() wallpaperData!: any;
+  @ViewChild('addWallpaperModal') modalRef!: ElementRef;
   availableColors: string[] = ['Red', 'Blue', 'Green', 'Black', 'White'];
   categories = [];
   imagePreview: string = '';
   selectedFile: File | null = null;
   imageUrl: string = '';
+  isFileUploading: boolean = false
 
   wallpaper = {
+    wallpaperId: '',
     title: '',
     description: '',
     price: null,
@@ -35,11 +41,22 @@ export class AddWallpaperComponent {
     private wallpaperService: WallpaperService,
     private uploadService: UploadService,
     private alertService: AlertService,
-    private categoryService:CategoryService
-  ) { 
+    private categoryService: CategoryService,
+    private dashboardService: DashboardService
+  ) {
     this.categoryService.categories$.subscribe((data: any) => {
       this.categories = data.map((cat: any) => cat.name);
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['wallpaperData']) {
+      if (this.wallpaperData) {
+        this.wallpaper = { ...this.wallpaperData };
+      } else {
+        this.resetForm();
+      }
+    }
   }
 
   onColorChange(event: any, selectedcolorOptions: string) {
@@ -61,9 +78,16 @@ export class AddWallpaperComponent {
 
   // Upload wallpaper
   uploadWallpaper() {
+    this.isFileUploading = true
     if (!this.selectedFile) {
       console.error('No file selected');
+      this.isFileUploading = false
       return;
+    }
+    if(!this.wallpaper.category) {
+      this.alertService.showError('Select category first');
+      this.isFileUploading = false
+      return 
     }
     this.uploadService
       .uploadFile(this.selectedFile, `wallydeco/${this.wallpaper.category}`)
@@ -73,11 +97,15 @@ export class AddWallpaperComponent {
             this.wallpaper.images.push(res.file.url);
             this.alertService.showSuccess('File uploaded successfully.')
             this.selectedFile = null;
+            this.isFileUploading = false
+
           } else {
+            this.isFileUploading = false
             this.alertService.showError('Invalid response structure.');
           }
         },
         error: (error: any) => {
+          this.isFileUploading = false
           this.alertService.showError(error.error.message);
         },
       });
@@ -89,6 +117,8 @@ export class AddWallpaperComponent {
       next: (res: any) => {
         this.alertService.showSuccess('Wallpaper added successfully!');
         this.getAllWallpapers.emit();
+        this.resetForm();
+        this.closeModal();
       },
       error: (error: any) => {
         this.alertService.showError(error.error.message);
@@ -96,8 +126,46 @@ export class AddWallpaperComponent {
     });
   }
 
-  // Submit the form
-  onSubmit() {
-    this.onAddWallpaper();
+
+  onUpdate() {
+    this.wallpaperService.updateWallpaper(this.wallpaperData._id, this.wallpaper).subscribe({
+      next: (data: any) => {
+        this.getAllWallpapers.emit();
+        this.resetForm();
+        this.closeModal();
+        this.dashboardService.getDashboardData().subscribe();
+        // this.isLoaded = false;
+      },
+      error: (error) => {
+        // this.isLoaded = false;
+        console.log(error.error.message);
+      }
+    });
   }
+
+
+  closeModal() {
+    if (this.wallpaperData) this.resetForm();
+    const modalElement = this.modalRef.nativeElement;
+    const modalInstance = bootstrap.Modal.getInstance(modalElement)
+    modalInstance.hide();
+  }
+
+  resetForm() {
+    this.wallpaper = {
+      wallpaperId: '',
+      title: '',
+      description: '',
+      price: null,
+      category: '',
+      size: '',
+      stock: null,
+      colorOptions: [] as string[],
+      images: [] as string[],
+    };
+    this.selectedFile = null;
+
+  }
+
+
 }

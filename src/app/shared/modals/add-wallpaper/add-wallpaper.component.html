@@ -1,23 +1,29 @@
 <!-- Bootstrap Modal -->
-<div class="modal fade" id="addWallpaperModal" tabindex="-1" aria-labelledby="addWallpaperLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="addWallpaperModal" tabindex="-1" aria-labelledby="addWallpaperLabel" aria-hidden="true"> -->
+    <div #addWallpaperModal class="modal fade" id="addWallpaperModal"  aria-labelledby="addWallpaperModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addWallpaperLabel">Add Wallpaper</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" (click)="closeModal()"></button>
             </div>
             <div class="modal-body">
-                <form #wallpaperForm="ngForm" (ngSubmit)="onSubmit()">
+                <form #wallpaperForm="ngForm" (ngSubmit)="onAddWallpaper()">
                     <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Wallpaper Id</label>
+                            <input type="text" class="form-control" name="wallpaperId" [(ngModel)]="wallpaper.wallpaperId" placeholder="Enter wallpaperId" required>
+                        </div>
                         <div class="col-md-6">
                             <label class="form-label">Title</label>
                             <input type="text" class="form-control" name="title" [(ngModel)]="wallpaper.title" placeholder="Enter title" required>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="form-label">Color Options (if-any)</label>
                             <div class="d-flex flex-wrap gap-1">
-                                <div *ngFor="let item of availableColors" class="form-check">
+                                <div *ngFor="let item of availableColors " class="form-check">
                                     <input type="checkbox" class="form-check-input" [value]="item" (change)="onColorChange($event, item)"> 
                                     <label class="form-check-label">{{ item }}</label>
                                 </div>
@@ -46,7 +52,7 @@
 
                         <div class="col-md-6 col-6">
                             <label class="form-label">Size</label>
-                            <input type="text" class="form-control" name="size" [(ngModel)]="wallpaper.size" placeholder="Enter size (e.g., 11x12)" required>
+                            <input type="text" class="form-control" name="size" [(ngModel)]="wallpaper.size" placeholder="Enter size e.g(50 sq.Feet)" required>
                         </div>
 
                         <div class="col-md-6 col-6">
@@ -56,17 +62,25 @@
 
                         <div>
                             <label for="formFileSm" class="form-label">Image</label>
+                            <div>
+                                <div *ngFor="let item of wallpaper.images" class="d-inline-block p-1">
+                                    <img [src]="item"
+                                    style="width: 3rem; height: 3rem; object-fit: cover;"
+                                    class="rounded" alt="Wallpaper Image">
+                                </div>
+                            </div>
                             <div class="d-flex align-items-center gap-2">
                                 <input class="form-control form-control-sm w-75" id="formFileSm" type="file" required (change)="onFileSelected($event)">
                                 <i *ngIf="selectedFile" (click)="uploadWallpaper()" class="fa-solid fa-cloud-arrow-up fs-3"></i>
-                                <i *ngIf="wallpaper.images.length!==0" class="fa-regular fs-3 text-success fa-circle-check"></i>
+                                <i *ngIf="isFileUploading" class="fa-solid fa-spinner fa-spin fs-3"></i>
                             </div>
                             
                         </div>
 
                         <div class="d-flex justify-content-between">
                             <p class="text-secondary " ><i>Note: All Fields are required</i></p>
-                            <button type="submit" class="btn btn-sm btn-primary" data-bs-dismiss="modal" [disabled]="wallpaperForm.invalid || wallpaper.images.length===0">Add Wallpaper</button>
+                            <button type="submit" *ngIf="!wallpaperData" class="btn btn-sm btn-primary" data-bs-dismiss="modal" [disabled]="wallpaperForm.invalid || wallpaper.images.length===0">Add Wallpaper</button>
+                            <button type="button" *ngIf="wallpaperData" (click)="onUpdate()" [disabled]="!wallpaperForm.valid" class="btn btn-primary">Update Wallpaper</button>
                         </div>
                     </div>
                 </form>

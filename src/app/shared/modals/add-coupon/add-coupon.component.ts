@@ -51,7 +51,7 @@ export class AddCouponComponent {
         this.isLoaded = false;
         this.getAllCoupons.emit();
         this.resetForm();
-        this.closeModal(); // 👈 close modal after success
+        this.closeModal();
         this.dashboardService.getDashboardData().subscribe();
 
       },
@@ -63,7 +63,7 @@ export class AddCouponComponent {
   }
 
   onUpdate() {
-    this.couponService.updateCoupon(this.coupon._id, this.coupon).subscribe({
+    this.couponService.updateCoupon(this.couponData._id, this.coupon).subscribe({
       next: (data: any) => {
         this.getAllCoupons.emit();
         this.resetForm();
@@ -78,8 +78,6 @@ export class AddCouponComponent {
     });
   }
 
-
-
   resetForm() {
     this.coupon = {
       code: '',
@@ -93,6 +91,7 @@ export class AddCouponComponent {
   }
 
   closeModal() {
+    if(this.couponData) this.resetForm();
     const modalElement = this.modalRef.nativeElement;
     const modalInstance = bootstrap.Modal.getInstance(modalElement)
     modalInstance.hide();

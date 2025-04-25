@@ -5,7 +5,7 @@
             <form (ngSubmit)="addCoupon()" #couponForm="ngForm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addCouponModalLabel">Add Coupon</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                    <button type="button" class="btn-close" (click)="closeModal()" ></button>
                 </div>
 
                 <div class="modal-body">
@@ -58,7 +58,7 @@
                 <div class="modal-footer">
                     <button type="submit" *ngIf="!couponData" [disabled]="!couponForm.valid" class="btn btn-primary">Add Coupon</button>
                     <button type="button" *ngIf="couponData" (click)="onUpdate()" [disabled]="!couponForm.valid" class="btn btn-primary">Update Coupon</button>
-                    <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    
                 </div>
             </form>
         </div>
