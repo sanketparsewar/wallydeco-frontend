@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    @if(wallpaperList.length > 0) {
+    @if(wallpaperList?.length > 0) {
     <div class="row g-4" id="favouriteCollection" [@listAnimation]="wallpaperList.length">
       <div *ngFor="let item of wallpaperList" class="col-6 col-md-4 col-lg-3">
         <div class="favourite-card h-100 position-relative overflow-hidden">

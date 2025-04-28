@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CouponService } from '../../../services/coupon/coupon.service';
 import { DashboardService } from '../../../services/dashboard/dashboard.service';
+import { AlertService } from '../../../services/alert/alert.service';
 
 declare var bootstrap: any; // for Bootstrap 5 modal
 
@@ -25,19 +26,41 @@ export class AddCouponComponent {
     startDate: '',
     endDate: '',
     minAmount: '',
-    isActive: false,
   };
 
-  constructor(private couponService: CouponService,
+  today: string = '';
+  endDateMin: string = '';
+
+  constructor(private couponService: CouponService,private alertService:AlertService,
     private dashboardService: DashboardService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const currentDate = new Date();
+    this.today = currentDate.toISOString().split('T')[0];
+    this.endDateMin = this.today; // initially, endDate minimum is also today
+  }
+
+  onStartDateChange() {
+    if (this.coupon.startDate) {
+      this.endDateMin = this.coupon.startDate;
+      // update end date's minimum whenever start date changes
+      if (this.coupon.endDate && this.coupon.endDate < this.coupon.startDate) {
+        this.coupon.endDate = ''; // reset end date if it's invalid
+      }
+    }
+  }
 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['couponData']) {
       if (this.couponData) {
         this.coupon = { ...this.couponData };
+        if (this.coupon.startDate) {
+          this.coupon.startDate = this.coupon.startDate.split('T')[0];
+        }
+        if (this.coupon.endDate) {
+          this.coupon.endDate = this.coupon.endDate.split('T')[0];
+        }
       } else {
         this.resetForm();
       }
@@ -57,7 +80,7 @@ export class AddCouponComponent {
       },
       error: (error) => {
         this.isLoaded = false;
-        console.log(error.error.message);
+        this.alertService.showError(error.error.message)
       }
     });
   }
@@ -86,12 +109,13 @@ export class AddCouponComponent {
       startDate: '',
       endDate: '',
       minAmount: '',
-      isActive: false,
     };
+    this.today = '';
+    this.endDateMin = '';
   }
 
   closeModal() {
-    if(this.couponData) this.resetForm();
+    this.resetForm();
     const modalElement = this.modalRef.nativeElement;
     const modalInstance = bootstrap.Modal.getInstance(modalElement)
     modalInstance.hide();

@@ -55,7 +55,7 @@ export class WallpaperDataTableComponent {
   }
 
   ngOnInit() {
-    this.isLoaded = true;
+    // this.isLoaded = true;
     this.getAllWallpapers();
     this.searchSubject.pipe(debounceTime(500)).subscribe(() => {
       this.getAllWallpapers();
@@ -65,10 +65,11 @@ export class WallpaperDataTableComponent {
 
   getAllWallpapers() {
     this.totalPages = [];
+    this.isLoaded = false;
+
     this.wallpaperService.getWallpapers(this.queryParameter).subscribe({
       next: async (data: any) => {
         this.tableData = await data.wallpapers;
-        console.log(this.tableData)
         this.queryParameter.page = data.page; // Reset to page 1 on new search
         for (let i = 0; i < data.totalPages; i++) {
           this.totalPages.push(i); // Store total pages for pagination UI

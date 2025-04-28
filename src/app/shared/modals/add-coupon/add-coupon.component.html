@@ -2,65 +2,137 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form (ngSubmit)="addCoupon()" #couponForm="ngForm">
+            <form (ngSubmit)="addCoupon()" #couponForm="ngForm" class="p-3">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCouponModalLabel">Add Coupon</h5>
-                    <button type="button" class="btn-close" (click)="closeModal()" ></button>
+                  <h5 class="modal-title" id="addCouponModalLabel">
+                    {{ couponData ? 'Update Coupon' : 'Add Coupon' }}
+                  </h5>
+                  <button type="button" class="btn-close" (click)="closeModal()"></button>
                 </div>
-
+              
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Coupon Code *</label>
-                        <input type="text" class="form-control" name="code" [(ngModel)]="coupon.code" required>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Coupon Code *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="code"
+                        [(ngModel)]="coupon.code"
+                        required
+                        placeholder="Enter coupon code"
+                      />
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" name="description" [(ngModel)]="coupon.description"></textarea>
+              
+                    <div class="col-md-6">
+                      <label class="form-label">Discount (₹) *</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="discount"
+                        [(ngModel)]="coupon.discount"
+                        required
+                        placeholder="Enter discount amount"
+                      />
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Discount (₹) *</label>
-                        <input type="number" class="form-control" name="discount" [(ngModel)]="coupon.discount"
-                            required>
+              
+                    <div class="col-md-12">
+                      <label class="form-label">Description</label>
+                      <textarea
+                        class="form-control"
+                        name="description"
+                        [(ngModel)]="coupon.description"
+                        rows="3"
+                        placeholder="Enter a short description"
+                      ></textarea>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Minimum Amount</label>
-                        <input type="number" class="form-control" name="minAmount" [(ngModel)]="coupon.minAmount">
+              
+                    <div class="col-md-6">
+                      <label class="form-label">Minimum Amount</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="minAmount"
+                        [(ngModel)]="coupon.minAmount"
+                        placeholder="Optional minimum purchase"
+                      />
                     </div>
-
-                    <div class="mb-3">
+              
+                    <div class="col-md-6">
+                      <label class="form-label">Max Uses</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="maxUses"
+                        [(ngModel)]="coupon.maxUses"
+                        placeholder="Optional usage limit"
+                      />
+                    </div>
+              
+                    <div class="col-md-6">
                         <label class="form-label">Start Date *</label>
-                        <input type="date" class="form-control" name="startDate" [(ngModel)]="coupon.startDate"
-                            required>
-                    </div>
-
-                    <div class="mb-3">
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="startDate"
+                          [(ngModel)]="coupon.startDate"
+                          [min]="today"
+                          (change)="onStartDateChange()"
+                          required
+                        />
+                      </div>
+                      
+                      <div class="col-md-6">
                         <label class="form-label">End Date *</label>
-                        <input type="date" class="form-control" name="endDate" [(ngModel)]="coupon.endDate" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Max Uses</label>
-                        <input type="number" class="form-control" name="maxUses" [(ngModel)]="coupon.maxUses">
-                    </div>
-
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" name="isActive" [(ngModel)]="coupon.isActive"
-                            id="isActiveCoupon">
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="endDate"
+                          [(ngModel)]="coupon.endDate"
+                          [min]="endDateMin"
+                          required
+                        />
+                      </div>
+                      
+              
+                    <!-- <div class="col-12">
+                      <div class="form-check mt-2">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          name="isActive"
+                          [(ngModel)]="coupon.isActive"
+                          id="isActiveCoupon"
+                        />
                         <label class="form-check-label" for="isActiveCoupon">
-                            Active
+                          Active
                         </label>
-                    </div>
+                      </div>
+                    </div> -->
+                  </div>
                 </div>
-
+              
                 <div class="modal-footer">
-                    <button type="submit" *ngIf="!couponData" [disabled]="!couponForm.valid" class="btn btn-primary">Add Coupon</button>
-                    <button type="button" *ngIf="couponData" (click)="onUpdate()" [disabled]="!couponForm.valid" class="btn btn-primary">Update Coupon</button>
-                    
+                  <button
+                    type="submit"
+                    *ngIf="!couponData"
+                    [disabled]="!couponForm.valid"
+                    class="btn btn-primary w-100"
+                  >
+                    Add Coupon
+                  </button>
+                  <button
+                    type="button"
+                    *ngIf="couponData"
+                    (click)="onUpdate()"
+                    [disabled]="!couponForm.valid"
+                    class="btn btn-success w-100"
+                  >
+                    Update Coupon
+                  </button>
                 </div>
-            </form>
+              </form>
+              
         </div>
     </div>
 </div>

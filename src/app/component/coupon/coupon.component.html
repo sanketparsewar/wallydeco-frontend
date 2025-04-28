@@ -3,7 +3,7 @@
         <div class="card-body">
             <div class=" border-bottom-0 d-flex justify-content-between align-items-center py-3">
                 <h4 class="card-title mb-sm-0">Coupons</h4>
-                <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addCouponModal">
+                <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addCouponModal" (click)="couponData=null">
                     <i class="fas fa-plus me-1"></i> Add New Coupon
                 </button>
             </div>
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngIf="tableData.length === 0">
+                        <tr *ngIf="tableData?.length === 0">
                             <td colspan="10" class="text-center py-4 text-muted">
                                 <i class="fas fa-tag fa-2x mb-2"></i>
                                 <p class="mb-0 text-muted fw-medium">No coupons found</p>

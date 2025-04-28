@@ -73,7 +73,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngIf="tableData.length === 0">
+                        <tr *ngIf="tableData?.length === 0">
                             <td colspan="11" class="text-center py-4 text-muted">
                                 <i class="fas fa-tag fa-2x mb-2"></i>
                                 <p class="mb-0">No Wallpaper found</p>
@@ -161,7 +161,7 @@
 
 
             <div class="d-flex mt-4 flex-wrap align-items-center">
-                <p class="text-muted mb-sm-0">Showing 1 to {{queryParameter.limit}} of {{tableData.length}} entries</p>
+                <p class="text-muted mb-sm-0">Showing 1 to {{queryParameter.limit}} of {{tableData?.length}} entries</p>
             </div>
             }
         </div>

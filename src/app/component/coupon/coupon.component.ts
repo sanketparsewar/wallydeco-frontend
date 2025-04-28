@@ -35,6 +35,7 @@ export class CouponComponent {
     this.isLoaded = true;
     this.couponService.getCoupons().subscribe({
       next: async (data: any) => {
+        console.log(data)
         this.tableData = data.coupons;
         this.isLoaded = false;
       },

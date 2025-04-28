@@ -37,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center text-muted fw-medium" *ngIf="tableData.length==0">
+                        <tr class="text-center text-muted fw-medium" *ngIf="tableData?.length==0">
                             <td colspan="3">No Coupon Found!</td>
                         </tr>
                         <tr *ngFor="let item of tableData,let i = index">

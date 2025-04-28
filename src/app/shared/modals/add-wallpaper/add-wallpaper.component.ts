@@ -68,6 +68,7 @@ export class AddWallpaperComponent {
       );
     }
   }
+  
 
   // Handle file selection
   onFileSelected(event: any): void {
