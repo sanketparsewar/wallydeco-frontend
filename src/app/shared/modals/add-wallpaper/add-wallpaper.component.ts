@@ -81,7 +81,7 @@ export class AddWallpaperComponent {
   uploadWallpaper() {
     this.isFileUploading = true
     if (!this.selectedFile) {
-      console.error('No file selected');
+      this.alertService.showError('No file selected')
       this.isFileUploading = false
       return;
     }
@@ -135,18 +135,16 @@ export class AddWallpaperComponent {
         this.resetForm();
         this.closeModal();
         this.dashboardService.getDashboardData().subscribe();
-        // this.isLoaded = false;
       },
       error: (error) => {
-        // this.isLoaded = false;
-        console.log(error.error.message);
+        this.alertService.showError(error.error.message)
       }
     });
   }
 
 
   closeModal() {
-    if (this.wallpaperData) this.resetForm();
+    this.resetForm();
     const modalElement = this.modalRef.nativeElement;
     const modalInstance = bootstrap.Modal.getInstance(modalElement)
     modalInstance.hide();

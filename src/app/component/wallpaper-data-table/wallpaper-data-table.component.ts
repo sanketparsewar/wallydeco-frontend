@@ -77,7 +77,8 @@ export class WallpaperDataTableComponent {
         this.isLoaded = false;
       },
       error: (error) => {
-        console.error(error.error.message);
+        this.alertService.showError(error.error.message)
+        
         this.isLoaded = false;
       },
     });

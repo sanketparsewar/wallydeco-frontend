@@ -56,7 +56,7 @@ export class EditProfileComponent implements OnInit {
         this.cities=data
       },
       error: (error) => {
-        console.error(error.error.message);
+        this.alertService.showError(error.error.message);
       },
     })
   }

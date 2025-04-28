@@ -6,6 +6,7 @@ import { CouponService } from '../../services/coupon/coupon.service';
 import { AddCouponComponent } from '../../shared/modals/add-coupon/add-coupon.component';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
 import { ConfirmService } from '../../services/confirm/confirm.service';
+import { AlertService } from '../../services/alert/alert.service';
 declare var bootstrap: any; // for Bootstrap 5 modal
 
 @Component({
@@ -25,6 +26,7 @@ export class CouponComponent {
     private couponService: CouponService,
     private dashboardService: DashboardService,
     private confirmService: ConfirmService,
+    private alertService:AlertService
   ) { }
 
   ngOnInit() {
@@ -35,13 +37,12 @@ export class CouponComponent {
     this.isLoaded = true;
     this.couponService.getCoupons().subscribe({
       next: async (data: any) => {
-        console.log(data)
         this.tableData = data.coupons;
         this.isLoaded = false;
       },
       error: (error) => {
         this.isLoaded = false;
-        console.log(error);
+        this.alertService.showError(error.error.message)
       }
     })
   }
@@ -68,8 +69,9 @@ export class CouponComponent {
             this.isLoaded = false;
           },
           error: (error) => {
-            this.isLoaded = false;
-            console.log(error);
+            this.isLoaded = false;      
+              this.alertService.showError(error.error.message)
+
           }
         })
       }

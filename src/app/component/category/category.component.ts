@@ -35,7 +35,6 @@ export class CategoryComponent implements OnInit {
   }
 
   addNewCategory() {
-    console.log(this.categoryForm.value);
     this.isLoaded = true;
     this.categoryService.addCategory(this.categoryForm.value).subscribe({
       next: (data: any) => {
@@ -52,7 +51,6 @@ export class CategoryComponent implements OnInit {
   }
 
   editCategory(item: any) {
-    console.log(item);
     this.categoryForm.patchValue({
       _id: item._id,
       name: item.name,

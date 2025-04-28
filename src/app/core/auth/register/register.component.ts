@@ -52,7 +52,8 @@ export class RegisterComponent {
         this.cities=data
       },
       error: (error) => {
-        console.error(error.error.message);
+        this.alertService.showError(error.error.message)
+        
       },
     })
   }

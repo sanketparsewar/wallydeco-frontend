@@ -96,7 +96,8 @@ export class AddCouponComponent {
       },
       error: (error) => {
         this.isLoaded = false;
-        console.log(error.error.message);
+        this.alertService.showError(error.error.message)
+        
       }
     });
   }
